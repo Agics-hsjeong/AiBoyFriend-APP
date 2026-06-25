@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>08 회원가입</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: linear-gradient(180deg, #ece2fb 0%, #f1e8f7 100%); }
+  .scrollbody { display:flex; flex-direction:column; }
+  .topbar { display:flex; align-items:center; gap:10px; padding: 2px 20px 0; }
+  .topbar .back { width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.6); }
+  .hero { padding: 12px 24px 0; position: relative; }
+  .brand { display:flex; align-items:center; gap:7px; font-weight: 900; font-size: 14px; }
+  .brand .bi { width:22px;height:22px;border-radius:7px;background:var(--grad-heart);display:grid;place-items:center; }
+  .brand .bi .heart { width:13px;height:12px;background:#fff; }
+  .htitle { font-size: 24px; font-weight: 900; margin-top: 12px; letter-spacing:-.4px; width: 62%; line-height: 1.3; }
+  .hsub { color: var(--ink-2); font-size: 12.5px; margin-top: 8px; line-height: 1.5; width:62%; }
+  .hero .photo { position:absolute; right:16px; top:24px; width:130px; height:165px; border-radius: 20px; }
+  .sheet { margin-top: 18px; background:#fff; border-radius: 28px 28px 0 0; padding: 22px 22px 26px; box-shadow: 0 -10px 40px rgba(43,33,80,.12); }
+  .sheet h2 { text-align:center; font-size: 16px; font-weight: 800; margin-bottom: 16px; }
+  .field { display:flex; align-items:center; gap:10px; height: 52px; border:1px solid var(--line); border-radius: 14px; padding: 0 14px; margin-bottom: 11px; background: var(--card-soft); }
+  .field .fi { color: var(--ink-3); }
+  .field input { border:none; outline:none; background:transparent; flex:1; font-size: 14px; font-family: inherit; color: var(--ink); }
+  .field input::placeholder { color: var(--ink-3); }
+  .field .eye { color: var(--ink-3); }
+  .hint { font-size: 11px; color: var(--ink-3); margin: -6px 4px 12px; }
+  .agree { display:flex; align-items:center; gap: 9px; font-size: 12.5px; color: var(--ink-2); margin: 4px 2px 16px; }
+  .agree .box { width:20px;height:20px;border-radius:6px;background:var(--grad-cta);display:grid;place-items:center;color:#fff;font-size:12px; }
+  .agree b { color: var(--ink); font-weight: 700; }
+  .agree .arr { margin-left:auto; color: var(--ink-3); }
+  .divider { display:flex; align-items:center; gap: 12px; margin: 18px 0; color: var(--ink-3); font-size: 12px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background: var(--line); }
+  .socials { display:flex; gap: 10px; }
+  .soc { flex:1; height: 52px; border:1px solid var(--line); border-radius: 14px; display:flex; align-items:center; justify-content:center; gap: 7px; font-size: 12.5px; font-weight: 700; }
+  .soc .logo { width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:12px; }
+  .g { background:#fff; color:#4285F4; border:1px solid #eee; }
+  .a { background:#000; color:#fff; }
+  .k { background:#FEE500; color:#391B1B; }
+  .login-link { text-align:center; font-size: 12.5px; color: var(--ink-2); margin-top: 16px; }
+  .login-link b { color: var(--purple-500); font-weight:800; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="scrollbody">
+      <div class="topbar"><span class="back">‹</span></div>
+      <div class="hero">
+        <div class="brand"><span class="bi"><span class="heart"></span></span> AI Boyfriend</div>
+        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+        <h1 class="htitle">새로운 이야기를<br>시작해볼까요? 💜</h1>
+        <p class="hsub">AI 남자친구와의 특별한 관계를 만들어보세요</p>
+      </div>
+
+      <div class="sheet">
+        <h2>회원가입</h2>
+        <div class="field"><span class="fi">✉️</span><input placeholder="이메일 주소를 입력해주세요"></div>
+        <div class="field"><span class="fi">🔒</span><input type="password" placeholder="비밀번호를 입력해주세요" value="········"><span class="eye">👁</span></div>
+        <p class="hint">8자 이상 영문/숫자/특수문자 조합</p>
+        <div class="field"><span class="fi">🔒</span><input type="password" placeholder="비밀번호를 다시 입력해주세요" value="········"><span class="eye">👁</span></div>
+        <div class="field"><span class="fi">😊</span><input placeholder="닉네임을 입력해주세요 (선택사항)"></div>
+
+        <div class="agree">
+          <span class="box">✓</span>
+          <span><b>이용약관, 개인정보처리방침</b>에 동의합니다</span>
+          <span class="arr">›</span>
+        </div>
+
+        <button class="btn-cta">회원가입 ›</button>
+
+        <div class="divider">또는</div>
+        <div class="socials">
+          <div class="soc"><span class="logo g">G</span> Google로 가입</div>
+          <div class="soc"><span class="logo a"></span> Apple로 가입</div>
+          <div class="soc"><span class="logo k">K</span> 카카오로 가입</div>
+        </div>
+        <p class="login-link">이미 계정이 있으신가요? <b>로그인</b></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

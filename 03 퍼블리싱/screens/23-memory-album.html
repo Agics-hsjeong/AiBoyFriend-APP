@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>23 추억 앨범</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background:#f2edfb; }
+  .scrollbody { padding: 0 18px 86px; }
+  .tabs { display:flex; gap:7px; overflow-x:auto; padding-bottom:4px; margin-bottom:12px; }
+  .tabs::-webkit-scrollbar { height:0; }
+  .tabs .chip { flex:none; }
+  .summary { display:flex; align-items:center; gap:11px; background:linear-gradient(135deg,#efe6fb,#f3e8f3); border:1px solid var(--purple-100); border-radius:16px; padding:13px 15px; margin-bottom:14px; }
+  .summary .si { width:38px; height:38px; border-radius:12px; background:var(--grad-heart); display:grid; place-items:center; font-size:18px; }
+  .summary b { font-size:13px; font-weight:800; }
+  .summary p { font-size:10.5px; color:var(--ink-3); }
+  .summary .add { margin-left:auto; background:var(--grad-cta); color:#fff; font-size:11px; font-weight:800; padding:8px 13px; border-radius:999px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  .mcard { background:#fff; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-card); }
+  .mcard .img { position:relative; }
+  .mcard .photo { width:100%; height:128px; }
+  .mcard .badge { position:absolute; top:8px; left:8px; background:rgba(20,14,40,.78); backdrop-filter:blur(4px); color:#fff; font-size:9px; font-weight:800; padding:3px 8px; border-radius:999px; }
+  .mcard .like { position:absolute; top:8px; right:8px; color:#fff; font-size:11px; display:flex; align-items:center; gap:3px; text-shadow:0 1px 4px rgba(0,0,0,.4); }
+  .mcard .cap { padding:10px 11px; }
+  .mcard .cap b { font-size:12px; font-weight:800; display:block; }
+  .mcard .cap span { font-size:9.5px; color:var(--ink-3); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .actionbar { position:absolute; left:0; right:0; bottom:0; padding:12px 16px 18px; background:rgba(255,255,255,.94); backdrop-filter:blur(12px); border-top:1px solid var(--line); }
+  .actionbar .b { display:flex; align-items:center; justify-content:center; gap:8px; height:52px; border-radius:16px; background:var(--grad-cta); color:#fff; font-weight:800; font-size:15px; box-shadow:var(--shadow-cta); }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>추억 앨범 💜</span><span style="color:var(--ink-3)">⤵ ⋯</span></div>
+    <div class="scrollbody">
+      <div class="tabs">
+        <span class="chip on">📁 전체</span><span class="chip">📍 데이트</span><span class="chip">🎉 기념일</span><span class="chip">✈️ 여행</span><span class="chip">☕ 일상</span>
+      </div>
+
+      <div class="summary">
+        <span class="si">💜</span>
+        <div><b>총 47개의 추억이 있어요</b><p>함께한 순간들이 점점 더 특별해져요</p></div>
+        <span class="add">＋ 추가</span>
+      </div>
+
+      <div class="grid">
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-first.jpg') center/cover"></div><span class="badge">첫 만남</span><span class="like">♡ 12</span></div><div class="cap"><b>첫 만남 💜</b><span>2024.05.10 · 처음 만난 날</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-date.jpg') center/cover"></div><span class="badge">데이트</span><span class="like">♡ 24</span></div><div class="cap"><b>첫 데이트 ☕</b><span>2024.05.18 · 감성 카페</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-river.jpg') center/cover"></div><span class="badge">일상</span><span class="like">♡ 18</span></div><div class="cap"><b>한강 산책 🌿</b><span>2024.05.25 · 한강공원</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-bday.jpg') center/cover"></div><span class="badge">기념일</span><span class="like">♡ 31</span></div><div class="cap"><b>생일 축하 🎂</b><span>2024.06.02 · 생일 파티</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-park.jpg') center/cover"></div><span class="badge">데이트</span><span class="like">♡ 27</span></div><div class="cap"><b>놀이공원 🎡</b><span>2024.06.10 · 에버랜드</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-100.jpg') center/cover"></div><span class="badge">기념일</span><span class="like">♡ 52</span></div><div class="cap"><b>우리 100일 💍</b><span>2024.08.17 · 100일 기념</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-sea.jpg') center/cover"></div><span class="badge">여행</span><span class="like">♡ 44</span></div><div class="cap"><b>바다 여행 🌊</b><span>2024.07.20 · 강릉</span></div></div>
+        <div class="mcard"><div class="img"><div class="photo" style="background:#222 url('../assets/img/mem-movie.jpg') center/cover"></div><span class="badge">일상</span><span class="like">♡ 19</span></div><div class="cap"><b>우리의 첫 영화 🎬</b><span>2024.06.28 · CGV</span></div></div>
+      </div>
+    </div>
+
+    <div class="actionbar"><div class="b">＋ 새로운 추억 추가하기</div></div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

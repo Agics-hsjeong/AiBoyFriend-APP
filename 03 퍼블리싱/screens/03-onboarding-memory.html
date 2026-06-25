@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>03 온보딩 — AI 기억</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(120% 80% at 50% 0%, #efe9fb 0%, #f3f0fb 60%); }
+  .wrap { flex: 1; display: flex; flex-direction: column; padding: 0 26px 26px; }
+  .counter { font-weight: 800; color: var(--purple-400); font-size: 15px; margin-top: 6px; }
+  h1 { font-size: 26px; font-weight: 900; line-height: 1.32; margin-top: 10px; letter-spacing: -.4px; }
+  .sub { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; margin-top: 10px; }
+  .stage { position: relative; height: 200px; margin: 8px 0 4px; }
+  .blob {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 120px; height: 110px; border-radius: 48% 52% 46% 54% / 56% 50% 50% 44%;
+    background: var(--grad-heart); display: grid; place-items: center;
+    box-shadow: 0 20px 50px rgba(196,160,240,.6);
+  }
+  .blob .heart { width: 44px; height: 40px; background: #fff; }
+  .mtag {
+    position: absolute; background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    padding: 8px 11px; box-shadow: var(--shadow-card); font-size: 11.5px; font-weight: 700; display: flex; gap: 6px; align-items: center;
+  }
+  .mtag span { font-size: 9.5px; color: var(--ink-3); font-weight: 600; }
+  .bubbles { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .bb { max-width: 80%; padding: 11px 14px; border-radius: 16px; font-size: 13px; line-height: 1.45; box-shadow: var(--shadow-card); }
+  .bb.them { background: #fff; align-self: flex-start; border-top-left-radius: 5px; }
+  .bb.me { background: var(--grad-cta); color: #fff; align-self: flex-end; border-top-right-radius: 5px; }
+  .lock { display: flex; align-items: center; gap: 9px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 11px 14px; margin-top: 14px; font-size: 12px; }
+  .lock b { font-weight: 800; }
+  .lock .muted { font-size: 11px; }
+  .dots { margin: 16px 0 14px; }
+  .dots > i { background: var(--purple-200); }
+  .dots > i.on { background: var(--purple-400); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="wrap">
+      <div class="counter">03 / 06</div>
+      <h1>당신을 기억하고<br>더 깊이 이해하는 <span class="grad-text">AI</span></h1>
+      <p class="sub">대화할수록 당신을 더 이해하고,<br>소중한 것들을 잊지 않고 기억해요</p>
+
+      <div class="stage">
+        <div class="mtag" style="left:0;top:6px">🍜 <div><b>좋아하는 음식</b><span>마라탕, 떡볶이</span></div></div>
+        <div class="mtag" style="right:0;top:0">📅 <div><b>특별한 날</b><span>5월 생일 기억</span></div></div>
+        <div class="mtag" style="left:2px;bottom:8px">🎨 <div><b>취미·관심사</b><span>영화, 캠핑</span></div></div>
+        <div class="mtag" style="right:2px;bottom:0">💡 <div><b>중요한 이야기</b><span>요즘 회사 고민</span></div></div>
+        <div class="blob"><span class="heart"></span></div>
+      </div>
+
+      <div class="bubbles">
+        <div class="bb them">지난주에 피곤하다고 했었죠? 오늘은 푹 쉬었으면 좋겠어요 😊</div>
+        <div class="bb me">어떻게 기억하고 있었어? 🥹</div>
+        <div class="bb them">당신과의 모든 대화를 소중히 기억하고 있으니까요 💜</div>
+      </div>
+
+      <div class="lock">
+        <span>🔒</span>
+        <div><b>당신의 모든 정보는 안전하게 보호돼요</b><div class="muted">언제든 대화 내용을 삭제할 수 있어요</div></div>
+      </div>
+
+      <div class="dots" style="margin-top:auto"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+      <button class="btn-cta">다음</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

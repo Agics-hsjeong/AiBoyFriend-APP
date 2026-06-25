@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14 위저드 STEP6 — 목소리</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+<style>
+  .voice { display:flex; align-items:center; gap:10px; background:#fff; border:1.5px solid var(--line); border-radius:13px; padding:9px 11px; box-shadow:var(--shadow-card); position:relative; }
+  .voice.on { border-color:var(--purple-400); background:linear-gradient(180deg,#fbf8ff,#fff); }
+  .voice .play { width:32px; height:32px; border-radius:50%; background:var(--grad-cta); color:#fff; display:grid; place-items:center; flex:none; font-size:13px; }
+  .voice b { font-size:12.5px; font-weight:800; display:flex; align-items:center; gap:5px; }
+  .voice .vtag { font-size:9px; font-weight:800; color:var(--purple-500); background:var(--purple-100); padding:1px 7px; border-radius:999px; }
+  .voice span { display:block; font-size:10px; color:var(--ink-3); margin-top:2px; }
+  .voice.on::after { content:"✓"; position:absolute; top:8px; right:9px; color:var(--purple-500); font-weight:900; font-size:13px; }
+  .wave-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px; box-shadow:var(--shadow-card); text-align:center; }
+  .wave-card h4 { font-size:12px; font-weight:800; margin-bottom:10px; }
+  .wave { display:flex; align-items:center; justify-content:center; gap:3px; height:40px; }
+  .wave i { width:3px; border-radius:3px; background:var(--grad-cta); }
+  .wave-card p { font-size:11px; color:var(--ink-2); line-height:1.5; margin-top:10px; font-style:italic; }
+  .wdots { margin-top:8px; }
+  .wdots i { background:var(--purple-200); }
+  .wdots i.on { background:var(--purple-400); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="6"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">🔊 ▶ 눌러 미리듣기</span>
+      <div class="steptag">STEP 6 / 7</div>
+      <div class="qtitle">어떤 목소리가<br>가장 마음에 드나요? 💜</div>
+      <p class="qsub">목소리는 대화와 음성 통화에 사용돼요</p>
+
+      <div class="wiz-body">
+        <div class="opts" style="flex:1 1 56%;gap:8px">
+          <div class="voice on"><span class="play">▶</span><div><b>따뜻하고 다정한 <span class="vtag">추천</span></b><span>부드럽고 포근한 톤</span></div></div>
+          <div class="voice"><span class="play">▶</span><div><b>차분하고 안정적인</b><span>낮고 편안한 목소리</span></div></div>
+          <div class="voice"><span class="play">▶</span><div><b>밝고 경쾌한</b><span>활기차고 사랑스러운</span></div></div>
+          <div class="voice"><span class="play">▶</span><div><b>차분한 저음</b><span>중후하고 매력적인</span></div></div>
+          <div class="voice"><span class="play">▶</span><div><b>청량한 미성</b><span>맑고 깨끗한 톤</span></div></div>
+          <div class="voice"><span class="play">▶</span><div><b>아이돌 톤 <span class="vtag">인기</span></b><span>설레는 달콤한 목소리</span></div></div>
+          <div class="voice"><span class="play">＋</span><div><b>나만의 Custom 목소리</b><span>직접 녹음해 만들기</span></div></div>
+        </div>
+
+        <div class="preview" style="flex:1 1 40%">
+          <div class="wave-card">
+            <h4>🎧 미리 들어보기</h4>
+            <div class="wave">
+              <i style="height:12px"></i><i style="height:26px"></i><i style="height:18px"></i><i style="height:34px"></i>
+              <i style="height:22px"></i><i style="height:38px"></i><i style="height:16px"></i><i style="height:28px"></i>
+              <i style="height:20px"></i><i style="height:30px"></i><i style="height:14px"></i>
+            </div>
+            <p>“안녕, 오늘 하루 어땠어?<br>나는 네 생각 많이 했는데 😊”</p>
+            <div class="dots wdots"><i class="on"></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">💜 선택한 목소리로 실제 통화를 할 수 있어요<span class="count">6 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">다음 ›</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

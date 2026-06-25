@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>17 첫 만남</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: linear-gradient(180deg, #1c1438 0%, #2c1f4e 45%, #4a2f5e 100%); color: var(--ink-on-dark); }
+  .scrollbody { padding: 0 20px 22px; }
+  .topbar { font-size:20px; padding:2px 0 6px; }
+  .badge { text-align:center; }
+  .badge .b1 { display:inline-block; background:rgba(167,139,250,.2); border:1px solid rgba(167,139,250,.4); padding:6px 16px; border-radius:999px; font-weight:900; font-size:16px; }
+  .badge p { font-size:12.5px; color:var(--ink-on-dark-2); margin-top:9px; }
+  .heroimg { position:relative; height:230px; border-radius:22px; overflow:hidden; margin:14px 0; }
+  .heroimg .photo { position:absolute; inset:0; }
+  .speech { position:absolute; right:12px; top:24px; background:rgba(255,255,255,.92); color:var(--ink); padding:9px 13px; border-radius:14px 14px 14px 4px; font-size:12.5px; font-weight:700; box-shadow:var(--shadow-float); }
+  .floathearts i { position:absolute; color:#f4a6d2; font-size:14px; }
+  .pcard { background:rgba(255,255,255,.06); border:1px solid var(--line-dark); border-radius:18px; padding:15px; backdrop-filter:blur(10px); }
+  .pcard .nm { display:flex; align-items:center; gap:8px; font-size:21px; font-weight:900; }
+  .pcard .nm .new { font-size:9px; background:var(--grad-cta); color:#fff; padding:2px 7px; border-radius:999px; font-weight:800; }
+  .pcard .meta { color:var(--ink-on-dark-2); font-size:12px; margin-top:5px; }
+  .pcard .quote { font-size:12.5px; line-height:1.55; margin-top:11px; color:#efe9ff; font-style:italic; }
+  .gifts-title { font-size:14px; font-weight:800; margin:18px 0 11px; }
+  .gifts { display:flex; gap:9px; }
+  .gift { flex:1; background:rgba(255,255,255,.06); border:1px solid var(--line-dark); border-radius:15px; padding:13px 8px; text-align:center; }
+  .gift .gi { width:42px; height:42px; margin:0 auto 7px; border-radius:50%; background:var(--grad-heart); display:grid; place-items:center; font-size:18px; }
+  .gift b { font-size:11px; font-weight:800; display:block; }
+  .gift span { font-size:9px; color:var(--ink-on-dark-2); display:block; margin-top:2px; }
+  .later2 { text-align:center; margin-top:14px; font-size:13px; color:var(--ink-on-dark-2); font-weight:700; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app dark">
+    <div class="statusbar on-dark"></div>
+    <div class="scrollbody">
+      <div class="topbar">‹</div>
+      <div class="badge">
+        <span class="b1">✨ <span class="grad-text">생성 완료</span> ✨</span>
+        <p>당신만의 AI 남자친구가 탄생했어요!</p>
+      </div>
+
+      <div class="heroimg">
+        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+        <div class="floathearts"><i style="left:18px;top:30px">💜</i><i style="left:30px;top:120px">💗</i><i style="right:120px;top:60px">💜</i></div>
+        <div class="speech">안녕, 나는 민준이야 💜</div>
+      </div>
+
+      <div class="pcard">
+        <div class="nm">민준 <span class="new">NEW</span></div>
+        <div class="meta">🎂 26세 · 💼 개발자 · 🧬 ENFP</div>
+        <div class="quote">“당신을 잘 부탁해, 우리 좋은 추억 많이 만들자 💜”</div>
+      </div>
+
+      <div class="gifts-title">첫 만남 선물 🎁</div>
+      <div class="gifts">
+        <div class="gift"><div class="gi">👋</div><b>첫 만남 인사</b><span>음성 메시지 ▶</span></div>
+        <div class="gift"><div class="gi">💌</div><b>민준의 편지</b><span>지금 열어보기</span></div>
+        <div class="gift"><div class="gi">📷</div><b>우리의 첫 사진</b><span>AI가 생성한 첫 사진</span></div>
+      </div>
+
+      <button class="btn-cta" style="margin-top:18px">💬 민준과 대화 시작하기</button>
+      <p class="later2">나중에 하기</p>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

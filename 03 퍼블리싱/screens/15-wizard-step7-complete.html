@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>15 위저드 STEP7 — 완성</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+<style>
+  .summary { display:flex; flex-direction:column; gap:7px; }
+  .srow { display:flex; align-items:center; gap:9px; background:#fff; border:1px solid var(--line); border-radius:12px; padding:9px 11px; box-shadow:var(--shadow-card); }
+  .srow .si { width:28px; height:28px; border-radius:8px; background:var(--purple-100); display:grid; place-items:center; font-size:14px; flex:none; }
+  .srow .k { font-size:10.5px; color:var(--ink-3); }
+  .srow .v { font-size:12.5px; font-weight:800; }
+  .srow .edit { margin-left:auto; font-size:11px; color:var(--purple-400); }
+  .pv-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:10px; box-shadow:var(--shadow-card); }
+  .pv-card .pphoto { aspect-ratio:3/4; border-radius:12px; }
+  .pv-card h4 { font-size:12px; font-weight:800; margin:9px 0 7px; }
+  .pv-stats { display:flex; gap:6px; }
+  .pv-stats .st { flex:1; text-align:center; background:var(--purple-50); border-radius:9px; padding:7px 2px; }
+  .pv-stats .st b { display:block; font-size:12px; color:var(--purple-600); }
+  .pv-stats .st span { font-size:9px; color:var(--ink-3); }
+  .analyze { display:flex; gap:9px; align-items:center; background:linear-gradient(135deg,#efe6fb,#f7eaf4); border:1px solid var(--purple-200); border-radius:14px; padding:11px 13px; margin-top:12px; }
+  .analyze .ai { width:32px; height:32px; border-radius:10px; background:var(--grad-heart); display:grid; place-items:center; flex:none; }
+  .analyze .ai .heart { width:17px; height:15px; background:#fff; }
+  .analyze p { font-size:11px; color:var(--ink-2); line-height:1.5; }
+  .analyze b { color:var(--ink); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="7"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">🎉 설정 완료!</span>
+      <div class="steptag">STEP 7 / 7</div>
+      <div class="qtitle">모든 설정이<br>완료됐어요! 🎉</div>
+      <p class="qsub">선택한 정보를 확인하고 AI 남자친구를 만들어볼까요?</p>
+
+      <div class="wiz-body">
+        <div class="opts">
+          <div style="font-size:12px;font-weight:800;margin-bottom:7px">💜 내가 선택한 이상형</div>
+          <div class="summary">
+            <div class="srow"><span class="si">🙂</span><div><div class="k">얼굴상</div><div class="v">강아지상</div></div><span class="edit">수정</span></div>
+            <div class="srow"><span class="si">💇</span><div><div class="k">헤어</div><div class="v">가르마</div></div><span class="edit">수정</span></div>
+            <div class="srow"><span class="si">💪</span><div><div class="k">체형</div><div class="v">운동형</div></div><span class="edit">수정</span></div>
+            <div class="srow"><span class="si">👕</span><div><div class="k">스타일</div><div class="v">캐주얼</div></div><span class="edit">수정</span></div>
+            <div class="srow"><span class="si">💗</span><div><div class="k">성격</div><div class="v">다정함 80%</div></div><span class="edit">수정</span></div>
+            <div class="srow"><span class="si">🎧</span><div><div class="k">목소리</div><div class="v">따뜻하고 다정한</div></div><span class="edit">수정</span></div>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="pv-card">
+            <div class="pphoto photo"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+            <h4>✨ AI 남자친구 미리보기</h4>
+            <div class="pv-stats">
+              <div class="st"><b>25세</b><span>나이</span></div>
+              <div class="st"><b>182cm</b><span>키</span></div>
+              <div class="st"><b>ENFP</b><span>MBTI</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="analyze">
+        <span class="ai"><span class="heart"></span></span>
+        <p><b>AI 분석 미리보기</b><br>당신의 취향을 분석해 이름·직업·가치관까지 가진 단 하나의 남자친구를 만들어요</p>
+      </div>
+
+      <div class="footnote">💜 생성에는 약 1~3분 정도 소요돼요<span class="count">7 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">내 남자친구 생성하기 ✨</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

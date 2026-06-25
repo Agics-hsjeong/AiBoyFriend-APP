@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>11 위저드 STEP3 — 체형</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+<style>
+  .stats { display:flex; gap:8px; margin-top:6px; }
+  .stat { flex:1; text-align:center; background:var(--purple-50); border-radius:10px; padding:8px 4px; }
+  .stat b { font-size:13px; color:var(--purple-600); display:block; }
+  .stat span { font-size:9.5px; color:var(--ink-3); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="3"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">💡 미리보기 자동 반영</span>
+      <div class="steptag">STEP 3 / 7</div>
+      <div class="qtitle">어떤 체형이<br>가장 마음에 드나요? 💜</div>
+      <p class="qsub">원하는 체형을 선택해보세요</p>
+
+      <div class="wiz-body">
+        <div class="opts">
+          <div class="opt-grid c2">
+            <div class="opt v"><div class="thumb photo" style="height:70px;background:#eceef1 url('../assets/img/body-slim.jpg') center 12%/cover"></div><div><b>슬림형</b><span>날씬하고 모던한</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="height:70px;background:#eceef1 url('../assets/img/body-normal.jpg') center 12%/cover"></div><div><b>보통형</b><span>균형 잡힌 표준</span></div></div>
+            <div class="opt v on"><div class="thumb photo" style="height:70px;background:#eceef1 url('../assets/img/body-fit.jpg') center 12%/cover"></div><div><b>운동형</b><span>탄탄하고 건강한</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="height:70px;background:#eceef1 url('../assets/img/body-muscle.jpg') center 12%/cover"></div><div><b>근육형</b><span>듬직하고 강인한</span></div></div>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="pphoto photo body" style="aspect-ratio:2/3"></div>
+          <div class="pcard">
+            <h4>💪 운동형 미리보기</h4>
+            <div class="stats">
+              <div class="stat"><b>키</b><span>175~182</span></div>
+              <div class="stat"><b>스타일</b><span>탄탄·건강</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">💜 키와 비율은 자동으로 조화롭게 적용돼요<span class="count">3 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">다음 ›</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

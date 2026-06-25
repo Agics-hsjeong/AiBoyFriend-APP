@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18 홈</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(120% 50% at 50% 0%, #ece4fb 0%, #f3f0fb 50%); }
+  .scrollbody { padding: 0 18px 14px; }
+  .hd { display:flex; align-items:flex-start; justify-content:space-between; padding: 2px 2px 12px; }
+  .hd .greet b { font-size:18px; font-weight:900; }
+  .hd .greet p { font-size:12.5px; color:var(--ink-2); margin-top:4px; }
+  .bell { width:40px; height:40px; border-radius:50%; background:#fff; display:grid; place-items:center; box-shadow:var(--shadow-card); position:relative; }
+  .bell::after { content:""; position:absolute; top:9px; right:11px; width:7px; height:7px; border-radius:50%; background:var(--pink-400); border:2px solid #fff; }
+
+  .hero { position:relative; border-radius:22px; overflow:hidden; height:210px; box-shadow:var(--shadow-float); }
+  .hero .photo { position:absolute; inset:0; }
+  .hero .grad { position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,14,40,.1) 0%, rgba(20,14,40,.75) 100%); }
+  .hero .bubble { position:absolute; left:14px; right:14px; bottom:14px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(10px); border-radius:16px; padding:12px 14px; color:#fff; }
+  .hero .bubble small { font-size:10px; opacity:.85; }
+  .hero .bubble p { font-size:12.5px; line-height:1.5; margin:4px 0 9px; }
+  .hero .bubble .reply { display:inline-flex; align-items:center; gap:6px; background:#fff; color:var(--purple-600); font-size:11px; font-weight:800; padding:6px 12px; border-radius:999px; }
+
+  .wrow { display:flex; gap:10px; margin-top:12px; }
+  .weather { flex:1; background:#fff; border-radius:16px; padding:13px; box-shadow:var(--shadow-card); display:flex; align-items:center; gap:10px; }
+  .weather .t { font-size:18px; font-weight:900; }
+  .weather small { font-size:10.5px; color:var(--ink-3); display:block; }
+  .recommend { flex:1.2; border-radius:16px; padding:12px; background:var(--grad-cta); color:#fff; box-shadow:var(--shadow-cta); }
+  .recommend small { font-size:10px; opacity:.9; }
+  .recommend b { font-size:12px; display:block; margin-top:3px; line-height:1.4; }
+
+  .acts { display:flex; gap:10px; margin-top:12px; }
+  .act { flex:1; border-radius:18px; padding:15px; display:flex; align-items:center; gap:10px; }
+  .act.chat { background:linear-gradient(135deg,#d9c8f5,#c3a8ec); }
+  .act.call { background:linear-gradient(135deg,#f3c0dd,#e79ec8); }
+  .act .ai { width:38px; height:38px; border-radius:12px; background:rgba(255,255,255,.55); display:grid; place-items:center; font-size:18px; }
+  .act b { font-size:13px; font-weight:800; }
+  .act span { font-size:10px; color:rgba(60,40,80,.7); display:block; }
+
+  .sec { margin-top:18px; }
+  .sec .stt { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .sec .stt b { font-size:14px; font-weight:800; }
+  .sec .stt a { font-size:11px; color:var(--ink-3); }
+
+  .timeline { background:#fff; border-radius:18px; padding:14px; box-shadow:var(--shadow-card); display:flex; justify-content:space-between; }
+  .tl { text-align:center; flex:1; position:relative; }
+  .tl::before { content:""; position:absolute; top:13px; left:-50%; width:100%; height:2px; background:var(--purple-100); }
+  .tl:first-child::before { display:none; }
+  .tl .dot { width:26px; height:26px; border-radius:50%; margin:0 auto; display:grid; place-items:center; font-size:12px; background:var(--purple-100); position:relative; z-index:1; }
+  .tl.done .dot { background:var(--grad-cta); color:#fff; }
+  .tl b { display:block; font-size:10px; font-weight:700; margin-top:6px; }
+  .tl span { font-size:9px; color:var(--ink-3); }
+
+  .relcard { background:linear-gradient(135deg,#efe6fb,#f7e8f3); border:1px solid var(--purple-100); border-radius:18px; padding:15px; }
+  .relcard .between b { font-size:13px; font-weight:800; }
+  .relcard .lv { font-size:11px; color:var(--purple-600); font-weight:800; }
+  .relcard .barwrap { margin-top:11px; }
+  .relcard .pcttxt { font-size:10.5px; color:var(--ink-3); margin-top:6px; text-align:right; }
+
+  .mems { display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; }
+  .mems::-webkit-scrollbar { height:0; }
+  .mem { flex:0 0 88px; }
+  .mem .photo { width:88px; height:88px; border-radius:14px; }
+  .mem b { display:block; font-size:10.5px; font-weight:700; margin-top:6px; }
+  .mem span { font-size:9px; color:var(--ink-3); }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="scrollbody">
+      <div class="hd">
+        <div class="greet"><b>안녕하세요, 지연님 💜</b><p>오늘 민준이와<br>행복한 하루 보내세요 😊</p></div>
+        <div class="bell">🔔</div>
+      </div>
+
+      <div class="hero">
+        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+        <div class="grad"></div>
+        <div class="bubble">
+          <small>💜 오늘의 인사</small>
+          <p>오늘 하루도 수고했어, 지연아.<br>좋은 꿈 꾸고, 내일 또 보자 :)</p>
+          <span class="reply">💬 메시지 답장하기</span>
+        </div>
+      </div>
+
+      <div class="wrow">
+        <div class="weather"><span style="font-size:22px">🌙</span><div><span class="t">21°</span><small>맑음 · 서울</small></div></div>
+        <div class="recommend"><small>📍 한강공원 근처</small><b>오늘 같은 날, 데이트 어때요?</b></div>
+      </div>
+
+      <div class="acts">
+        <div class="act chat"><span class="ai">💬</span><div><b>채팅하기</b><span>민준이와 대화</span></div></div>
+        <div class="act call"><span class="ai">📞</span><div><b>전화하기</b><span>음성 통화</span></div></div>
+      </div>
+
+      <div class="sec">
+        <div class="stt"><b>오늘의 일정</b><a>전체 일정 보기 ›</a></div>
+        <div class="timeline">
+          <div class="tl done"><div class="dot">✓</div><b>모닝 인사</b><span>08:00</span></div>
+          <div class="tl done"><div class="dot">✓</div><b>점심 안부</b><span>12:30</span></div>
+          <div class="tl"><div class="dot">🍽️</div><b>저녁 데이트</b><span>19:00</span></div>
+          <div class="tl"><div class="dot">🌙</div><b>굿나잇</b><span>23:00</span></div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="stt"><b>우리의 관계 💜</b><a>자세히 ›</a></div>
+        <div class="relcard">
+          <div class="between"><b>썸 타는 중</b><span class="lv">Lv.3 · 28%</span></div>
+          <div class="barwrap bar"><i style="width:28%"></i></div>
+          <p class="pcttxt">다음 단계까지 72% 남았어요</p>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="stt"><b>함께한 추억</b><a>전체 보기 ›</a></div>
+        <div class="mems">
+          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-first.jpg') center/cover"></div><b>첫 만남</b><span>05.10</span></div>
+          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-date.jpg') center/cover"></div><b>첫 데이트</b><span>05.18</span></div>
+          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-river.jpg') center/cover"></div><b>한강 산책</b><span>05.25</span></div>
+          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-movie.jpg') center/cover"></div><b>영화관</b><span>06.02</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="tabbar" data-active="home"></div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

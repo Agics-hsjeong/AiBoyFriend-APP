@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "publishing",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4599", "--directory", "/Volumes/hwisun/project/flutter/AiBoyFriend-APP/03 퍼블리싱"],
+      "port": 4599
+    }
+  ]
+}

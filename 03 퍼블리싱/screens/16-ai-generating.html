@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>16 AI 생성중</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(90% 50% at 50% 8%, #2a1f54 0%, #160f30 60%, #100b24 100%); color: var(--ink-on-dark); }
+  .stars i { position:absolute; width:2px; height:2px; border-radius:50%; background:#fff; opacity:.6; }
+  .wrap { flex:1; display:flex; flex-direction:column; padding: 0 22px 22px; position:relative; z-index:2; }
+  .ttl { text-align:center; font-weight:900; font-size:18px; margin: 4px 0 2px; }
+  .ttl small { display:block; font-size:11.5px; color:var(--ink-on-dark-2); font-weight:600; margin-top:5px; }
+  .ringwrap { display:grid; place-items:center; margin: 18px 0 8px; }
+  .ring {
+    width: 190px; height: 190px; border-radius:50%;
+    background: conic-gradient(var(--purple-400) 0% 68%, rgba(255,255,255,.08) 68% 100%);
+    display:grid; place-items:center; box-shadow: 0 0 50px rgba(167,139,250,.45);
+  }
+  .ring .inner { width: 162px; height:162px; border-radius:50%; background:#1a1334; display:grid; place-items:center; position:relative; }
+  .ring .sil { position:absolute; top:24px; width:70px; height:70px; border-radius:50%; background:radial-gradient(circle at 50% 35%, #4a3a72, #251c45); display:grid; place-items:center; color:rgba(255,255,255,.4); }
+  .ring .pct { position:absolute; bottom:34px; text-align:center; }
+  .ring .pct b { font-size:34px; font-weight:900; }
+  .ring .pct span { display:block; font-size:11px; color:var(--ink-on-dark-2); }
+  .desc { text-align:center; font-size:12px; color:var(--ink-on-dark-2); line-height:1.6; margin: 6px 14px 14px; }
+  .steps { display:flex; flex-direction:column; gap:10px; }
+  .pstep { display:flex; align-items:center; gap:12px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:16px; padding:13px; }
+  .pstep .pi { width:38px; height:38px; border-radius:11px; background:rgba(167,139,250,.18); display:grid; place-items:center; font-size:17px; flex:none; }
+  .pstep .meta { flex:1; }
+  .pstep b { font-size:13px; font-weight:800; }
+  .pstep .pbar { height:6px; border-radius:999px; background:rgba(255,255,255,.08); margin-top:7px; overflow:hidden; }
+  .pstep .pbar i { display:block; height:100%; border-radius:999px; background:var(--grad-cta); }
+  .pstep .val { font-size:12px; font-weight:800; color:var(--purple-300); }
+  .pstep.done .val { color:#7be3a0; }
+  .pstep small { font-size:10px; color:var(--ink-on-dark-2); }
+  .tipbox { display:flex; gap:9px; align-items:center; background:rgba(255,255,255,.04); border:1px solid var(--line-dark); border-radius:14px; padding:11px 13px; margin-top:14px; }
+  .tipbox .blob { width:34px; height:30px; background:var(--grad-heart); border-radius:46% 54% 50% 50%/56% 56% 44% 44%; flex:none; }
+  .tipbox p { font-size:10.5px; color:var(--ink-on-dark-2); line-height:1.5; }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app dark">
+    <div class="stars">
+      <i style="top:70px;left:40px"></i><i style="top:100px;left:300px"></i><i style="top:140px;left:90px"></i>
+      <i style="top:60px;left:200px"></i><i style="top:120px;left:340px"></i><i style="top:180px;left:30px"></i>
+    </div>
+    <div class="statusbar on-dark"></div>
+    <div class="wrap">
+      <div class="row" style="margin-bottom:8px"><span style="font-size:20px">‹</span></div>
+      <div class="ttl">AI 남자친구 생성중 ✨<small>잠시만 기다려주세요, 최고의 남자친구를 만들고 있어요</small></div>
+
+      <div class="ringwrap">
+        <div class="ring"><div class="inner">
+          <div class="sil"><svg width="34" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="9" r="4"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5z"/></svg></div>
+          <div class="pct"><b>68<span style="font-size:18px">%</span></b><span>생성 진행중</span></div>
+        </div></div>
+      </div>
+      <p class="desc">당신의 취향을 분석해 세상에<br>하나뿐인 남자친구를 만들고 있어요</p>
+
+      <div class="steps">
+        <div class="pstep done"><span class="pi">🔍</span><div class="meta"><div class="between"><b>1. 당신의 취향 분석</b><span class="val">완료 ✓</span></div></div></div>
+        <div class="pstep"><span class="pi">✨</span><div class="meta"><div class="between"><b>2. 페르소나 생성</b><span class="val">65%</span></div><div class="pbar"><i style="width:65%"></i></div></div></div>
+        <div class="pstep"><span class="pi">🖼️</span><div class="meta"><div class="between"><b>3. 이미지 생성</b><span class="val" style="color:var(--ink-on-dark-2)">대기중</span></div><div class="pbar"><i style="width:0"></i></div></div></div>
+        <div class="pstep"><span class="pi">🧊</span><div class="meta"><div class="between"><b>4. 3D 모델 생성 <small>Meshy</small></b><span class="val" style="color:var(--ink-on-dark-2)">대기중</span></div><div class="pbar"><i style="width:0"></i></div></div></div>
+      </div>
+
+      <div class="tipbox">
+        <span class="blob"></span>
+        <p><b style="color:#fff">TIP</b> · 생성에는 약 1~3분 정도 소요돼요. 완료되면 알림과 함께 첫 인사를 시작할 수 있어요!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21 프로필</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background:#f2edfb; }
+  .scrollbody { padding-bottom: 86px; }
+  .phero { position:relative; height:280px; }
+  .phero .photo { position:absolute; inset:0; }
+  .phero .grad { position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,14,40,.3) 0%, transparent 30%, rgba(242,237,251,1) 100%); }
+  .phero .nav { position:absolute; top:8px; left:16px; right:16px; display:flex; justify-content:space-between; color:#fff; font-size:20px; z-index:2; }
+  .phero .tag { position:absolute; top:54px; left:16px; background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(8px); color:#fff; font-size:10px; font-weight:800; padding:5px 11px; border-radius:999px; z-index:2; }
+  .pname { position:absolute; left:18px; bottom:14px; z-index:2; }
+  .pname b { font-size:26px; font-weight:900; color:#2a2440; }
+  .pname p { font-size:12px; color:var(--ink-2); margin-top:3px; }
+  .body { padding: 4px 18px 0; }
+  .info { background:#fff; border-radius:18px; padding:6px 14px; box-shadow:var(--shadow-card); }
+  .irow { display:flex; align-items:center; gap:11px; padding:11px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  .irow:last-child { border-bottom:none; }
+  .irow .il { color:var(--ink-3); width:18px; text-align:center; }
+  .irow b { font-weight:700; }
+  .irow .more { margin-left:auto; font-size:11px; color:var(--purple-400); }
+  .fav { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#efe6fb,#f3e8f3); border-radius:14px; padding:11px 13px; margin:11px 0; }
+  .fav .pct { font-size:18px; font-weight:900; color:var(--purple-600); }
+  .sec { margin-top:18px; }
+  .sec h3 { font-size:14px; font-weight:800; margin-bottom:9px; }
+  .about { background:#fff; border-radius:16px; padding:14px; box-shadow:var(--shadow-card); font-size:12.5px; line-height:1.6; color:var(--ink-2); }
+  .kw { display:flex; flex-wrap:wrap; gap:7px; }
+  .kw .chip { background:var(--purple-100); color:var(--purple-600); border:none; }
+  .twocol { display:flex; gap:10px; }
+  .lk { flex:1; background:#fff; border-radius:16px; padding:13px; box-shadow:var(--shadow-card); }
+  .lk h4 { font-size:12px; font-weight:800; margin-bottom:9px; }
+  .lk .item { font-size:12px; color:var(--ink-2); padding:4px 0; display:flex; gap:7px; }
+  .gallery { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+  .gallery .photo { aspect-ratio:1; border-radius:11px; }
+  .secret { display:flex; gap:10px; }
+  .scard { flex:1; background:linear-gradient(135deg,#e6ddf8,#efe2f0); border:1px solid var(--purple-100); border-radius:15px; padding:13px; }
+  .scard .si { font-size:18px; }
+  .scard b { display:block; font-size:12px; font-weight:800; margin-top:6px; }
+  .scard span { font-size:10px; color:var(--ink-3); }
+  .actionbar { position:absolute; left:0; right:0; bottom:0; display:flex; gap:9px; padding:12px 16px 18px; background:rgba(255,255,255,.94); backdrop-filter:blur(12px); border-top:1px solid var(--line); }
+  .actionbar .ab { flex:1; height:50px; border-radius:14px; display:flex; align-items:center; justify-content:center; gap:6px; font-size:13px; font-weight:800; }
+  .actionbar .chat { background:var(--purple-100); color:var(--purple-600); }
+  .actionbar .call { background:#fce0ef; color:var(--pink-500); }
+  .actionbar .gift { background:var(--grad-cta); color:#fff; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="scrollbody">
+      <div class="phero">
+        <div class="photo night"></div>
+        <div class="grad"></div>
+        <div class="statusbar on-photo" style="position:relative;z-index:3"></div>
+        <div class="nav"><span>‹</span><span>✎</span></div>
+        <span class="tag">💜 AI 남자친구</span>
+        <div class="pname"><b>민준 💜</b><p>당신만을 위해 만들어진 AI 남자친구</p></div>
+      </div>
+
+      <div class="body">
+        <div class="info">
+          <div class="irow"><span class="il">🎂</span> <span>나이</span> <b style="margin-left:auto">26세</b></div>
+          <div class="irow"><span class="il">📏</span> <span>신체</span> <b style="margin-left:auto">183cm · 72kg</b></div>
+          <div class="irow"><span class="il">💼</span> <span>직업</span> <b style="margin-left:auto">개발자 (Software Engineer)</b></div>
+          <div class="irow"><span class="il">🧬</span> <span>MBTI</span> <b style="margin-left:auto">ENFP</b></div>
+          <div class="irow"><span class="il">📅</span> <span>생성일</span> <b style="margin-left:auto">2024.05.10 · D+45</b></div>
+        </div>
+
+        <div class="fav">
+          <span style="font-size:20px">💜</span>
+          <div><b style="font-size:12px">호감도</b><div style="font-size:10px;color:var(--ink-3)">72% · Lv.3 썸 타는 중</div></div>
+          <span class="pct" style="margin-left:auto">72%</span>
+          <span class="more" style="color:var(--purple-400);font-size:11px">자세히 ›</span>
+        </div>
+
+        <div class="sec">
+          <h3>About 민준</h3>
+          <div class="about">안녕하세요 민준이에요. 개발자로 일하고 있고, 사람들과 함께 성장하는 걸 좋아해요. 당신과 함께 좋은 추억을 많이 쌓고 싶어요 😊</div>
+        </div>
+
+        <div class="sec">
+          <h3>성격 키워드</h3>
+          <div class="kw">
+            <span class="chip">다정함</span><span class="chip">유머러스</span><span class="chip">적극적</span>
+            <span class="chip">배려심 깊은</span><span class="chip">솔직한</span><span class="chip">긍정적인</span>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="twocol">
+            <div class="lk"><h4>💚 좋아하는 것</h4><div class="item">☕ 따뜻한 커피</div><div class="item">🎬 영화 감상</div><div class="item">🏕️ 캠핑·여행</div><div class="item">🎮 게임</div></div>
+            <div class="lk"><h4>🚫 싫어하는 것</h4><div class="item">🥶 거짓말</div><div class="item">😤 무례한 행동</div><div class="item">🌧️ 약속 어기기</div><div class="item">🥦 브로콜리</div></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="between" style="margin-bottom:9px"><h3 style="margin:0">민준의 사진</h3><a style="font-size:11px;color:var(--ink-3)">더보기 ›</a></div>
+          <div class="gallery">
+            <div class="photo night"></div>
+            <div class="photo" style="background:#222 url('../assets/img/mem-date.jpg') center/cover"></div>
+            <div class="photo" style="background:#222 url('../assets/img/mem-park.jpg') center/cover"></div>
+            <div class="photo" style="background:#222 url('../assets/img/mem-100.jpg') center/cover"></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h3>나만 아는 민준 🔒</h3>
+          <div class="secret">
+            <div class="scard"><div class="si">💜</div><b>우리만의 비밀</b><span>둘만 아는 이야기</span></div>
+            <div class="scard"><div class="si">🎵</div><b>함께 들은 음악</b><span>47곡 플레이리스트</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actionbar">
+      <div class="ab chat">💬 채팅하기</div>
+      <div class="ab call">📞 전화하기</div>
+      <div class="ab gift">🎁 선물하기</div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

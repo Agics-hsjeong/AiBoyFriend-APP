@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>09 위저드 STEP1 — 얼굴상</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="1"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">💡 미리보기 자동 반영</span>
+      <div class="steptag">STEP 1 / 7</div>
+      <div class="qtitle">어떤 얼굴상이<br>가장 좋으세요?</div>
+      <p class="qsub">선호하는 얼굴상을 선택해 주세요.<br>나중에 변경할 수 있어요.</p>
+
+      <div class="wiz-body">
+        <div class="opts">
+          <div class="opt-grid c2">
+            <div class="opt v on"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/face-dog.jpg') center/cover"></div><div><b>강아지상</b><span>다정하고 친근한</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/face-cat.jpg') center/cover"></div><div><b>고양이상</b><span>도도하고 시크한</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/face-fox.jpg') center/cover"></div><div><b>여우상</b><span>분위기 있는</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/face-bear.jpg') center/cover"></div><div><b>곰상</b><span>듬직하고 푸근한</span></div></div>
+            <div class="opt v"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/face-rabbit.jpg') center 20%/cover"></div><div><b>토끼상</b><span>귀엽고 순한</span></div></div>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="pphoto photo"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+          <div class="pcard">
+            <h4>💜 강아지상 특징</h4>
+            <div class="feat-row"><span class="d"></span> 부드러운 눈매</div>
+            <div class="feat-row"><span class="d"></span> 친근한 미소</div>
+            <div class="feat-row"><span class="d"></span> 다정한 인상</div>
+            <div class="feat-row"><span class="d"></span> 따뜻한 분위기</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">💜 고른 얼굴상은 AI 이미지 생성에 반영돼요<span class="count">1 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">다음 ›</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

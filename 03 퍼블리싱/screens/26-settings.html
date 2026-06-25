@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>26 설정</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(100% 35% at 50% 0%, #221a42 0%, #160f30 55%, #120c26 100%); color:var(--ink-on-dark); }
+  .scrollbody { padding: 0 16px 22px; }
+  .prof { display:flex; align-items:center; gap:13px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:18px; padding:15px; }
+  .prof .ava { width:54px; height:54px; border-radius:50%; flex:none; }
+  .prof b { font-size:15px; font-weight:800; }
+  .prof p { font-size:11px; color:var(--ink-on-dark-2); margin-top:3px; }
+  .prof .edit { margin-left:auto; font-size:11px; font-weight:700; color:var(--purple-300); background:rgba(167,139,250,.16); padding:7px 12px; border-radius:999px; }
+  .group { margin-top:18px; }
+  .group .gt { font-size:11.5px; font-weight:800; color:var(--purple-300); margin: 0 6px 9px; }
+  .list { background:var(--card-dark); border:1px solid var(--line-dark); border-radius:16px; overflow:hidden; }
+  .item { display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line-dark); }
+  .item:last-child { border-bottom:none; }
+  .item .ii { width:30px; height:30px; border-radius:9px; background:rgba(167,139,250,.16); display:grid; place-items:center; font-size:15px; flex:none; }
+  .item b { font-size:13px; font-weight:600; }
+  .item .val { margin-left:auto; font-size:11.5px; color:var(--ink-on-dark-2); }
+  .item .arr { margin-left:auto; color:var(--ink-on-dark-2); }
+  .toggle { margin-left:auto; width:44px; height:26px; border-radius:999px; background:var(--grad-cta); position:relative; }
+  .toggle::after { content:""; position:absolute; top:3px; right:3px; width:20px; height:20px; border-radius:50%; background:#fff; }
+  .toggle.off { background:rgba(255,255,255,.14); }
+  .toggle.off::after { left:3px; right:auto; }
+  .colors { margin-left:auto; display:flex; gap:7px; }
+  .colors i { width:18px; height:18px; border-radius:50%; }
+  .colors i.on { box-shadow:0 0 0 2px #fff; }
+  .logout { display:flex; align-items:center; justify-content:center; gap:7px; height:50px; border-radius:14px; border:1px solid rgba(255,107,122,.3); color:#ff6b7a; font-weight:800; font-size:14px; margin-top:20px; background:rgba(255,107,122,.08); }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app dark">
+    <div class="statusbar on-dark"></div>
+    <div class="appbar on-dark" style="justify-content:center">설정 💜</div>
+    <div class="scrollbody">
+      <div class="prof">
+        <div class="ava photo night"></div>
+        <div><b>민준 💜</b><p>당신만을 위해 만들어진 AI 남자친구</p></div>
+        <span class="edit">프로필 편집</span>
+      </div>
+
+      <div class="group">
+        <div class="gt">계정</div>
+        <div class="list">
+          <div class="item"><span class="ii">👤</span><b>계정 관리</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">🛡️</span><b>개인정보 보안</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">🔑</span><b>비밀번호 변경</b><span class="arr">›</span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="gt">알림</div>
+        <div class="list">
+          <div class="item"><span class="ii">🔔</span><b>푸시 알림</b><span class="toggle"></span></div>
+          <div class="item"><span class="ii">💬</span><b>채팅 알림</b><span class="val">매번 받기 ›</span></div>
+          <div class="item"><span class="ii">📞</span><b>통화 알림</b><span class="toggle"></span></div>
+          <div class="item"><span class="ii">🎉</span><b>기념일 알림</b><span class="toggle off"></span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="gt">화면 및 음성</div>
+        <div class="list">
+          <div class="item"><span class="ii">🌙</span><b>다크 모드</b><span class="toggle"></span></div>
+          <div class="item"><span class="ii">🔤</span><b>글자 크기</b><span class="val">보통 ›</span></div>
+          <div class="item"><span class="ii">🎨</span><b>테마 색상</b><span class="colors"><i class="on" style="background:#a78bfa"></i><i style="background:#f472b6"></i><i style="background:#60a5fa"></i><i style="background:#34d399"></i></span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="gt">AI 남자친구 설정</div>
+        <div class="list">
+          <div class="item"><span class="ii">💜</span><b>성격 및 말투 설정</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">📈</span><b>관계 설정</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">📷</span><b>추억 설정</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">🎙️</span><b>음성 및 통화 설정</b><span class="arr">›</span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="gt">기타</div>
+        <div class="list">
+          <div class="item"><span class="ii">❓</span><b>자주 묻는 질문</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">📄</span><b>이용약관</b><span class="arr">›</span></div>
+          <div class="item"><span class="ii">ℹ️</span><b>앱 버전</b><span class="val">v1.3.0</span></div>
+        </div>
+      </div>
+
+      <div class="logout">⎋ 로그아웃</div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>07 로그인</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: linear-gradient(180deg, #ece2fb 0%, #f1e8f7 100%); }
+  .scrollbody { display: flex; flex-direction: column; }
+  .hero { padding: 6px 24px 0; position: relative; }
+  .brand { display:flex; align-items:center; gap:7px; font-weight: 900; font-size: 15px; }
+  .brand .bi { width: 24px; height: 24px; border-radius: 8px; background: var(--grad-heart); display:grid; place-items:center; }
+  .brand .bi .heart { width:14px;height:13px;background:#fff; }
+  .htitle { font-size: 27px; font-weight: 900; margin-top: 18px; letter-spacing:-.4px; }
+  .hsub { color: var(--ink-2); font-size: 13px; margin-top: 8px; line-height: 1.5; }
+  .hero .photo { position:absolute; right:14px; top:30px; width:150px; height:200px; border-radius: 22px; }
+  .flist { display:flex; flex-direction:column; gap:9px; margin-top: 16px; width: 60%; }
+  .fl { background: rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.9); border-radius: 12px; padding: 9px 11px; display:flex; gap:9px; align-items:center; box-shadow: var(--shadow-card); }
+  .fl .fi { width: 28px; height:28px; border-radius:8px; background: var(--purple-100); display:grid; place-items:center; font-size: 14px; }
+  .fl b { font-size: 12px; font-weight: 800; }
+  .fl span { display:block; font-size: 10px; color: var(--ink-3); }
+  .sheet { margin-top: 22px; background:#fff; border-radius: 28px 28px 0 0; padding: 24px 24px 28px; box-shadow: 0 -10px 40px rgba(43,33,80,.12); }
+  .sheet h2 { text-align:center; font-size: 15px; font-weight: 800; margin-bottom: 16px; }
+  .social { display:flex; flex-direction:column; gap: 11px; }
+  .sbtn { display:flex; align-items:center; gap: 12px; height: 56px; border-radius: 16px; border:1px solid var(--line); background:#fff; padding: 0 18px; font-weight: 800; font-size: 15px; box-shadow: 0 4px 14px rgba(43,33,80,.05); }
+  .sbtn .logo { width: 26px; height:26px; border-radius: 50%; display:grid; place-items:center; font-weight: 900; font-size: 14px; }
+  .sbtn .arr { margin-left:auto; color: var(--ink-3); }
+  .g { background:#fff; color:#4285F4; border:1px solid #eee; }
+  .a { background:#000; color:#fff; }
+  .k { background:#FEE500; color:#391B1B; }
+  .divider { display:flex; align-items:center; gap: 12px; margin: 18px 0; color: var(--ink-3); font-size: 12px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background: var(--line); }
+  .email { display:flex; align-items:center; justify-content:center; gap: 8px; height: 54px; border-radius:16px; border:1.5px dashed var(--purple-200); color: var(--purple-500); font-weight: 800; font-size: 14px; }
+  .signup-link { text-align:center; font-size: 13px; color: var(--ink-2); margin-top: 16px; }
+  .signup-link b { color: var(--purple-500); font-weight: 800; }
+  .guest { text-align:center; margin-top: 16px; font-size: 13px; color: var(--ink-3); font-weight: 700; display:flex; gap:6px; align-items:center; justify-content:center; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="scrollbody">
+      <div class="hero">
+        <div class="brand"><span class="bi"><span class="heart"></span></span> AI Boyfriend</div>
+        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+        <h1 class="htitle">다시 만나서<br>반가워요 💜</h1>
+        <p class="hsub">AI 남자친구와의 특별한 이야기를<br>지금 이어가세요</p>
+        <div class="flist">
+          <div class="fl"><span class="fi">💬</span><div><b>24시간 대화</b><span>언제든 함께하는 대화</span></div></div>
+          <div class="fl"><span class="fi">🧠</span><div><b>AI 기억 시스템</b><span>당신을 기억해요</span></div></div>
+          <div class="fl"><span class="fi">🧊</span><div><b>3D 모델 & 데이트</b><span>현실 같은 경험</span></div></div>
+        </div>
+      </div>
+
+      <div class="sheet">
+        <h2>간편 로그인하기</h2>
+        <div class="social">
+          <div class="sbtn"><span class="logo g">G</span> Google로 계속하기 <span class="arr">›</span></div>
+          <div class="sbtn"><span class="logo a"></span> Apple로 계속하기 <span class="arr">›</span></div>
+          <div class="sbtn"><span class="logo k">K</span> 카카오로 계속하기 <span class="arr">›</span></div>
+        </div>
+        <div class="divider">또는</div>
+        <div class="email">✉️ 이메일로 로그인 ›</div>
+        <p class="signup-link">계정이 없으신가요? <b>회원가입</b></p>
+        <p class="guest">✨ 게스트로 둘러보기</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

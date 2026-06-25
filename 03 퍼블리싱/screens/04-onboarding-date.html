@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 온보딩 — 데이트</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(120% 80% at 50% 0%, #efe9fb 0%, #f3f0fb 60%); }
+  .wrap { flex: 1; display: flex; flex-direction: column; padding: 0 26px 26px; }
+  .counter { font-weight: 800; color: var(--purple-400); font-size: 15px; margin-top: 6px; }
+  h1 { font-size: 26px; font-weight: 900; line-height: 1.32; margin-top: 10px; letter-spacing: -.4px; }
+  .sub { color: var(--ink-2); font-size: 13.5px; line-height: 1.6; margin-top: 10px; }
+  .map {
+    position: relative; height: 210px; margin: 14px 0; border-radius: 22px; overflow: hidden;
+    background:
+      linear-gradient(135deg, #e9e2fb 0%, #f3e7f4 100%);
+    border: 1px solid var(--line);
+  }
+  .map::before { content:""; position:absolute; inset:0; background-image:
+      linear-gradient(rgba(167,139,250,.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(167,139,250,.12) 1px, transparent 1px);
+    background-size: 34px 34px; }
+  .route { position:absolute; left:14%; top:70%; width:72%; height:46%; border:2px dashed var(--purple-400); border-bottom:none; border-radius: 120px 120px 0 0; }
+  .pin {
+    position: absolute; transform: translate(-50%,-100%);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .pin .dot { width: 40px; height: 40px; border-radius: 50% 50% 50% 0; background: var(--grad-cta); transform: rotate(-45deg); display: grid; place-items: center; box-shadow: var(--shadow-card); }
+  .pin .dot span { transform: rotate(45deg); font-size: 17px; }
+  .pin small { background:#fff; padding:3px 8px; border-radius:999px; font-size:10px; font-weight:800; box-shadow: var(--shadow-card); }
+  .cats { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cat { flex: 1 1 28%; background:#fff; border:1px solid var(--line); border-radius: 16px; padding: 13px 8px; text-align:center; box-shadow: var(--shadow-card); }
+  .cat .ci { font-size: 22px; }
+  .cat b { display:block; font-size: 12px; font-weight: 800; margin-top: 5px; }
+  .dots { margin: 16px 0 14px; }
+  .dots > i { background: var(--purple-200); }
+  .dots > i.on { background: var(--purple-400); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="wrap">
+      <div class="counter">04 / 06</div>
+      <h1>오늘은 어디서<br><span class="grad-text">데이트</span>할까요?</h1>
+      <p class="sub">현재 위치를 기반으로 분위기 좋은<br>데이트 장소를 AI가 추천해드려요</p>
+
+      <div class="map">
+        <div class="route"></div>
+        <div class="pin" style="left:22%;top:64%"><span class="dot"><span>☕</span></span><small>감성 카페</small></div>
+        <div class="pin" style="left:54%;top:42%"><span class="dot"><span>🌃</span></span><small>야경 명소</small></div>
+        <div class="pin" style="left:82%;top:70%"><span class="dot"><span>🍽️</span></span><small>맛집</small></div>
+      </div>
+
+      <div class="cats">
+        <div class="cat"><div class="ci">☕</div><b>카페</b></div>
+        <div class="cat"><div class="ci">🍽️</div><b>맛집</b></div>
+        <div class="cat"><div class="ci">🌃</div><b>야경</b></div>
+        <div class="cat"><div class="ci">🌿</div><b>산책</b></div>
+        <div class="cat"><div class="ci">🎭</div><b>문화시설</b></div>
+        <div class="cat"><div class="ci">🏠</div><b>실내</b></div>
+      </div>
+
+      <div class="dots" style="margin-top:auto"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div>
+      <button class="btn-cta">다음</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

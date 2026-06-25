@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 온보딩 — 이상형 생성</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: radial-gradient(120% 80% at 50% 0%, #efe9fb 0%, #f3f0fb 60%); }
+  .wrap { flex: 1; display: flex; flex-direction: column; padding: 0 26px 28px; }
+  .counter { font-weight: 800; color: var(--purple-400); font-size: 15px; margin-top: 6px; }
+  h1 { font-size: 27px; font-weight: 900; line-height: 1.32; margin-top: 10px; letter-spacing: -.4px; }
+  .sub { color: var(--ink-2); font-size: 14px; line-height: 1.6; margin-top: 12px; }
+  .diagram { position: relative; flex: 1; margin-top: 8px; }
+  .core {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    width: 96px; height: 96px; border-radius: 50%;
+    background: var(--grad-heart); display: grid; place-items: center;
+    box-shadow: 0 18px 40px rgba(196,160,240,.6); z-index: 3;
+  }
+  .core .heart { width: 46px; height: 42px; background: #fff; }
+  .ring { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 230px; height: 230px; border: 2px dashed var(--purple-200); border-radius: 50%; }
+  .node {
+    position: absolute; transform: translate(-50%,-50%);
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 9px 12px; box-shadow: var(--shadow-card); display: flex; align-items: center; gap: 8px;
+    z-index: 2;
+  }
+  .node .ni { width: 26px; height: 26px; border-radius: 8px; background: var(--purple-100); display: grid; place-items: center; font-size: 14px; }
+  .node b { font-size: 12.5px; font-weight: 800; display: block; }
+  .node span { font-size: 10px; color: var(--ink-3); display: block; }
+  .note { font-size: 15px; color: var(--purple-400); text-align: center; margin: 6px 0 16px; font-style: italic; font-weight: 600; line-height: 1.7; }
+  .dots { margin: 14px 0; }
+  .dots > i { background: var(--purple-200); }
+  .dots > i.on { background: var(--purple-400); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app">
+    <div class="statusbar"></div>
+
+    <div class="wrap">
+      <div class="counter">02 / 06</div>
+      <h1>당신의 이상형을<br>직접 <span class="grad-text">만들어보세요</span></h1>
+      <p class="sub">외모, 성격, 취향, 직업까지<br>세세하게 선택하면<br>세상에 하나뿐인 남자친구가 탄생해요</p>
+
+      <div class="diagram">
+        <div class="ring"></div>
+        <div class="core"><span class="heart"></span></div>
+        <div class="node" style="left:22%;top:18%"><span class="ni">🙂</span><div><b>외모</b><span>얼굴상·헤어</span></div></div>
+        <div class="node" style="left:80%;top:24%"><span class="ni">💼</span><div><b>직업</b><span>직군·가치관</span></div></div>
+        <div class="node" style="left:14%;top:54%"><span class="ni">😊</span><div><b>성격</b><span>다정·유머</span></div></div>
+        <div class="node" style="left:86%;top:58%"><span class="ni">💕</span><div><b>취향</b><span>좋아하는 것</span></div></div>
+        <div class="node" style="left:30%;top:88%"><span class="ni">💬</span><div><b>연애 스타일</b><span>표현 방식</span></div></div>
+        <div class="node" style="left:74%;top:90%"><span class="ni">✏️</span><div><b>자유 입력</b><span>나만의 설정</span></div></div>
+      </div>
+
+      <p class="note">당신이 만든 이상형이<br>진짜 남자친구가 됩니다</p>
+      <div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <button class="btn-cta">다음</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

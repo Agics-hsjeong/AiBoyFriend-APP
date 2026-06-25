@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>01 온보딩 — 환영</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .hero {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(70% 45% at 50% 78%, rgba(255,170,140,.55), transparent 60%),
+      linear-gradient(180deg, #1c1640 0%, #3a2a63 38%, #6b4a7e 64%, #c98a8a 100%);
+    overflow: hidden;
+  }
+  .stars i { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; opacity: .8; }
+  .silhouette {
+    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 320px; height: 360px;
+    background: radial-gradient(60% 70% at 50% 30%, rgba(40,20,40,.0), rgba(20,10,25,.85) 75%);
+  }
+  .content { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 0 26px 30px; color: #fff; }
+  .topheart {
+    width: 64px; height: 64px; margin: 18px auto 14px;
+    background: var(--grad-heart); border-radius: 20px;
+    display: grid; place-items: center; box-shadow: 0 14px 30px rgba(244,160,210,.5);
+    transform: rotate(-6deg);
+  }
+  .topheart .heart { width: 34px; height: 30px; background: #fff; }
+  h1 { font-size: 34px; font-weight: 900; text-align: center; letter-spacing: -.5px; text-shadow: 0 4px 20px rgba(0,0,0,.3); }
+  .sub { text-align: center; margin-top: 14px; font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.88); font-weight: 500; }
+  .features { display: flex; gap: 10px; margin-top: auto; }
+  .feat { flex: 1; padding: 14px 10px; text-align: center; }
+  .feat .fi { width: 38px; height: 38px; margin: 0 auto 8px; border-radius: 12px; background: rgba(255,255,255,.16); display: grid; place-items: center; }
+  .feat b { font-size: 12px; font-weight: 800; display: block; }
+  .feat span { font-size: 10px; color: rgba(255,255,255,.7); line-height: 1.4; display: block; margin-top: 4px; }
+  .dots { margin: 22px 0 18px; }
+  .dots > i { background: rgba(255,255,255,.4); }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app">
+    <div class="statusbar on-dark"></div>
+
+    <div class="hero">
+      <div class="stars">
+        <i style="top:60px;left:40px"></i><i style="top:90px;left:120px"></i><i style="top:50px;left:220px"></i>
+        <i style="top:130px;left:300px"></i><i style="top:160px;left:70px"></i><i style="top:110px;left:180px"></i>
+        <i style="top:200px;left:330px"></i><i style="top:80px;left:280px"></i>
+      </div>
+      <div class="silouette"></div>
+    </div>
+
+    <div class="content">
+      <div class="topheart"><span class="heart"></span></div>
+      <h1>내 남자친구는 <span class="grad-text">AI</span></h1>
+      <p class="sub">당신이 만든 이상형이<br>진짜 남자친구가 됩니다</p>
+
+      <div class="features glass" style="padding:8px;border-radius:20px">
+        <div class="feat">
+          <div class="fi">💜</div>
+          <b>당신만을<br>이해하는 AI</b>
+          <span>대화를 나눌수록<br>당신을 더 이해해요</span>
+        </div>
+        <div class="feat">
+          <div class="fi">💬</div>
+          <b>함께하는<br>특별한 일상</b>
+          <span>채팅, 통화, 데이트로<br>매일 함께해요</span>
+        </div>
+        <div class="feat">
+          <div class="fi">✨</div>
+          <b>AI 이미지<br>& 3D 모델</b>
+          <span>AI 이미지로 만들고<br>3D 모델까지</span>
+        </div>
+      </div>
+
+      <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <button class="btn-cta">다음</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

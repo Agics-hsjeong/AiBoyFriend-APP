@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내 남자친구는 AI — 퍼블리싱</title>
+<link rel="stylesheet" href="css/app.css">
+<style>
+  body { background: #f4f1fb; min-height: 100vh; }
+  .head {
+    padding: 40px 28px 26px; text-align: center;
+    background: var(--grad-hero); color: #fff;
+    border-radius: 0 0 32px 32px;
+  }
+  .head .logo { width: 56px; height: 56px; margin: 0 auto 14px; border-radius: 18px; background: var(--grad-heart); display: grid; place-items: center; box-shadow: 0 12px 30px rgba(244,160,210,.5); transform: rotate(-6deg); }
+  .head .logo .heart { width: 30px; height: 27px; background: #fff; }
+  .head h1 { font-size: 28px; font-weight: 900; letter-spacing: -.5px; }
+  .head p { margin-top: 10px; font-size: 14px; color: rgba(255,255,255,.85); }
+  .head .stat { margin-top: 16px; display: inline-flex; gap: 18px; font-size: 12.5px; color: rgba(255,255,255,.9); }
+  .head .stat b { font-weight: 800; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 22px 80px; }
+  .sec-title { display: flex; align-items: center; gap: 10px; margin: 30px 4px 16px; }
+  .sec-title .n { font-size: 12px; font-weight: 800; color: #fff; background: var(--purple-400); padding: 3px 10px; border-radius: 999px; }
+  .sec-title h2 { font-size: 18px; font-weight: 800; color: var(--ink); }
+  .sec-title .line { flex: 1; height: 1px; background: var(--line); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(212px, 1fr)); gap: 22px; }
+  .item { text-decoration: none; color: inherit; }
+  .thumb {
+    width: 100%; aspect-ratio: 440 / 930; border-radius: 22px; overflow: hidden;
+    position: relative; background: #e7ddf5; box-shadow: var(--shadow-card);
+    transition: transform .18s ease, box-shadow .18s ease;
+    container-type: size;
+  }
+  .item:hover .thumb { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(124,58,237,.22); }
+  .thumb iframe {
+    width: 440px; height: 930px; border: 0;
+    transform: scale(calc(100cqw / 440px)); transform-origin: top left;
+    position: absolute; top: 0; left: 0; pointer-events: none;
+  }
+  .cap { display: flex; align-items: center; gap: 8px; margin-top: 11px; padding: 0 4px; }
+  .cap .num { font-size: 11px; font-weight: 800; color: var(--purple-500); background: var(--purple-100); width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+  .cap b { font-size: 13.5px; font-weight: 700; }
+  .foot { text-align: center; color: var(--ink-3); font-size: 12px; margin-top: 60px; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="logo"><span class="heart"></span></div>
+    <h1>내 남자친구는 AI</h1>
+    <p>이상형을 직접 설계하는 AI Companion 서비스 · 화면 퍼블리싱</p>
+    <div class="stat"><span><b>26</b> Screens</span><span><b>9</b> Flows</span><span>HTML / CSS</span></div>
+  </div>
+
+  <div class="wrap" id="wrap"></div>
+
+  <p class="foot">💜 카드를 클릭하면 실제 크기로 화면을 볼 수 있어요</p>
+
+<script>
+  const sections = [
+    ["01", "온보딩", [
+      ["01", "환영", "01-onboarding-welcome.html"],
+      ["02", "이상형 생성 소개", "02-onboarding-ideal.html"],
+      ["03", "AI 기억", "03-onboarding-memory.html"],
+      ["04", "데이트", "04-onboarding-date.html"],
+      ["05", "3D 생성", "05-onboarding-3d.html"],
+      ["06", "시작하기", "06-onboarding-start.html"],
+    ]],
+    ["02", "인증", [
+      ["07", "로그인", "07-login.html"],
+      ["08", "회원가입", "08-signup.html"],
+    ]],
+    ["03", "이상형 생성 Wizard", [
+      ["09", "STEP 1 · 얼굴상", "09-wizard-step1-face.html"],
+      ["10", "STEP 2 · 헤어", "10-wizard-step2-hair.html"],
+      ["11", "STEP 3 · 체형", "11-wizard-step3-body.html"],
+      ["12", "STEP 4 · 스타일", "12-wizard-step4-style.html"],
+      ["13", "STEP 5 · 성격", "13-wizard-step5-personality.html"],
+      ["14", "STEP 6 · 목소리", "14-wizard-step6-voice.html"],
+      ["15", "STEP 7 · 완성", "15-wizard-step7-complete.html"],
+    ]],
+    ["04", "AI 생성 · 첫 만남", [
+      ["16", "AI 생성중", "16-ai-generating.html"],
+      ["17", "첫 만남", "17-first-meeting.html"],
+    ]],
+    ["05", "메인", [
+      ["18", "홈", "18-home.html"],
+      ["19", "채팅", "19-chat.html"],
+    ]],
+    ["06", "통화 · 프로필", [
+      ["20", "음성 통화", "20-voice-call.html"],
+      ["21", "프로필", "21-profile.html"],
+    ]],
+    ["07", "관계 · 추억", [
+      ["22", "관계 성장", "22-relationship.html"],
+      ["23", "추억 앨범", "23-memory-album.html"],
+    ]],
+    ["08", "3D · 데이트", [
+      ["24", "3D 모델 뷰어", "24-3d-viewer.html"],
+      ["25", "데이트 장소", "25-date-places.html"],
+    ]],
+    ["09", "설정", [
+      ["26", "설정", "26-settings.html"],
+    ]],
+  ];
+
+  const wrap = document.getElementById("wrap");
+  sections.forEach(([sn, stitle, items]) => {
+    const h = document.createElement("div");
+    h.className = "sec-title";
+    h.innerHTML = `<span class="n">${sn}</span><h2>${stitle}</h2><span class="line"></span>`;
+    wrap.appendChild(h);
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    items.forEach(([num, name, file]) => {
+      const a = document.createElement("a");
+      a.className = "item";
+      a.href = "screens/" + file;
+      a.target = "_blank";
+      a.innerHTML =
+        `<div class="thumb"><iframe loading="lazy" src="screens/${file}" scrolling="no"></iframe></div>` +
+        `<div class="cap"><span class="num">${num}</span><b>${name}</b></div>`;
+      grid.appendChild(a);
+    });
+    wrap.appendChild(grid);
+  });
+</script>
+</body>
+</html>

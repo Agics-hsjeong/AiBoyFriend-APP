@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 위저드 STEP2 — 헤어</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+<style>
+  .cattabs { display:flex; gap:7px; margin-bottom:10px; }
+  .cattabs .chip { padding:6px 13px; font-size:12px; }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="2"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">💡 미리보기 자동 반영</span>
+      <div class="steptag">STEP 2 / 7</div>
+      <div class="qtitle">어떤 헤어스타일이<br>가장 마음에 드나요? ✨</div>
+      <p class="qsub">잘 어울리는 헤어스타일을 선택해보세요</p>
+
+      <div class="wiz-body">
+        <div class="opts">
+          <div class="cattabs">
+            <span class="chip on">전체</span><span class="chip">클래식</span><span class="chip">트렌디</span>
+          </div>
+          <div class="opt-grid c3">
+            <div class="opt v sm on"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair1.jpg') center 18%/cover"></div><b>가르마</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair2.jpg') center 18%/cover"></div><b>댄디컷</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair3.jpg') center 18%/cover"></div><b>아이돌</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair4.jpg') center 18%/cover"></div><b>시스루뱅</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair5.jpg') center 18%/cover"></div><b>리프컷</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair6.jpg') center 18%/cover"></div><b>장발</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair7.jpg') center 18%/cover"></div><b>울프컷</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair8.jpg') center 18%/cover"></div><b>내추럴펌</b></div>
+            <div class="opt v sm"><div class="thumb photo" style="background:#e6dff5 url('../assets/img/hair9.jpg') center 18%/cover"></div><b>슬릭백</b></div>
+          </div>
+        </div>
+
+        <div class="preview">
+          <div class="pphoto photo"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+          <div class="pcard">
+            <h4>✂️ 가르마 스타일</h4>
+            <div class="feat-row"><span class="d"></span> 부드러운 인상</div>
+            <div class="feat-row"><span class="d"></span> 세련된 무드</div>
+            <div class="feat-row" style="margin-top:6px">헤어 컬러</div>
+            <div style="display:flex;gap:6px;margin-top:6px">
+              <span style="width:18px;height:18px;border-radius:50%;background:#2b2118"></span>
+              <span style="width:18px;height:18px;border-radius:50%;background:#5a3c28"></span>
+              <span style="width:18px;height:18px;border-radius:50%;background:#8a5a3a"></span>
+              <span style="width:18px;height:18px;border-radius:50%;background:#c08a50"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">💡 헤어 컬러는 다음 단계에서 조정할 수 있어요<span class="count">2 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">다음 ›</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

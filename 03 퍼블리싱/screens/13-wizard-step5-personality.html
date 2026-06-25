@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>13 위저드 STEP5 — 성격</title>
+<link rel="stylesheet" href="../css/app.css">
+<link rel="stylesheet" href="../css/wizard.css">
+<style>
+  .slider { background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px 14px; margin-bottom:10px; box-shadow:var(--shadow-card); }
+  .slider .ends { display:flex; justify-content:space-between; font-size:11.5px; font-weight:700; margin-bottom:9px; }
+  .slider .ends .l { color:var(--ink-3); }
+  .slider .ends .r { color:var(--purple-600); }
+  .slider .ends .pct { font-size:11px; color:var(--purple-400); font-weight:800; }
+  .track { position:relative; height:7px; border-radius:999px; background:var(--purple-100); }
+  .track > i { position:absolute; left:0; top:0; height:100%; border-radius:999px; background:var(--grad-cta); }
+  .track > b { position:absolute; top:50%; transform:translate(-50%,-50%); width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--purple-400); box-shadow:0 3px 8px rgba(124,58,237,.3); }
+  .ai-react { background:linear-gradient(135deg,#efe6fb,#f7eaf4); border:1px solid var(--purple-200); border-radius:16px; padding:13px; margin-top:6px; }
+  .ai-react h4 { font-size:12.5px; font-weight:800; margin-bottom:8px; }
+  .ai-react .rrow { display:flex; gap:10px; align-items:center; }
+  .ai-react .ava { width:40px; height:40px; border-radius:12px; flex:none; }
+  .ai-react p { font-size:11.5px; color:var(--ink-2); line-height:1.5; }
+</style>
+</head>
+<body class="screen">
+<div class="phone">
+  <div class="app wiz">
+    <div class="statusbar"></div>
+    <div class="wiz-head"><span class="back">‹</span><span>이상형 생성하기 💜</span><span class="later">나중에</span></div>
+    <div class="stepper" data-step="5"></div>
+
+    <div class="wiz-scroll">
+      <span class="tip">💡 슬라이더로 성격 조절</span>
+      <div class="steptag">STEP 5 / 7</div>
+      <div class="qtitle">어떤 성격이<br>가장 마음에 드나요? 💜</div>
+      <p class="qsub">슬라이더를 움직여 원하는 정도로 조절해보세요</p>
+
+      <div class="slider">
+        <div class="ends"><span class="l">🧊 차가운</span><span class="pct">80%</span><span class="r">다정한 💗</span></div>
+        <div class="track"><i style="width:80%"></i><b style="left:80%"></b></div>
+      </div>
+      <div class="slider">
+        <div class="ends"><span class="l">🙈 수줍은</span><span class="pct">65%</span><span class="r">적극적 🔥</span></div>
+        <div class="track"><i style="width:65%"></i><b style="left:65%"></b></div>
+      </div>
+      <div class="slider">
+        <div class="ends"><span class="l">🤓 진지한</span><span class="pct">70%</span><span class="r">유머러스 😆</span></div>
+        <div class="track"><i style="width:70%"></i><b style="left:70%"></b></div>
+      </div>
+      <div class="slider">
+        <div class="ends"><span class="l">🦅 독립적인</span><span class="pct">55%</span><span class="r">배려심 🤗</span></div>
+        <div class="track"><i style="width:55%"></i><b style="left:55%"></b></div>
+      </div>
+      <div class="slider">
+        <div class="ends"><span class="l">🧠 이성적인</span><span class="pct">60%</span><span class="r">감성적인 🌙</span></div>
+        <div class="track"><i style="width:60%"></i><b style="left:60%"></b></div>
+      </div>
+
+      <div class="ai-react">
+        <h4>🤖 AI 반응 미리보기</h4>
+        <div class="rrow">
+          <div class="ava photo"></div>
+          <p>“자기야 오늘 하루도 정말 고생 많았어! 내가 늘 응원하는 거 알지? 푹 쉬어 💜”</p>
+        </div>
+      </div>
+
+      <div class="footnote">💜 설정한 성격에 따라 말투와 반응이 달라져요<span class="count">5 / 7</span></div>
+    </div>
+
+    <div class="wiz-foot">
+      <button class="prev">이전</button>
+      <button class="next btn-cta">다음 ›</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>
