@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="../css/app.css">
 <style>
   .app { background: radial-gradient(120% 80% at 50% 0%, #efe9fb 0%, #f3f0fb 60%); }
+  html[data-theme="dark"] .app { background: radial-gradient(120% 80% at 50% 0%, #241c45 0%, #140e2b 60%); }
+  html[data-theme="dark"] .mtag, html[data-theme="dark"] .bb.them, html[data-theme="dark"] .lock { background: var(--card); border-color: var(--line); }
   .wrap { flex: 1; display: flex; flex-direction: column; padding: 0 26px 26px; }
   .counter { font-weight: 800; color: var(--purple-400); font-size: 15px; margin-top: 6px; }
   h1 { font-size: 26px; font-weight: 900; line-height: 1.32; margin-top: 10px; letter-spacing: -.4px; }
@@ -14,11 +16,17 @@
   .stage { position: relative; height: 200px; margin: 8px 0 4px; }
   .blob {
     position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-    width: 120px; height: 110px; border-radius: 48% 52% 46% 54% / 56% 50% 50% 44%;
-    background: var(--grad-heart); display: grid; place-items: center;
-    box-shadow: 0 20px 50px rgba(196,160,240,.6);
+    width: 124px; height: 112px; border-radius: 50% 50% 48% 52% / 58% 58% 46% 46%;
+    background: radial-gradient(60% 55% at 50% 36%, #dcbcf6, #ba90e1 68%, #9a6cce);
+    box-shadow: 0 0 52px rgba(184,132,240,.7), 0 18px 44px rgba(150,100,210,.5);
   }
-  .blob .heart { width: 44px; height: 40px; background: #fff; }
+  .blob .eye { position:absolute; top:40px; width:9px; height:12px; border-radius:50%; background:#3a2a55; }
+  .blob .eye.l { left:39px; } .blob .eye.r { right:39px; }
+  .blob .cheek { position:absolute; top:53px; width:10px; height:7px; border-radius:50%; background:rgba(255,120,170,.55); }
+  .blob .cheek.l { left:27px; } .blob .cheek.r { right:27px; }
+  .blob .smile { position:absolute; top:55px; left:50%; transform:translateX(-50%); width:18px; height:9px; border:2.5px solid #3a2a55; border-top:none; border-radius:0 0 18px 18px; }
+  .blob .heart { position:absolute; left:50%; bottom:19px; transform:translateX(-50%); width:34px; height:30px;
+    background:linear-gradient(150deg,#ffffff,#ffdaf0); filter:drop-shadow(0 0 12px rgba(255,180,230,.95)); }
   .mtag {
     position: absolute; background: #fff; border: 1px solid var(--line); border-radius: 12px;
     padding: 8px 11px; box-shadow: var(--shadow-card); font-size: 11.5px; font-weight: 700; display: flex; gap: 6px; align-items: center;
@@ -50,7 +58,7 @@
         <div class="mtag" style="right:0;top:0">📅 <div><b>특별한 날</b><span>5월 생일 기억</span></div></div>
         <div class="mtag" style="left:2px;bottom:8px">🎨 <div><b>취미·관심사</b><span>영화, 캠핑</span></div></div>
         <div class="mtag" style="right:2px;bottom:0">💡 <div><b>중요한 이야기</b><span>요즘 회사 고민</span></div></div>
-        <div class="blob"><span class="heart"></span></div>
+        <div class="blob"><span class="eye l"></span><span class="eye r"></span><span class="cheek l"></span><span class="cheek r"></span><span class="smile"></span><span class="heart"></span></div>
       </div>
 
       <div class="bubbles">

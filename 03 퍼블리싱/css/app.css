@@ -52,6 +52,24 @@
   --shadow-float: 0 18px 40px rgba(43, 33, 80, 0.18);
 }
 
+/* ============================================================
+   다크 테마 — 라이트 표면 토큰을 다크로 전환 (data-theme="dark")
+   토큰(var(--bg-light/--card/--line/--ink ...))을 쓰는 화면은 자동 전환
+   ============================================================ */
+html[data-theme="dark"] {
+  --bg-light: #140e2b;
+  --card: #211a40;
+  --card-soft: #2a2148;
+  --line: rgba(255, 255, 255, 0.09);
+  --ink: #f4f1ff;
+  --ink-2: #b8b0d6;
+  --ink-3: #8b83a8;
+  --purple-50: #241c40;
+  --purple-100: #2f2552;
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
@@ -172,7 +190,7 @@ body.screen {
 .btn-ghost {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   height: 56px; border-radius: 16px;
-  background: #fff; color: var(--ink);
+  background: var(--card); color: var(--ink);
   font-size: 16px; font-weight: 700;
   border: 1px solid var(--line);
 }
@@ -272,7 +290,7 @@ body.screen {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 7px 14px; border-radius: 999px;
   font-size: 13px; font-weight: 700;
-  background: #fff; color: var(--ink-2);
+  background: var(--card); color: var(--ink-2);
   border: 1px solid var(--line);
 }
 .chip.on { background: var(--grad-cta); color: #fff; border-color: transparent; }

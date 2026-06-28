@@ -30,6 +30,12 @@
   .m .time { font-size:9px; color:var(--ink-3); align-self:flex-end; margin:0 3px; }
   .sticker { width:96px; height:96px; align-self:flex-start; background:var(--grad-heart); border-radius:20px; display:grid; place-items:center; font-size:40px; }
 
+  .warmstrip { flex:0 0 auto; display:flex; align-items:center; gap:7px; padding:8px 16px; background:rgba(255,255,255,.62); border-top:1px solid var(--line); font-size:12.5px; }
+  .warmstrip .wf { font-size:14px; }
+  .warmstrip b { font-weight:800; color:var(--ink); }
+  .warmstrip .cost { color:var(--ink-3); font-size:10.5px; }
+  .warmstrip .charge { margin-left:auto; font-weight:800; color:var(--purple-600); font-size:11px; }
+
   .quick { flex:0 0 auto; display:flex; gap:7px; padding:10px 16px 4px; overflow-x:auto; }
   .quick::-webkit-scrollbar { height:0; }
   .quick .qc { flex:none; background:#fff; border:1px solid var(--purple-100); color:var(--purple-600); font-size:12px; font-weight:700; padding:7px 13px; border-radius:999px; }
@@ -39,6 +45,14 @@
   .inputbar .box { flex:1; height:44px; background:#fff; border-radius:999px; display:flex; align-items:center; padding:0 14px; box-shadow:var(--shadow-card); color:var(--ink-3); font-size:13px; }
   .inputbar .box .emo { margin-left:auto; }
   .inputbar .mic { width:44px; height:44px; border-radius:50%; background:var(--grad-cta); color:#fff; display:grid; place-items:center; box-shadow:var(--shadow-cta); }
+
+  /* ── 다크 테마 오버라이드 ── */
+  html[data-theme="dark"] .app { background: var(--bg-light); }
+  html[data-theme="dark"] .chat-head { background: var(--card); box-shadow: 0 4px 16px rgba(0,0,0,.3); }
+  html[data-theme="dark"] .m.them .bubble { background: var(--card); }
+  html[data-theme="dark"] .quick .qc { background: var(--card); }
+  html[data-theme="dark"] .inputbar .box { background: var(--card); }
+  html[data-theme="dark"] .warmstrip { background: var(--card-soft); }
 </style>
 </head>
 <body class="screen">
@@ -63,6 +77,12 @@
       <div class="m me"><div class="bubble">완전 좋아 💜<br>오후 3시쯤 어때?</div><span class="time">09:15</span></div>
       <div class="m them"><span class="ava photo night"></span><div class="bubble">좋아 좋아! 그때 봐 🥰 미리 자리 맡아둘게</div><span class="time">09:16</span></div>
       <div class="sticker">🧸</div>
+    </div>
+
+    <div class="warmstrip">
+      <span class="wf">🔥</span><b>온기 540</b>
+      <span class="cost">· 메시지당 🔥10 소비</span>
+      <span class="charge">충전 ›</span>
     </div>
 
     <div class="quick">

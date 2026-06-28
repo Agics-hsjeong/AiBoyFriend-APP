@@ -6,37 +6,37 @@
 <title>26 설정</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: radial-gradient(100% 35% at 50% 0%, #221a42 0%, #160f30 55%, #120c26 100%); color:var(--ink-on-dark); }
+  .app { background: var(--bg-light); color: var(--ink); }
   .scrollbody { padding: 0 16px 22px; }
-  .prof { display:flex; align-items:center; gap:13px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:18px; padding:15px; }
+  .prof { display:flex; align-items:center; gap:13px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:15px; box-shadow:var(--shadow-card); }
   .prof .ava { width:54px; height:54px; border-radius:50%; flex:none; }
   .prof b { font-size:15px; font-weight:800; }
-  .prof p { font-size:11px; color:var(--ink-on-dark-2); margin-top:3px; }
-  .prof .edit { margin-left:auto; font-size:11px; font-weight:700; color:var(--purple-300); background:rgba(167,139,250,.16); padding:7px 12px; border-radius:999px; }
+  .prof p { font-size:11px; color:var(--ink-2); margin-top:3px; }
+  .prof .edit { margin-left:auto; font-size:11px; font-weight:700; color:var(--purple-500); background:rgba(167,139,250,.16); padding:7px 12px; border-radius:999px; }
   .group { margin-top:18px; }
-  .group .gt { font-size:11.5px; font-weight:800; color:var(--purple-300); margin: 0 6px 9px; }
-  .list { background:var(--card-dark); border:1px solid var(--line-dark); border-radius:16px; overflow:hidden; }
-  .item { display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line-dark); }
+  .group .gt { font-size:11.5px; font-weight:800; color:var(--purple-500); margin: 0 6px 9px; }
+  .list { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-card); }
+  .item { display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line); }
   .item:last-child { border-bottom:none; }
   .item .ii { width:30px; height:30px; border-radius:9px; background:rgba(167,139,250,.16); display:grid; place-items:center; font-size:15px; flex:none; }
   .item b { font-size:13px; font-weight:600; }
-  .item .val { margin-left:auto; font-size:11.5px; color:var(--ink-on-dark-2); }
-  .item .arr { margin-left:auto; color:var(--ink-on-dark-2); }
+  .item .val { margin-left:auto; font-size:11.5px; color:var(--ink-2); }
+  .item .arr { margin-left:auto; color:var(--ink-3); }
   .toggle { margin-left:auto; width:44px; height:26px; border-radius:999px; background:var(--grad-cta); position:relative; }
   .toggle::after { content:""; position:absolute; top:3px; right:3px; width:20px; height:20px; border-radius:50%; background:#fff; }
-  .toggle.off { background:rgba(255,255,255,.14); }
+  .toggle.off { background:rgba(140,130,170,.3); }
   .toggle.off::after { left:3px; right:auto; }
   .colors { margin-left:auto; display:flex; gap:7px; }
   .colors i { width:18px; height:18px; border-radius:50%; }
-  .colors i.on { box-shadow:0 0 0 2px #fff; }
+  .colors i.on { box-shadow:0 0 0 2px var(--ink); }
   .logout { display:flex; align-items:center; justify-content:center; gap:7px; height:50px; border-radius:14px; border:1px solid rgba(255,107,122,.3); color:#ff6b7a; font-weight:800; font-size:14px; margin-top:20px; background:rgba(255,107,122,.08); }
 </style>
 </head>
 <body class="screen">
 <div class="phone scroll">
-  <div class="app dark">
-    <div class="statusbar on-dark"></div>
-    <div class="appbar on-dark" style="justify-content:center">설정 💜</div>
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:center">설정 💜</div>
     <div class="scrollbody">
       <div class="prof">
         <div class="ava photo night"></div>
@@ -66,7 +66,7 @@
       <div class="group">
         <div class="gt">화면 및 음성</div>
         <div class="list">
-          <div class="item"><span class="ii">🌙</span><b>다크 모드</b><span class="toggle"></span></div>
+          <div class="item"><span class="ii">🌙</span><b>다크 모드</b><span class="toggle theme-toggle"></span></div>
           <div class="item"><span class="ii">🔤</span><b>글자 크기</b><span class="val">보통 ›</span></div>
           <div class="item"><span class="ii">🎨</span><b>테마 색상</b><span class="colors"><i class="on" style="background:#a78bfa"></i><i style="background:#f472b6"></i><i style="background:#60a5fa"></i><i style="background:#34d399"></i></span></div>
         </div>
@@ -96,5 +96,19 @@
   </div>
 </div>
 <script src="../assets/ui.js"></script>
+<script>
+  // 다크 모드 토글 ↔ 실제 테마 전환 연동
+  (function () {
+    var tt = document.querySelector('.theme-toggle');
+    if (!tt) return;
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    tt.classList.toggle('off', !isDark);   // 라이트면 off
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.theme-toggle')) return;
+      var nowDark = !tt.classList.contains('off');   // ui.js가 먼저 off 토글함
+      if (window.setTheme) window.setTheme(nowDark ? 'dark' : 'light');
+    });
+  })();
+</script>
 </body>
 </html>

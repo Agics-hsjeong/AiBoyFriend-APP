@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>27 온기 상점</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: var(--bg-light); color: var(--ink); }
+  .scrollbody { padding: 0 16px 20px; }
+
+  /* 온기 게이지 카드 */
+  .warm-card { background: linear-gradient(135deg,#5a4d84,#3f3268); color:#fff; border-radius:22px; padding:18px; box-shadow:0 12px 30px rgba(80,50,120,.28); position:relative; overflow:hidden; }
+  .warm-card::after { content:""; position:absolute; right:-30px; top:-30px; width:140px; height:140px; border-radius:50%; background:radial-gradient(closest-side, rgba(255,170,140,.5), transparent); }
+  .warm-card .top { display:flex; align-items:center; gap:8px; position:relative; z-index:1; }
+  .warm-card .flame { width:34px; height:34px; border-radius:11px; background:linear-gradient(135deg,#ffb27a,#f48fb1); display:grid; place-items:center; font-size:18px; box-shadow:0 0 16px rgba(255,160,170,.6); }
+  .warm-card .top b { font-size:13px; font-weight:800; }
+  .warm-card .top .recover { margin-left:auto; font-size:10.5px; background:rgba(255,255,255,.16); padding:5px 10px; border-radius:999px; }
+  .warm-card .amount { font-size:34px; font-weight:900; margin:12px 0 2px; position:relative; z-index:1; }
+  .warm-card .amount small { font-size:15px; font-weight:700; color:rgba(255,255,255,.7); }
+  .gauge { height:12px; border-radius:999px; background:rgba(255,255,255,.16); overflow:hidden; position:relative; z-index:1; }
+  .gauge i { display:block; height:100%; width:27%; border-radius:999px; background:linear-gradient(90deg,#ffb27a,#f48fb1,#c79af0); }
+  .warm-card .note { font-size:10.5px; color:rgba(255,255,255,.75); margin-top:9px; position:relative; z-index:1; display:flex; align-items:center; gap:5px; }
+
+  /* 구독 배너 */
+  .subbanner { display:flex; align-items:center; gap:11px; background:linear-gradient(135deg,#f1ebfb,#f7e8f3); border:1px solid var(--line); border-radius:16px; padding:12px 14px; margin-top:12px; }
+  html[data-theme="dark"] .subbanner { background:linear-gradient(135deg,#241b44,#2a1f48); }
+  .subbanner .si { font-size:22px; }
+  .subbanner b { font-size:12.5px; font-weight:800; color:var(--ink); }
+  .subbanner span { font-size:10.5px; color:var(--ink-2); display:block; }
+  .subbanner .go { margin-left:auto; background:var(--grad-cta); color:#fff; font-size:11px; font-weight:800; padding:8px 13px; border-radius:999px; }
+
+  .sec-t { font-size:15px; font-weight:800; margin:20px 4px 12px; display:flex; align-items:center; gap:6px; }
+
+  .packs { display:grid; grid-template-columns:1fr 1fr; gap:11px; }
+  .pack { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:15px 13px; text-align:center; box-shadow:var(--shadow-card); position:relative; }
+  .pack.hot { border-color:var(--purple-400); box-shadow:0 8px 22px rgba(167,139,250,.28); }
+  .pack .badge { position:absolute; top:-9px; left:50%; transform:translateX(-50%); font-size:9.5px; font-weight:800; color:#fff; background:var(--grad-cta); padding:3px 10px; border-radius:999px; white-space:nowrap; }
+  .pack .pflame { font-size:26px; }
+  .pack .pamt { font-size:17px; font-weight:900; margin-top:4px; }
+  .pack .pamt span { background:linear-gradient(135deg,#f4a06a,#f48fb1); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .pack .bonus { font-size:10px; font-weight:800; color:#f4a06a; margin-top:2px; }
+  .pack .price { margin-top:11px; height:38px; border-radius:12px; background:var(--purple-100); color:var(--purple-600); font-size:14px; font-weight:800; display:grid; place-items:center; }
+  .pack.hot .price { background:var(--grad-cta); color:#fff; }
+
+  .foot-note { display:flex; align-items:center; gap:7px; justify-content:center; font-size:11px; color:var(--ink-3); margin-top:16px; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>온기 상점 🔥</span><span style="font-size:12px;color:var(--ink-3)">내역</span></div>
+    <div class="scrollbody">
+
+      <div class="warm-card">
+        <div class="top">
+          <span class="flame">🔥</span>
+          <b>내 온기</b>
+          <span class="recover">⏱ 다음 회복까지 03:24</span>
+        </div>
+        <div class="amount">540 <small>/ 2,000</small></div>
+        <div class="gauge"><i></i></div>
+        <div class="note">💜 구독 중이면 하루 4회(00·06·12·18시) 최대치까지 자동 회복돼요</div>
+      </div>
+
+      <div class="subbanner">
+        <span class="si">🌸</span>
+        <div><b>구독하면 매일 자동 회복!</b><span>Warm Plus 7일 ₩4,900부터</span></div>
+        <span class="go">구독 보기 ›</span>
+      </div>
+
+      <div class="sec-t">🔥 온기 충전</div>
+      <div class="packs">
+        <div class="pack"><span class="pflame">🔥</span><div class="pamt"><span>+1,000</span> 온기</div><div class="price">₩1,100</div></div>
+        <div class="pack"><span class="pflame">🔥</span><div class="pamt"><span>+3,000</span> 온기</div><div class="bonus">+200 보너스</div><div class="price">₩2,900</div></div>
+        <div class="pack hot"><span class="badge">🔥 인기</span><span class="pflame">🔥</span><div class="pamt"><span>+7,000</span> 온기</div><div class="bonus">+700 보너스</div><div class="price">₩5,900</div></div>
+        <div class="pack"><span class="pflame">🔥</span><div class="pamt"><span>+15,000</span> 온기</div><div class="bonus">+2,000 보너스</div><div class="price">₩9,900</div></div>
+        <div class="pack"><span class="pflame">🔥</span><div class="pamt"><span>+35,000</span> 온기</div><div class="bonus">+6,000 보너스</div><div class="price">₩19,900</div></div>
+        <div class="pack"><span class="badge">최대 혜택</span><span class="pflame">🔥</span><div class="pamt"><span>+80,000</span> 온기</div><div class="bonus">+18,000 보너스</div><div class="price">₩39,900</div></div>
+      </div>
+
+      <div class="foot-note">💜 구매한 온기는 누적되며 소멸되지 않아요</div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

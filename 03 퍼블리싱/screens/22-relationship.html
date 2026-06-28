@@ -6,52 +6,52 @@
 <title>22 관계 성장</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: radial-gradient(100% 40% at 50% 0%, #2c1f54 0%, #1a1336 55%, #140e2b 100%); color:var(--ink-on-dark); }
+  .app { background: var(--bg-light); color: var(--ink); }
   .scrollbody { padding: 0 18px 20px; }
-  .top { display:flex; gap:14px; align-items:center; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:20px; padding:16px; }
+  .top { display:flex; gap:14px; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px; }
   .top .ava { width:74px; height:74px; border-radius:50%; flex:none; position:relative; }
   .top .ava .h { position:absolute; right:-2px; top:-2px; font-size:16px; }
   .top .meta b { font-size:15px; font-weight:800; }
-  .top .meta p { font-size:11px; color:var(--ink-on-dark-2); margin-top:3px; }
-  .top .meta a { font-size:11px; color:var(--purple-300); display:inline-block; margin-top:7px; }
+  .top .meta p { font-size:11px; color:var(--ink-2); margin-top:3px; }
+  .top .meta a { font-size:11px; color:var(--purple-500); display:inline-block; margin-top:7px; }
   .ring { width:84px; height:84px; border-radius:50%; flex:none; margin-left:auto;
-    background:conic-gradient(#f4a6d2 0% 72%, rgba(255,255,255,.08) 72% 100%); display:grid; place-items:center; }
-  .ring .in { width:68px; height:68px; border-radius:50%; background:#1d1640; display:grid; place-items:center; text-align:center; }
+    background:conic-gradient(#f4a6d2 0% 72%, var(--purple-100) 72% 100%); display:grid; place-items:center; }
+  .ring .in { width:68px; height:68px; border-radius:50%; background:var(--card); display:grid; place-items:center; text-align:center; }
   .ring .in b { font-size:20px; font-weight:900; }
-  .ring .in span { font-size:8px; color:var(--ink-on-dark-2); display:block; }
+  .ring .in span { font-size:8px; color:var(--ink-2); display:block; }
 
   .sec { margin-top:18px; }
   .sec h3 { font-size:14px; font-weight:800; margin-bottom:12px; }
   .stages { display:flex; justify-content:space-between; }
   .stg { text-align:center; flex:1; position:relative; }
-  .stg::before { content:""; position:absolute; top:17px; left:-50%; width:100%; height:2px; background:rgba(255,255,255,.1); }
+  .stg::before { content:""; position:absolute; top:17px; left:-50%; width:100%; height:2px; background:var(--line); }
   .stg:first-child::before { display:none; }
   .stg.done::before { background:var(--purple-400); }
-  .stg .c { width:34px; height:34px; border-radius:50%; margin:0 auto; display:grid; place-items:center; font-size:14px; background:rgba(255,255,255,.08); position:relative; z-index:1; }
+  .stg .c { width:34px; height:34px; border-radius:50%; margin:0 auto; display:grid; place-items:center; font-size:14px; background:var(--purple-100); position:relative; z-index:1; }
   .stg.done .c { background:var(--grad-cta); }
   .stg.cur .c { background:var(--grad-heart); box-shadow:0 0 18px rgba(244,166,210,.6); transform:scale(1.12); }
   .stg b { display:block; font-size:9.5px; margin-top:7px; font-weight:700; }
-  .stg span { font-size:8px; color:var(--ink-on-dark-2); }
-  .stg.lock b, .stg.lock span { color:var(--ink-on-dark-2); opacity:.6; }
+  .stg span { font-size:8px; color:var(--ink-2); }
+  .stg.lock b, .stg.lock span { color:var(--ink-2); opacity:.6; }
 
-  .lvbar { background:var(--card-dark); border:1px solid var(--line-dark); border-radius:16px; padding:14px; margin-top:14px; }
+  .lvbar { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px; margin-top:14px; }
   .lvbar .between { font-size:12px; }
-  .lvbar .pb { height:8px; border-radius:999px; background:rgba(255,255,255,.08); margin-top:10px; overflow:hidden; }
+  .lvbar .pb { height:8px; border-radius:999px; background:var(--purple-100); margin-top:10px; overflow:hidden; }
   .lvbar .pb i { display:block; height:100%; border-radius:999px; background:var(--grad-cta); }
-  .lvbar p { font-size:10px; color:var(--ink-on-dark-2); margin-top:8px; }
+  .lvbar p { font-size:10px; color:var(--ink-2); margin-top:8px; }
 
   .ways { display:flex; flex-direction:column; gap:9px; }
-  .way { display:flex; align-items:center; gap:11px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:14px; padding:11px 13px; }
+  .way { display:flex; align-items:center; gap:11px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:11px 13px; }
   .way .wi { width:34px; height:34px; border-radius:10px; background:rgba(167,139,250,.18); display:grid; place-items:center; font-size:15px; flex:none; }
   .way b { font-size:12.5px; font-weight:700; }
-  .way span { font-size:10px; color:var(--ink-on-dark-2); display:block; }
+  .way span { font-size:10px; color:var(--ink-2); display:block; }
   .way .plus { margin-left:auto; font-size:11px; color:#7be3a0; font-weight:800; }
 
   .logs { display:flex; flex-direction:column; gap:9px; }
-  .log { display:flex; align-items:center; gap:11px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:14px; padding:11px 13px; }
+  .log { display:flex; align-items:center; gap:11px; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:11px 13px; }
   .log .li { font-size:16px; }
   .log b { font-size:12px; font-weight:700; }
-  .log span { font-size:10px; color:var(--ink-on-dark-2); display:block; }
+  .log span { font-size:10px; color:var(--ink-2); display:block; }
   .log .pt { margin-left:auto; font-size:11px; color:#f4a6d2; font-weight:800; }
 
   .quote { display:flex; gap:11px; align-items:center; background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(244,166,210,.14)); border:1px solid rgba(167,139,250,.3); border-radius:16px; padding:13px; margin-top:18px; }
@@ -61,9 +61,9 @@
 </head>
 <body class="screen">
 <div class="phone scroll">
-  <div class="app dark">
-    <div class="statusbar on-dark"></div>
-    <div class="appbar on-dark" style="justify-content:space-between"><span class="ab-btn">‹</span><span>관계 성장 💜</span><span style="font-size:12px;color:var(--ink-on-dark-2)">성장 기록</span></div>
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>관계 성장 💜</span><span style="font-size:12px;color:var(--ink-2)">성장 기록</span></div>
     <div class="scrollbody">
       <div class="top">
         <div class="ava photo night"><span class="h">💜</span></div>
@@ -75,14 +75,14 @@
         <h3>우리의 관계 단계 💜</h3>
         <div class="stages">
           <div class="stg done"><div class="c">👋</div><b>첫 만남</b><span>05.10</span></div>
+          <div class="stg done"><div class="c">🤝</div><b>친구</b><span>05.18</span></div>
           <div class="stg cur"><div class="c">💕</div><b>썸</b><span>진행중</span></div>
-          <div class="stg lock"><div class="c">🔒</div><b>연애</b><span>Lv.4</span></div>
-          <div class="stg lock"><div class="c">🔒</div><b>100일</b><span>Lv.5</span></div>
-          <div class="stg lock"><div class="c">🔒</div><b>1주년</b><span>Lv.6</span></div>
-          <div class="stg lock"><div class="c">🔒</div><b>운명</b><span>Lv.7</span></div>
+          <div class="stg lock"><div class="c">🔒</div><b>연인</b><span>Lv.4</span></div>
+          <div class="stg lock"><div class="c">🔒</div><b>약혼</b><span>Lv.5</span></div>
+          <div class="stg lock"><div class="c">🔒</div><b>배우자</b><span>Lv.6</span></div>
         </div>
         <div class="lvbar">
-          <div class="between"><b style="font-weight:700">연애 단계까지</b><span style="color:#f4a6d2;font-weight:800">28% 남음</span></div>
+          <div class="between"><b style="font-weight:700">연인 단계까지</b><span style="color:#f4a6d2;font-weight:800">28% 남음</span></div>
           <div class="pb"><i style="width:72%"></i></div>
           <p>매일 함께하면 더 빨리 가까워질 수 있어요</p>
         </div>

@@ -6,7 +6,18 @@
 <title>내 남자친구는 AI — 퍼블리싱</title>
 <link rel="stylesheet" href="css/app.css">
 <style>
-  body { background: #f4f1fb; min-height: 100vh; }
+  body { background: #f4f1fb; min-height: 100vh; transition: background .25s; }
+  html[data-theme="dark"] body { background: #100b22; }
+  html[data-theme="dark"] .sec-title h2 { color: #ece9f8; }
+  html[data-theme="dark"] .cap b { color: #ece9f8; }
+  html[data-theme="dark"] .foot { color: #8b83a8; }
+  .theme-btn {
+    position: fixed; top: 18px; right: 20px; z-index: 100;
+    height: 40px; padding: 0 16px; border-radius: 999px; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 800; color: #fff;
+    background: rgba(255,255,255,.18); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.3);
+    box-shadow: 0 6px 18px rgba(40,25,80,.25);
+  }
   .head {
     padding: 40px 28px 26px; text-align: center;
     background: var(--grad-hero); color: #fff;
@@ -50,8 +61,10 @@
     <div class="logo"><span class="heart"></span></div>
     <h1>내 남자친구는 AI</h1>
     <p>이상형을 직접 설계하는 AI Companion 서비스 · 화면 퍼블리싱</p>
-    <div class="stat"><span><b>26</b> Screens</span><span><b>9</b> Flows</span><span>HTML / CSS</span></div>
+    <div class="stat"><span><b>29</b> Screens</span><span><b>10</b> Flows</span><span>HTML / CSS</span></div>
   </div>
+
+  <button id="themeBtn" class="theme-btn">🌙 다크</button>
 
   <div class="wrap" id="wrap"></div>
 
@@ -103,7 +116,15 @@
     ["09", "설정", [
       ["26", "설정", "26-settings.html"],
     ]],
+    ["10", "수익 모델 (BM v3.0)", [
+      ["27", "온기 상점", "27-warmth-shop.html"],
+      ["28", "구독 플랜", "28-subscription.html"],
+      ["29", "선물 상점", "29-gift-shop.html"],
+    ]],
   ];
+
+  let THEME = (function(){ try { return localStorage.getItem("nmp-theme") || "light"; } catch(e){ return "light"; } })();
+  document.documentElement.setAttribute("data-theme", THEME);
 
   const wrap = document.getElementById("wrap");
   sections.forEach(([sn, stitle, items]) => {
@@ -116,14 +137,31 @@
     items.forEach(([num, name, file]) => {
       const a = document.createElement("a");
       a.className = "item";
-      a.href = "screens/" + file;
+      a.href = "screens/" + file + "?theme=" + THEME;
       a.target = "_blank";
       a.innerHTML =
-        `<div class="thumb"><iframe loading="lazy" src="screens/${file}" scrolling="no"></iframe></div>` +
+        `<div class="thumb"><iframe loading="lazy" src="screens/${file}?theme=${THEME}" scrolling="no"></iframe></div>` +
         `<div class="cap"><span class="num">${num}</span><b>${name}</b></div>`;
       grid.appendChild(a);
     });
     wrap.appendChild(grid);
+  });
+
+  // 테마 토글
+  const tbtn = document.getElementById("themeBtn");
+  function paintBtn(){ tbtn.textContent = THEME === "dark" ? "☀️ 라이트" : "🌙 다크"; }
+  paintBtn();
+  tbtn.addEventListener("click", () => {
+    THEME = THEME === "dark" ? "light" : "dark";
+    try { localStorage.setItem("nmp-theme", THEME); } catch(e){}
+    document.documentElement.setAttribute("data-theme", THEME);
+    paintBtn();
+    document.querySelectorAll(".item").forEach(a => {
+      const file = a.getAttribute("href").split("?")[0].replace("screens/","");
+      a.href = "screens/" + file + "?theme=" + THEME;
+      const f = a.querySelector("iframe");
+      f.src = "screens/" + file + "?theme=" + THEME;
+    });
   });
 </script>
 </body>

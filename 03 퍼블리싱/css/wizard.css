@@ -1,5 +1,6 @@
 /* 이상형 생성 Wizard 공통 스타일 */
 .app.wiz { background: radial-gradient(120% 70% at 50% 0%, #efe9fb 0%, #f3f0fb 60%); }
+html[data-theme="dark"] .app.wiz { background: radial-gradient(120% 70% at 50% 0%, #241c45 0%, #140e2b 60%); }
 
 .wiz-head {
   flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between;
@@ -13,7 +14,7 @@
 .snode { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; position: relative; }
 .snode::before { content: ""; position: absolute; top: 13px; left: -50%; width: 100%; height: 2px; background: var(--purple-200); z-index: 0; }
 .snode:first-child::before { display: none; }
-.snode .dot { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; background: #fff; color: var(--ink-3); border: 1.5px solid var(--purple-200); z-index: 1; }
+.snode .dot { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; background: var(--card); color: var(--ink-3); border: 1.5px solid var(--purple-200); z-index: 1; }
 .snode .lbl { font-size: 9px; color: var(--ink-3); font-weight: 700; }
 .snode.done .dot, .snode.done::before { background: var(--purple-400); color: #fff; border-color: var(--purple-400); }
 .snode.done::before { height: 2px; }
@@ -40,7 +41,7 @@
 .opt-grid.c2 { grid-template-columns: 1fr 1fr; }
 .opt-grid.c3 { grid-template-columns: 1fr 1fr 1fr; }
 .opt {
-  background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 10px;
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px;
   display: flex; gap: 9px; align-items: center; box-shadow: var(--shadow-card); position: relative;
 }
 .opt .thumb { width: 42px; height: 42px; border-radius: 10px; flex: 0 0 42px; }
@@ -51,18 +52,18 @@
 .opt.v.sm { padding: 6px; }
 .opt.v.sm .thumb { height: 48px; }
 .opt.v.sm b { font-size: 11px; }
-.opt.on { border-color: var(--purple-400); background: linear-gradient(180deg,#fbf8ff,#fff); box-shadow: 0 8px 20px rgba(167,139,250,.25); }
+.opt.on { border-color: var(--purple-400); background: var(--purple-50); box-shadow: 0 8px 20px rgba(167,139,250,.25); }
 .opt.on::after { content: "✓"; position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; border-radius: 50%; background: var(--grad-cta); color: #fff; font-size: 11px; display: grid; place-items: center; }
 
 .preview { flex: 1 1 44%; display: flex; flex-direction: column; gap: 10px; }
 .preview .pphoto { width: 100%; aspect-ratio: 3/4; border-radius: 16px; }
-.preview .pcard { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px; box-shadow: var(--shadow-card); }
+.preview .pcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px; box-shadow: var(--shadow-card); }
 .preview .pcard h4 { font-size: 12.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 5px; }
 .preview .pcard .feat-row { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--ink-2); padding: 4px 0; }
 .preview .pcard .feat-row .d { width: 6px; height: 6px; border-radius: 50%; background: var(--purple-300); }
 
-.wiz-foot { flex: 0 0 auto; display: flex; gap: 10px; padding: 10px 18px 18px; border-top: 1px solid var(--line); background: rgba(255,255,255,.7); backdrop-filter: blur(8px); }
-.wiz-foot .prev { flex: 0 0 90px; height: 56px; border-radius: 16px; border: 1px solid var(--line); background: #fff; font-weight: 800; color: var(--ink-2); display: grid; place-items: center; }
+.wiz-foot { flex: 0 0 auto; display: flex; gap: 10px; padding: 10px 18px 18px; border-top: 1px solid var(--line); background: var(--card); backdrop-filter: blur(8px); }
+.wiz-foot .prev { flex: 0 0 90px; height: 56px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); font-weight: 800; color: var(--ink-2); display: grid; place-items: center; }
 .wiz-foot .next { flex: 1; }
 .wiz-foot .next.btn-cta { height: 56px; }
 

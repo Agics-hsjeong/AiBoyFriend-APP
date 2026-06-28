@@ -8,18 +8,17 @@
 <style>
   .app { background: radial-gradient(90% 50% at 50% 30%, #241a45 0%, #160f30 60%, #110b24 100%); color:var(--ink-on-dark); }
   .scrollbody { padding: 0 16px 18px; }
-  .stage { position:relative; height:330px; margin: 4px 0; }
+  .stage { position:relative; height:330px; margin: 4px 0; border-radius:22px; overflow:hidden; border:1px solid var(--line-dark);
+      background: radial-gradient(70% 55% at 50% 38%, rgba(167,139,250,.30), transparent 62%), linear-gradient(160deg,#3a2c5e,#211940); }
   .strip { position:absolute; top:6px; display:flex; flex-direction:column; gap:8px; z-index:2; }
   .strip.l { left:0; } .strip.r { right:0; }
   .strip .lbl { font-size:9px; color:var(--ink-on-dark-2); text-align:center; font-weight:700; margin-bottom:1px; }
   .th { width:46px; height:46px; border-radius:12px; background:var(--card-dark); border:1px solid var(--line-dark); display:grid; place-items:center; font-size:17px; }
   .th.on { border-color:var(--purple-400); box-shadow:0 0 14px rgba(167,139,250,.5); }
-  .model { position:absolute; left:50%; top:18px; transform:translateX(-50%); width:150px; height:260px; }
-  .model .fig { width:100%; height:230px; border-radius:24px; background:
-      radial-gradient(60% 50% at 50% 30%, rgba(167,139,250,.25), transparent 60%),
-      linear-gradient(160deg,#3a2c5e,#241a42); display:grid; place-items:center; color:rgba(255,255,255,.5); border:1px solid var(--line-dark); }
-  .platform { position:absolute; bottom:6px; left:50%; transform:translateX(-50%); width:140px; height:22px; border-radius:50%;
-      background:radial-gradient(closest-side, rgba(167,139,250,.55), transparent); }
+  #m3d { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; touch-action:none; cursor:grab; }
+  #m3d:active { cursor:grabbing; }
+  .v3d-badge { position:absolute; left:10px; bottom:9px; z-index:2; font-size:9px; font-weight:800; color:#fff;
+      background:rgba(167,139,250,.35); border:1px solid rgba(167,139,250,.5); padding:3px 9px; border-radius:999px; backdrop-filter:blur(6px); }
   .hint { text-align:center; font-size:10.5px; color:var(--ink-on-dark-2); margin:2px 0 14px; }
   .panel { background:var(--card-dark); border:1px solid var(--line-dark); border-radius:18px; padding:14px; }
   .panel .prow { display:flex; gap:12px; }
@@ -55,10 +54,8 @@
           <div class="lbl">표정</div>
           <div class="th on">😊</div><div class="th">🙂</div><div class="th">😌</div><div class="th">😉</div><div class="th">🥹</div>
         </div>
-        <div class="model">
-          <div class="fig"><svg width="50" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="3"/><path d="M9 10h6v9l-1 4h-1l-1-6-1 6h-1l-1-4z"/></svg></div>
-          <div class="platform"></div>
-        </div>
+        <canvas id="m3d"></canvas>
+        <span class="v3d-badge">● LIVE 3D</span>
         <div class="strip r">
           <div class="lbl">포즈</div>
           <div class="th on">🧍</div><div class="th">👋</div><div class="th">🫰</div><div class="th">🙆</div><div class="th">🤔</div>
@@ -98,5 +95,165 @@
   </div>
 </div>
 <script src="../assets/ui.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const canvas = document.getElementById('m3d');
+const stage = canvas.parentElement;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+camera.position.set(0, 1.35, 4.5);
+
+// ─ 조명 ─
+scene.add(new THREE.HemisphereLight(0xffffff, 0x3a2a55, 0.95));
+const key = new THREE.DirectionalLight(0xffffff, 1.15); key.position.set(2.5, 4, 3); scene.add(key);
+const rim = new THREE.DirectionalLight(0xc4a0ff, 1.1); rim.position.set(-3, 2.5, -2.5); scene.add(rim);
+const fill = new THREE.PointLight(0xff9ed6, 0.5, 18); fill.position.set(0, 1.4, 3); scene.add(fill);
+
+// ─ 재질 ─
+const M = (c, r = 0.7, m = 0, e = 0x000000, ei = 0) =>
+  new THREE.MeshStandardMaterial({ color: c, roughness: r, metalness: m, emissive: e, emissiveIntensity: ei });
+const skin = M(0xe8c4a0, 0.6), sweater = M(0xefe6d6, 0.85), pants = M(0x2b2b3a, 0.8),
+      hairMat = M(0x241c22, 0.45), shoe = M(0x33323e, 0.55);
+
+const cap = (r, len, mat) => new THREE.Mesh(new THREE.CapsuleGeometry(r, len, 6, 16), mat);
+const person = new THREE.Group();
+
+const torso = cap(0.30, 0.64, sweater); torso.position.y = 1.06; torso.scale.set(1, 1, 0.7); person.add(torso);
+const hips = cap(0.25, 0.16, pants); hips.position.y = 0.68; hips.scale.set(1, 1, 0.7); person.add(hips);
+const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.13, 0.16, 14), skin); neck.position.y = 1.46; person.add(neck);
+const head = new THREE.Mesh(new THREE.SphereGeometry(0.28, 28, 22), skin); head.position.y = 1.73; head.scale.set(0.92, 1.06, 0.95); person.add(head);
+const hair = new THREE.Mesh(new THREE.SphereGeometry(0.30, 28, 22, 0, Math.PI * 2, 0, Math.PI * 0.6), hairMat);
+hair.position.y = 1.75; person.add(hair);
+const fringe = new THREE.Mesh(new THREE.SphereGeometry(0.295, 24, 8, 0, Math.PI * 2, Math.PI * 0.42, Math.PI * 0.16), hairMat);
+fringe.position.y = 1.73; person.add(fringe);
+
+function makeArm(side) {
+  const g = new THREE.Group();
+  g.position.set(0.40 * side, 1.30, 0);
+  const upper = cap(0.115, 0.46, sweater); upper.position.y = -0.30; g.add(upper);
+  const hand = new THREE.Mesh(new THREE.SphereGeometry(0.10, 14, 12), skin); hand.position.y = -0.64; g.add(hand);
+  person.add(g);
+  return g;
+}
+const armL = makeArm(-1), armR = makeArm(1);
+
+function makeLeg(side) {
+  const g = new THREE.Group();
+  g.position.set(0.155 * side, 0.62, 0);
+  const leg = cap(0.13, 0.66, pants); leg.position.y = -0.45; g.add(leg);
+  const foot = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.34), shoe); foot.position.set(0, -0.84, 0.07); g.add(foot);
+  person.add(g);
+  return g;
+}
+makeLeg(-1); makeLeg(1);
+scene.add(person);
+
+// ─ 받침대 + 글로우 ─
+const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.08, 0.08, 48),
+  M(0x2a2150, 0.4, 0.1, 0x4a2f8a, 0.5)); disc.position.y = -0.04; scene.add(disc);
+const ring = new THREE.Mesh(new THREE.RingGeometry(1.04, 1.3, 56),
+  new THREE.MeshBasicMaterial({ color: 0xb48bff, transparent: true, opacity: 0.45, side: THREE.DoubleSide }));
+ring.rotation.x = -Math.PI / 2; ring.position.y = 0.015; scene.add(ring);
+
+// ─ 포즈 ─
+const POSES = {
+  stand: () => { armL.rotation.set(0, 0, 0.22); armR.rotation.set(0, 0, -0.22); },
+  wave:  () => { armL.rotation.set(0, 0, 0.10); armR.rotation.set(0, 0.2, -2.5); },
+  heart: () => { armL.rotation.set(-0.2, 0, 1.4); armR.rotation.set(-0.2, 0, -1.4); },
+  cross: () => { armL.rotation.set(-1.4, 0.2, 0.55); armR.rotation.set(-1.4, -0.2, -0.55); },
+  think: () => { armL.rotation.set(0, 0, 0.10); armR.rotation.set(-2.0, 0, -0.7); }
+};
+let poseTarget = { l: new THREE.Euler(), r: new THREE.Euler() };
+function setPose(name) {
+  (POSES[name] || POSES.stand)();
+  poseTarget.l.copy(armL.rotation); poseTarget.r.copy(armR.rotation);
+}
+setPose('stand');
+
+// ─ 컨트롤 ─
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.08;
+controls.target.set(0, 1.15, 0);
+controls.minDistance = 2.8; controls.maxDistance = 7;
+controls.enablePan = false;
+controls.minPolarAngle = 0.55; controls.maxPolarAngle = Math.PI * 0.6;
+controls.autoRotateSpeed = 1.8;
+
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+resize();
+new ResizeObserver(resize).observe(stage);
+
+let t = 0;
+function loop() {
+  requestAnimationFrame(loop);
+  t += 0.016;
+  person.position.y = 0.26 + Math.sin(t * 1.3) * 0.018;
+  controls.update();
+  renderer.render(scene, camera);
+}
+loop();
+
+// ─ UI 연동 ─
+// 배경 변경
+const bgs = [
+  'radial-gradient(70% 55% at 50% 38%, rgba(167,139,250,.30), transparent 62%), linear-gradient(160deg,#3a2c5e,#211940)',
+  'radial-gradient(70% 55% at 50% 38%, rgba(110,160,255,.28), transparent 62%), linear-gradient(160deg,#26345e,#141d3a)',
+  'radial-gradient(70% 55% at 50% 38%, rgba(255,150,170,.26), transparent 62%), linear-gradient(160deg,#5a2c3a,#33161f)'
+];
+document.querySelectorAll('.bgs .b').forEach((b, i) => b.addEventListener('click', () => { stage.style.background = bgs[i]; }));
+
+// 포즈 변경 (우측 스트립)
+const poseNames = ['stand', 'wave', 'heart', 'cross', 'think'];
+document.querySelectorAll('.strip.r .th').forEach((th, i) => th.addEventListener('click', () => setPose(poseNames[i] || 'stand')));
+
+// 표정 = 머리 살짝 기울이기로 표현
+const headTilt = [0, 0.12, -0.12, 0.18, -0.05];
+document.querySelectorAll('.strip.l .th').forEach((th, i) => th.addEventListener('click', () => { head.rotation.z = headTilt[i] || 0; }));
+
+// 애니메이션 ▶ → 자동 회전 토글
+const playBtn = document.querySelector('.anim');
+if (playBtn) playBtn.addEventListener('click', () => {
+  controls.autoRotate = !controls.autoRotate;
+  playBtn.style.opacity = controls.autoRotate ? '1' : '0.7';
+});
+
+// 확대/축소 세로 슬라이더
+const vbar = document.querySelector('.zoom .vbar');
+if (vbar) {
+  const thumb = vbar.querySelector('b');
+  let drag = false;
+  const set = (cy) => {
+    const r = vbar.getBoundingClientRect();
+    const p = Math.max(0, Math.min(1, (cy - r.top) / r.height));
+    if (thumb) thumb.style.top = (p * 100) + '%';
+    const d = controls.minDistance + p * (controls.maxDistance - controls.minDistance);
+    const dir = camera.position.clone().sub(controls.target).normalize();
+    camera.position.copy(controls.target).add(dir.multiplyScalar(d));
+  };
+  vbar.addEventListener('pointerdown', e => { drag = true; vbar.setPointerCapture?.(e.pointerId); set(e.clientY); });
+  vbar.addEventListener('pointermove', e => { if (drag) set(e.clientY); });
+  window.addEventListener('pointerup', () => drag = false);
+}
+</script>
 </body>
 </html>

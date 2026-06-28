@@ -6,123 +6,233 @@
 <title>18 홈</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: radial-gradient(120% 50% at 50% 0%, #ece4fb 0%, #f3f0fb 50%); }
-  .scrollbody { padding: 0 18px 14px; }
-  .hd { display:flex; align-items:flex-start; justify-content:space-between; padding: 2px 2px 12px; }
-  .hd .greet b { font-size:18px; font-weight:900; }
-  .hd .greet p { font-size:12.5px; color:var(--ink-2); margin-top:4px; }
-  .bell { width:40px; height:40px; border-radius:50%; background:#fff; display:grid; place-items:center; box-shadow:var(--shadow-card); position:relative; }
-  .bell::after { content:""; position:absolute; top:9px; right:11px; width:7px; height:7px; border-radius:50%; background:var(--pink-400); border:2px solid #fff; }
+  .app { background: #efebf8; }
+  .scrollbody { display:flex; flex-direction:column; position:relative; }
 
-  .hero { position:relative; border-radius:22px; overflow:hidden; height:210px; box-shadow:var(--shadow-float); }
-  .hero .photo { position:absolute; inset:0; }
-  .hero .grad { position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,14,40,.1) 0%, rgba(20,14,40,.75) 100%); }
-  .hero .bubble { position:absolute; left:14px; right:14px; bottom:14px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.25); backdrop-filter:blur(10px); border-radius:16px; padding:12px 14px; color:#fff; }
-  .hero .bubble small { font-size:10px; opacity:.85; }
-  .hero .bubble p { font-size:12.5px; line-height:1.5; margin:4px 0 9px; }
-  .hero .bubble .reply { display:inline-flex; align-items:center; gap:6px; background:#fff; color:var(--purple-600); font-size:11px; font-weight:800; padding:6px 12px; border-radius:999px; }
+  /* ── 배경 사진: 상단~중반까지 이어지다 라이트로 페이드 ── */
+  .heroBg { position:absolute; top:0; left:0; right:0; height:690px; z-index:0;
+    background:#241c40 url('../assets/img/model-night.jpg') center 12%/cover;
+    -webkit-mask:linear-gradient(180deg,#000 0 84%, transparent 100%);
+    mask:linear-gradient(180deg,#000 0 84%, transparent 100%); }
+  .heroBg::after { content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,14,38,.34) 0%, rgba(20,14,38,.04) 25%, rgba(36,24,62,.16) 66%, rgba(44,30,74,.30) 100%); }
 
-  .wrow { display:flex; gap:10px; margin-top:12px; }
-  .weather { flex:1; background:#fff; border-radius:16px; padding:13px; box-shadow:var(--shadow-card); display:flex; align-items:center; gap:10px; }
-  .weather .t { font-size:18px; font-weight:900; }
-  .weather small { font-size:10.5px; color:var(--ink-3); display:block; }
-  .recommend { flex:1.2; border-radius:16px; padding:12px; background:var(--grad-cta); color:#fff; box-shadow:var(--shadow-cta); }
-  .recommend small { font-size:10px; opacity:.9; }
-  .recommend b { font-size:12px; display:block; margin-top:3px; line-height:1.4; }
+  /* ── 히어로 영역 (인사말 + 민준 카드 오버레이) ── */
+  .hero { position:relative; height:326px; flex:0 0 326px; z-index:1; }
+  .hero .statusbar { position:relative; z-index:3; }
+  .topicons { position:absolute; top:48px; right:18px; z-index:3; display:flex; gap:14px; color:#fff; }
+  .topicons .ic { position:relative; }
+  .topicons .ic.bell::after { content:""; position:absolute; top:-1px; right:0; width:7px; height:7px; border-radius:50%; background:#ff5a7a; border:1.5px solid rgba(40,28,70,.6); }
+  .greet { position:absolute; top:46px; left:20px; z-index:3; color:#fff; }
+  .greet .sm { font-size:14px; font-weight:600; opacity:.95; }
+  .greet .lg { font-size:23px; font-weight:800; line-height:1.32; margin-top:9px; letter-spacing:-.3px; text-shadow:0 2px 12px rgba(0,0,0,.25); }
+  .mjcard { position:absolute; left:16px; bottom:14px; z-index:3; width:63%;
+    background:rgba(26,22,48,.46); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(14px);
+    border-radius:20px; padding:12px 14px; color:#fff; }
+  .mjcard .mh { display:flex; align-items:center; justify-content:space-between; font-size:13px; font-weight:800; }
+  .mjcard .mh .chev { opacity:.7; font-weight:400; margin-left:4px; }
+  .mjcard .q { font-size:12.5px; line-height:1.5; margin:9px 0 11px; color:#f3f0ff; }
+  .mjcard .more { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.14);
+    font-size:11px; font-weight:700; padding:6px 12px; border-radius:999px; }
 
-  .acts { display:flex; gap:10px; margin-top:12px; }
-  .act { flex:1; border-radius:18px; padding:15px; display:flex; align-items:center; gap:10px; }
-  .act.chat { background:linear-gradient(135deg,#d9c8f5,#c3a8ec); }
-  .act.call { background:linear-gradient(135deg,#f3c0dd,#e79ec8); }
-  .act .ai { width:38px; height:38px; border-radius:12px; background:rgba(255,255,255,.55); display:grid; place-items:center; font-size:18px; }
-  .act b { font-size:13px; font-weight:800; }
-  .act span { font-size:10px; color:rgba(60,40,80,.7); display:block; }
+  /* ── 콘텐츠 ── */
+  .content { position:relative; z-index:1; padding:14px 14px 16px; display:flex; flex-direction:column; gap:12px; }
 
-  .sec { margin-top:18px; }
-  .sec .stt { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-  .sec .stt b { font-size:14px; font-weight:800; }
-  .sec .stt a { font-size:11px; color:var(--ink-3); }
+  /* 온기 게이지 (BM v3.0) */
+  .warmth { display:flex; align-items:center; gap:11px; background:linear-gradient(135deg,#5a4d84,#3f3268); color:#fff; border-radius:16px; padding:12px 14px; box-shadow:0 8px 20px rgba(80,50,120,.22); }
+  .warmth .wf { width:34px; height:34px; border-radius:11px; background:linear-gradient(135deg,#ffb27a,#f48fb1); display:grid; place-items:center; font-size:17px; flex:none; box-shadow:0 0 14px rgba(255,160,170,.5); }
+  .warmth .wmeta { flex:1; }
+  .warmth .wtop { display:flex; align-items:center; gap:6px; font-size:13px; }
+  .warmth .wtop b { font-weight:800; }
+  .warmth .wtop span { color:rgba(255,255,255,.65); font-size:11px; }
+  .warmth .wtop .wcharge { margin-left:auto; font-size:11px; font-weight:800; color:#fff; background:rgba(255,255,255,.2); padding:5px 11px; border-radius:999px; }
+  .warmth .wbar { height:7px; border-radius:999px; background:rgba(255,255,255,.16); margin-top:7px; overflow:hidden; }
+  .warmth .wbar i { display:block; height:100%; width:27%; border-radius:999px; background:linear-gradient(90deg,#ffb27a,#f48fb1,#c79af0); }
 
-  .timeline { background:#fff; border-radius:18px; padding:14px; box-shadow:var(--shadow-card); display:flex; justify-content:space-between; }
-  .tl { text-align:center; flex:1; position:relative; }
-  .tl::before { content:""; position:absolute; top:13px; left:-50%; width:100%; height:2px; background:var(--purple-100); }
+  /* 날씨/추천 다크 글래스 카드 */
+  .weather { display:flex; align-items:center; border-radius:18px; padding:13px 13px; color:#fff;
+    background:linear-gradient(135deg, rgba(84,71,124,.6), rgba(56,45,90,.66)); backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.14); box-shadow:0 10px 26px rgba(40,28,70,.3); }
+  .weather .moon { font-size:27px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.2)); margin-right:9px; }
+  .weather .loc { font-size:10.5px; color:rgba(255,255,255,.78); white-space:nowrap; }
+  .weather .temp { font-size:21px; font-weight:800; margin-top:1px; display:flex; align-items:baseline; gap:6px; white-space:nowrap; }
+  .weather .temp small { font-size:11px; font-weight:600; color:rgba(255,255,255,.8); }
+  .weather .aq { font-size:9.5px; font-weight:700; background:rgba(255,255,255,.16); padding:2px 7px; border-radius:999px; }
+  .weather .divider { width:1px; height:44px; background:rgba(255,255,255,.16); margin:0 11px; flex:none; }
+  .weather .rec { flex:1; min-width:0; }
+  .weather .rec .rt { font-size:10px; color:rgba(255,255,255,.72); }
+  .weather .rec .rb { font-size:12.5px; font-weight:800; margin-top:3px; line-height:1.3; }
+  .weather .thumb { width:42px; height:42px; border-radius:50%; flex:none; margin-left:9px; border:2px solid rgba(255,255,255,.35);
+    background:#222 url('../assets/img/mem-river.jpg') center/cover; }
+  .weather .chev2 { margin-left:6px; opacity:.7; font-size:17px; }
+
+  /* 채팅/전화 */
+  .acts { display:flex; gap:11px; }
+  .act { flex:1; border-radius:18px; padding:12px 11px; color:#fff; display:flex; align-items:center; gap:9px; box-shadow:0 8px 20px rgba(80,50,120,.18); }
+  .act.chat { background:linear-gradient(135deg, #ab9cf3, #8c7ce2); }
+  .act.call { background:linear-gradient(135deg, #db93cf, #c168b6); }
+  .act .ai { width:42px; height:42px; border-radius:13px; background:rgba(255,255,255,.22); display:grid; place-items:center; flex:none; }
+  .act .txt { flex:1; min-width:0; }
+  .act b { font-size:14px; font-weight:800; }
+  .act .txt span { display:block; font-size:9.5px; color:rgba(255,255,255,.88); margin-top:3px; line-height:1.3; white-space:nowrap; }
+  .act .go { width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,.22); display:grid; place-items:center; font-size:14px; flex:none; }
+
+  /* 카드 공통 */
+  .card2 { background:#faf8ff; border:1px solid #efeafa; border-radius:20px; padding:15px; box-shadow:0 8px 22px rgba(90,60,130,.07); }
+  .ch { display:flex; align-items:center; justify-content:space-between; margin-bottom:13px; }
+  .ch .t { display:flex; align-items:center; gap:7px; font-size:14.5px; font-weight:800; color:#2f2b48; }
+  .ch .more2 { font-size:11px; font-weight:700; color:#8b86a3; border:1px solid #e7e1f3; padding:6px 11px; border-radius:999px; }
+
+  /* 타임라인 */
+  .timeline { display:flex; }
+  .tl { flex:1; text-align:center; position:relative; }
+  .tl::before { content:""; position:absolute; top:42px; left:-50%; width:100%; height:3px; background:#e6e0f3; }
+  .tl.done::before { background:#bda9f0; }
   .tl:first-child::before { display:none; }
-  .tl .dot { width:26px; height:26px; border-radius:50%; margin:0 auto; display:grid; place-items:center; font-size:12px; background:var(--purple-100); position:relative; z-index:1; }
-  .tl.done .dot { background:var(--grad-cta); color:#fff; }
-  .tl b { display:block; font-size:10px; font-weight:700; margin-top:6px; }
-  .tl span { font-size:9px; color:var(--ink-3); }
+  .tl .time { font-size:11px; font-weight:700; color:#9b96b2; margin-bottom:8px; }
+  .tl.cur .time { color:#7c3aed; font-weight:800; }
+  .tl .node { width:34px; height:34px; border-radius:50%; margin:0 auto; display:grid; place-items:center; position:relative; z-index:1; color:#fff; font-size:15px;
+    background:linear-gradient(135deg,#a78bfa,#8b5cf6); box-shadow:0 5px 12px rgba(124,58,237,.3); }
+  .tl.cur .node { background:linear-gradient(135deg,#b794ff,#8b5cf6); box-shadow:0 0 0 5px rgba(167,139,250,.18), 0 6px 14px rgba(124,58,237,.4); transform:scale(1.06); }
+  .tl.lock .node { background:#d3cde2; box-shadow:none; color:#fff; }
+  .tl .lbl { font-size:11.5px; font-weight:700; color:#2f2b48; margin-top:9px; }
+  .tl .sub { font-size:9.5px; color:#a29dba; margin-top:2px; }
 
-  .relcard { background:linear-gradient(135deg,#efe6fb,#f7e8f3); border:1px solid var(--purple-100); border-radius:18px; padding:15px; }
-  .relcard .between b { font-size:13px; font-weight:800; }
-  .relcard .lv { font-size:11px; color:var(--purple-600); font-weight:800; }
-  .relcard .barwrap { margin-top:11px; }
-  .relcard .pcttxt { font-size:10.5px; color:var(--ink-3); margin-top:6px; text-align:right; }
+  /* 관계 카드 */
+  .relcard { background:linear-gradient(135deg,#f1ebfb,#f7edf6); border:1px solid #ece3f7; border-radius:20px; padding:13px 15px; box-shadow:0 8px 22px rgba(90,60,130,.07); }
+  .relcard .rtop { display:flex; align-items:flex-start; }
+  .relcard .rleft { flex:1; }
+  .relcard .rtitle { font-size:14px; font-weight:800; color:#2f2b48; }
+  .relcard .rsub { font-size:11.5px; color:#8b86a3; margin-top:5px; }
+  .relcard .gift { text-align:center; padding-left:10px; display:flex; flex-direction:column; align-items:center; }
+  .relcard .gift .gl { font-size:10px; color:#8b86a3; }
+  .relcard .gift .gp { font-size:13px; font-weight:800; color:#2f2b48; }
+  .relcard .gift .gi { font-size:26px; margin-top:1px; }
+  .relbar { height:20px; border-radius:999px; background:#e6e1f4; margin-top:10px; position:relative; overflow:hidden; }
+  .relbar i { position:absolute; left:0; top:0; height:100%; width:72%; border-radius:999px; background:linear-gradient(90deg,#b692f6,#cf8ad2); }
+  .relbar span { position:absolute; right:13px; top:50%; transform:translateY(-50%); font-size:11px; font-weight:800; color:#fff; z-index:2; }
 
-  .mems { display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; }
+  /* 추억 */
+  .mems { display:flex; gap:11px; overflow-x:auto; padding-bottom:2px; }
   .mems::-webkit-scrollbar { height:0; }
-  .mem { flex:0 0 88px; }
-  .mem .photo { width:88px; height:88px; border-radius:14px; }
-  .mem b { display:block; font-size:10.5px; font-weight:700; margin-top:6px; }
-  .mem span { font-size:9px; color:var(--ink-3); }
+  .mem { flex:0 0 84px; }
+  .mem .mimg { width:84px; height:84px; border-radius:16px; background-size:cover; background-position:center; box-shadow:0 6px 14px rgba(90,60,130,.12); }
+  .mem .ml { font-size:11.5px; font-weight:700; color:#2f2b48; margin-top:7px; }
+  .mem .md { font-size:9.5px; color:#a29dba; margin-top:1px; }
+
+  /* ── 다크 테마 오버라이드 ── */
+  html[data-theme="dark"] .app { background: var(--bg-light); }
+  html[data-theme="dark"] .card2 { background: var(--card); border-color: var(--line); }
+  html[data-theme="dark"] .ch .t, html[data-theme="dark"] .tl .lbl,
+  html[data-theme="dark"] .relcard .rtitle, html[data-theme="dark"] .relcard .gp,
+  html[data-theme="dark"] .mem .ml { color: var(--ink); }
+  html[data-theme="dark"] .ch .more2 { color: var(--ink-2); border-color: var(--line); }
+  html[data-theme="dark"] .tl .time, html[data-theme="dark"] .tl .sub,
+  html[data-theme="dark"] .relcard .rsub, html[data-theme="dark"] .relcard .gl,
+  html[data-theme="dark"] .mem .md { color: var(--ink-3); }
+  html[data-theme="dark"] .tl::before { background: var(--line); }
+  html[data-theme="dark"] .relcard { background: linear-gradient(135deg,#241b44,#2a1f48); border-color: var(--line); }
+  html[data-theme="dark"] .relbar { background: rgba(255,255,255,.12); }
 </style>
 </head>
 <body class="screen">
 <div class="phone scroll">
   <div class="app">
-    <div class="statusbar"></div>
     <div class="scrollbody">
-      <div class="hd">
-        <div class="greet"><b>안녕하세요, 지연님 💜</b><p>오늘 민준이와<br>행복한 하루 보내세요 😊</p></div>
-        <div class="bell">🔔</div>
-      </div>
+      <div class="heroBg"></div>
 
       <div class="hero">
-        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
-        <div class="grad"></div>
-        <div class="bubble">
-          <small>💜 오늘의 인사</small>
-          <p>오늘 하루도 수고했어, 지연아.<br>좋은 꿈 꾸고, 내일 또 보자 :)</p>
-          <span class="reply">💬 메시지 답장하기</span>
+        <div class="statusbar on-photo"></div>
+        <div class="topicons">
+          <span class="ic bell"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg></span>
+          <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/></svg></span>
+        </div>
+        <div class="greet">
+          <div class="sm">안녕하세요, 지연님 💜</div>
+          <div class="lg">오늘도 민준이와<br>행복한 하루 보내세요 💜</div>
+        </div>
+        <div class="mjcard">
+          <div class="mh"><span>오늘의 민준 <span class="chev">›</span></span><span>💜</span></div>
+          <div class="q">"오늘 하루도<br>수고했어, 지연아.<br>좋은 꿈 꾸고,<br>내일 또 보자 :)"</div>
+          <span class="more">메시지 더보기 💬</span>
         </div>
       </div>
 
-      <div class="wrow">
-        <div class="weather"><span style="font-size:22px">🌙</span><div><span class="t">21°</span><small>맑음 · 서울</small></div></div>
-        <div class="recommend"><small>📍 한강공원 근처</small><b>오늘 같은 날, 데이트 어때요?</b></div>
-      </div>
+      <div class="content">
 
-      <div class="acts">
-        <div class="act chat"><span class="ai">💬</span><div><b>채팅하기</b><span>민준이와 대화</span></div></div>
-        <div class="act call"><span class="ai">📞</span><div><b>전화하기</b><span>음성 통화</span></div></div>
-      </div>
-
-      <div class="sec">
-        <div class="stt"><b>오늘의 일정</b><a>전체 일정 보기 ›</a></div>
-        <div class="timeline">
-          <div class="tl done"><div class="dot">✓</div><b>모닝 인사</b><span>08:00</span></div>
-          <div class="tl done"><div class="dot">✓</div><b>점심 안부</b><span>12:30</span></div>
-          <div class="tl"><div class="dot">🍽️</div><b>저녁 데이트</b><span>19:00</span></div>
-          <div class="tl"><div class="dot">🌙</div><b>굿나잇</b><span>23:00</span></div>
+        <div class="warmth">
+          <span class="wf">🔥</span>
+          <div class="wmeta">
+            <div class="wtop"><b>온기 540</b><span>/ 2,000</span><span class="wcharge">충전 ›</span></div>
+            <div class="wbar"><i></i></div>
+          </div>
         </div>
-      </div>
 
-      <div class="sec">
-        <div class="stt"><b>우리의 관계 💜</b><a>자세히 ›</a></div>
+        <div class="weather">
+          <span class="moon">🌙</span>
+          <div>
+            <div class="loc">서울특별시 강남구</div>
+            <div class="temp">21°C <small>맑음</small> <span class="aq">좋음 32</span></div>
+          </div>
+          <div class="divider"></div>
+          <div class="rec">
+            <div class="rt">오늘 데이트 추천 장소</div>
+            <div class="rb">한강공원 산책<br>어때요?</div>
+          </div>
+          <span class="thumb"></span>
+          <span class="chev2">›</span>
+        </div>
+
+        <div class="acts">
+          <div class="act chat">
+            <div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H9l-4 3.5v-3.5H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"/><circle cx="8.5" cy="11" r="1" fill="#fff"/><circle cx="12" cy="11" r="1" fill="#fff"/><circle cx="15.5" cy="11" r="1" fill="#fff"/></svg></div>
+            <div class="txt"><b>채팅하기</b><span>민준이와<br>이야기 나누기</span></div>
+            <span class="go">→</span>
+          </div>
+          <div class="act call">
+            <div class="ai"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8 7 15 15 15l1.5-3.5-4-2-1.5 1.5a11 11 0 0 1-5-5L11.5 9.5l-2-4z"/></svg></div>
+            <div class="txt"><b>전화하기</b><span>민준이의 목소리<br>들어보세요</span></div>
+            <span class="go">→</span>
+          </div>
+        </div>
+
+        <div class="card2">
+          <div class="ch"><div class="t">📅 오늘의 일정</div><span class="more2">전체 일정 보기 ›</span></div>
+          <div class="timeline">
+            <div class="tl done"><div class="time">09:00</div><div class="node">✓</div><div class="lbl">굿모닝 메시지</div><div class="sub">보냈어요</div></div>
+            <div class="tl done"><div class="time">12:30</div><div class="node">✓</div><div class="lbl">점심 인사</div><div class="sub">대화했어요</div></div>
+            <div class="tl cur done"><div class="time">19:00</div><div class="node">♥</div><div class="lbl">저녁 데이트</div><div class="sub">예정</div></div>
+            <div class="tl lock"><div class="time">22:30</div><div class="node">🔒</div><div class="lbl">굿나잇 인사</div><div class="sub">예정</div></div>
+          </div>
+        </div>
+
         <div class="relcard">
-          <div class="between"><b>썸 타는 중</b><span class="lv">Lv.3 · 28%</span></div>
-          <div class="barwrap bar"><i style="width:28%"></i></div>
-          <p class="pcttxt">다음 단계까지 72% 남았어요</p>
+          <div class="rtop">
+            <div class="rleft">
+              <div class="rtitle">💜 우리의 관계 💜</div>
+              <div class="rsub">서로에게 더 특별해지고 있어요 💕</div>
+            </div>
+            <div class="gift">
+              <div class="gl">다음 레벨까지</div>
+              <div class="gp">28%</div>
+              <div class="gi">🎁</div>
+            </div>
+          </div>
+          <div class="relbar"><i></i><span>호감도 72%</span></div>
         </div>
-      </div>
 
-      <div class="sec">
-        <div class="stt"><b>함께한 추억</b><a>전체 보기 ›</a></div>
-        <div class="mems">
-          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-first.jpg') center/cover"></div><b>첫 만남</b><span>05.10</span></div>
-          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-date.jpg') center/cover"></div><b>첫 데이트</b><span>05.18</span></div>
-          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-river.jpg') center/cover"></div><b>한강 산책</b><span>05.25</span></div>
-          <div class="mem"><div class="photo" style="background:#222 url('../assets/img/mem-movie.jpg') center/cover"></div><b>영화관</b><span>06.02</span></div>
+        <div>
+          <div class="ch" style="margin-bottom:11px"><div class="t">💜 함께한 추억</div><span class="more2" style="border:none">앨범 보기 ›</span></div>
+          <div class="mems">
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/mem-first.jpg')"></div><div class="ml">첫 만남</div><div class="md">D+1</div></div>
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/mem-date.jpg')"></div><div class="ml">첫 데이트</div><div class="md">D+5</div></div>
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/place-restaurant.jpg')"></div><div class="ml">맛집 탐방</div><div class="md">D+12</div></div>
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/mem-movie.jpg')"></div><div class="ml">영화 데이트</div><div class="md">D+18</div></div>
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/mem-park.jpg')"></div><div class="ml">벚꽃 산책</div><div class="md">D+25</div></div>
+            <div class="mem"><div class="mimg" style="background-image:url('../assets/img/place-cafe.jpg')"></div><div class="ml">카페 투어</div><div class="md">D+30</div></div>
+          </div>
         </div>
+
       </div>
     </div>
     <div class="tabbar" data-active="home"></div>

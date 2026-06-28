@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>29 선물 상점</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: var(--bg-light); color: var(--ink); }
+  .scrollbody { padding: 0 16px 20px; }
+
+  .intro { display:flex; align-items:center; gap:12px; background:linear-gradient(135deg,#f1ebfb,#f7e8f3); border:1px solid var(--line); border-radius:18px; padding:14px; }
+  html[data-theme="dark"] .intro { background:linear-gradient(135deg,#241b44,#2a1f48); }
+  .intro .ava { width:48px; height:48px; border-radius:50%; flex:none; }
+  .intro b { font-size:13px; font-weight:800; }
+  .intro p { font-size:11px; color:var(--ink-2); margin-top:3px; }
+  .intro .bal { margin-left:auto; text-align:center; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:7px 11px; }
+  .intro .bal small { font-size:9px; color:var(--ink-3); display:block; }
+  .intro .bal b { font-size:13px; color:#f4a06a; }
+
+  .sec-t { font-size:15px; font-weight:800; margin:18px 4px 12px; }
+
+  .gifts { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .gift { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:15px 13px; text-align:center; box-shadow:var(--shadow-card); position:relative; }
+  .gift.special { border-color:var(--purple-300); }
+  .gift .sp { position:absolute; top:9px; right:9px; font-size:9px; font-weight:800; color:var(--purple-600); background:var(--purple-100); padding:2px 7px; border-radius:999px; }
+  .gift .ge { width:64px; height:64px; margin:0 auto; border-radius:18px; background:linear-gradient(160deg,#f6eefb,#f3e6f2); display:grid; place-items:center; font-size:32px; }
+  html[data-theme="dark"] .gift .ge { background:linear-gradient(160deg,#2b2150,#332247); }
+  .gift .gn { font-size:14px; font-weight:800; margin-top:10px; }
+  .gift .fav { font-size:10.5px; font-weight:800; color:var(--pink-500); margin-top:4px; }
+  .gift .cost { margin-top:11px; height:36px; border-radius:11px; background:var(--purple-100); color:var(--purple-600); font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:4px; }
+
+  .note { display:flex; align-items:center; gap:7px; justify-content:center; font-size:11px; color:var(--ink-3); margin-top:16px; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>선물 상점 🎁</span><span style="font-size:12px;color:var(--ink-3)">선물 내역</span></div>
+    <div class="scrollbody">
+
+      <div class="intro">
+        <div class="ava photo night"></div>
+        <div><b>민준이에게 선물하기 💝</b><p>선물하면 호감도가 오르고<br>특별한 반응을 볼 수 있어요</p></div>
+        <div class="bal"><small>🔥 내 온기</small><b>540</b></div>
+      </div>
+
+      <div class="sec-t">🎁 선물 고르기</div>
+      <div class="gifts">
+        <div class="gift"><div class="ge">💐</div><div class="gn">꽃다발</div><div class="fav">💗 호감도 +10</div><div class="cost">🔥 200</div></div>
+        <div class="gift"><div class="ge">☕</div><div class="gn">커피</div><div class="fav">💗 호감도 +5</div><div class="cost">🔥 100</div></div>
+        <div class="gift"><div class="ge">🎂</div><div class="gn">케이크</div><div class="fav">💗 호감도 +15</div><div class="cost">🔥 350</div></div>
+        <div class="gift special"><span class="sp">특별 반응</span><div class="ge">👕</div><div class="gn">커플룩</div><div class="fav">💗 호감도 +30</div><div class="cost">🔥 800</div></div>
+        <div class="gift special"><span class="sp">특별 이벤트</span><div class="ge">💍</div><div class="gn">반지</div><div class="fav">💗 호감도 +50</div><div class="cost">🔥 1,500</div></div>
+        <div class="gift special"><span class="sp">특별 이벤트</span><div class="ge">✈️</div><div class="gn">여행권</div><div class="fav">💗 호감도 +80</div><div class="cost">🔥 3,000</div></div>
+      </div>
+
+      <div class="note">💜 일부 선물은 특별 대사·이벤트가 열려요</div>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

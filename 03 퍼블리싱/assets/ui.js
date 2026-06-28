@@ -1,5 +1,21 @@
-/* 공통 UI 조각 주입 — 상태바 / 하단 탭바 */
+/* 공통 UI 조각 주입 — 테마 / 상태바 / 하단 탭바 */
 (function () {
+  /* ---------- 테마 적용 ----------
+     우선순위: ?theme= (URL) > localStorage('nmp-theme') > 기본 'light'
+     <body data-immersive> 화면(통화·첫만남·생성중·3D뷰어 등)은 항상 dark 고정 */
+  (function applyTheme() {
+    var stored = null;
+    try { stored = localStorage.getItem('nmp-theme'); } catch (e) {}
+    var urlTheme = new URLSearchParams(location.search).get('theme');
+    var immersive = document.body && document.body.hasAttribute('data-immersive');
+    var theme = immersive ? 'dark' : (urlTheme || stored || 'light');
+    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    window.setTheme = function (t) {
+      try { localStorage.setItem('nmp-theme', t); } catch (e) {}
+      if (!immersive) document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    };
+  })();
+
   var STATUS =
     '<span class="sb-time">9:41</span>' +
     '<span class="sb-icons">' +

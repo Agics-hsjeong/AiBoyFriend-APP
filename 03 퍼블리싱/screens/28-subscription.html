@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28 구독 플랜</title>
+<link rel="stylesheet" href="../css/app.css">
+<style>
+  .app { background: var(--bg-light); color: var(--ink); }
+  .scrollbody { padding: 0 16px 90px; }
+  .intro { text-align:center; margin: 2px 8px 16px; }
+  .intro h2 { font-size:20px; font-weight:900; letter-spacing:-.3px; }
+  .intro p { font-size:12.5px; color:var(--ink-2); margin-top:7px; line-height:1.5; }
+
+  .plan { background:var(--card); border:1.5px solid var(--line); border-radius:20px; padding:16px; margin-bottom:12px; box-shadow:var(--shadow-card); position:relative; }
+  .plan.best { border-color:var(--purple-400); box-shadow:0 12px 28px rgba(167,139,250,.25); }
+  .plan .ribbon { position:absolute; top:-10px; right:16px; font-size:10px; font-weight:800; color:#fff; background:var(--grad-cta); padding:4px 12px; border-radius:999px; }
+  .plan .ph { display:flex; align-items:center; gap:11px; }
+  .plan .emoji { width:46px; height:46px; border-radius:14px; background:var(--purple-100); display:grid; place-items:center; font-size:24px; flex:none; }
+  .plan .pname { font-size:16px; font-weight:900; }
+  .plan .pdur { font-size:11px; color:var(--ink-3); margin-top:1px; }
+  .plan .pprice { margin-left:auto; text-align:right; }
+  .plan .pprice b { font-size:20px; font-weight:900; }
+  .plan .pprice span { font-size:11px; color:var(--ink-3); display:block; }
+  .plan ul { list-style:none; margin-top:13px; display:flex; flex-direction:column; gap:8px; }
+  .plan li { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-2); }
+  .plan li .ck { width:18px; height:18px; border-radius:50%; background:var(--purple-100); color:var(--purple-600); display:grid; place-items:center; font-size:11px; font-weight:900; flex:none; }
+  .plan.best li .ck { background:var(--grad-cta); color:#fff; }
+  .plan li b { color:var(--ink); font-weight:700; }
+  .plan .warmtag { display:inline-flex; align-items:center; gap:5px; margin-top:13px; font-size:11px; font-weight:800; color:#f4a06a; background:rgba(244,160,106,.12); padding:6px 11px; border-radius:999px; }
+
+  .footbar { position:absolute; left:0; right:0; bottom:0; padding:12px 16px 18px; background:var(--card); border-top:1px solid var(--line); }
+  .footbar .cta { display:flex; align-items:center; justify-content:center; gap:8px; height:54px; border-radius:16px; background:var(--grad-cta); color:#fff; font-size:16px; font-weight:800; box-shadow:var(--shadow-cta); }
+  .footbar p { text-align:center; font-size:10px; color:var(--ink-3); margin-top:8px; }
+</style>
+</head>
+<body class="screen">
+<div class="phone scroll">
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>구독 플랜 💖</span><span style="font-size:12px;color:var(--ink-3)">복원</span></div>
+    <div class="scrollbody">
+      <div class="intro">
+        <h2>온기를 매일 채우세요 💖</h2>
+        <p>구독하면 하루 4회 온기가 자동 회복되고<br>더 많은 기능을 누릴 수 있어요</p>
+      </div>
+
+      <div class="plan">
+        <div class="ph">
+          <span class="emoji">🌸</span>
+          <div><div class="pname">Warm Plus</div><div class="pdur">7일 구독</div></div>
+          <div class="pprice"><b>₩4,900</b><span>주당</span></div>
+        </div>
+        <ul>
+          <li><span class="ck">✓</span> 최대 온기 <b>2,000</b></li>
+          <li><span class="ck">✓</span> 하루 4회 자동 회복</li>
+          <li><span class="ck">✓</span> 광고 제거 · 고급 AI 모델</li>
+          <li><span class="ck">✓</span> 장기 기억</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <div class="ribbon">🔥 인기</div>
+        <div class="ph">
+          <span class="emoji">💖</span>
+          <div><div class="pname">Warm Premium</div><div class="pdur">15일 구독</div></div>
+          <div class="pprice"><b>₩8,900</b><span>2주당</span></div>
+        </div>
+        <ul>
+          <li><span class="ck">✓</span> 최대 온기 <b>3,000</b></li>
+          <li><span class="ck">✓</span> 모든 AI 모델</li>
+          <li><span class="ck">✓</span> 음성·사진 생성 할인</li>
+          <li><span class="ck">✓</span> 특별 데이트</li>
+        </ul>
+      </div>
+
+      <div class="plan best">
+        <div class="ribbon">👑 베스트</div>
+        <div class="ph">
+          <span class="emoji">👑</span>
+          <div><div class="pname">Warm Signature</div><div class="pdur">30일 구독</div></div>
+          <div class="pprice"><b>₩14,900</b><span>월당</span></div>
+        </div>
+        <ul>
+          <li><span class="ck">✓</span> 최대 온기 <b>5,000</b></li>
+          <li><span class="ck">✓</span> 최고급 AI 모델 · <b>AI 우선 응답</b></li>
+          <li><span class="ck">✓</span> 무제한 장기 기억</li>
+          <li><span class="ck">✓</span> 한정 의상 · 특별 이벤트</li>
+          <li><span class="ck">✓</span> 신규 기능 우선 체험</li>
+        </ul>
+        <span class="warmtag">🔥 하루 4회 최대치까지 자동 회복</span>
+      </div>
+    </div>
+
+    <div class="footbar">
+      <div class="cta">👑 Warm Signature 시작하기</div>
+      <p>구독은 언제든 해지할 수 있어요 · 자동 갱신</p>
+    </div>
+  </div>
+</div>
+<script src="../assets/ui.js"></script>
+</body>
+</html>

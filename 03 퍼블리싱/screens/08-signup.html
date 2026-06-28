@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="../css/app.css">
 <style>
   .app { background: linear-gradient(180deg, #ece2fb 0%, #f1e8f7 100%); }
+  html[data-theme="dark"] .app { background: linear-gradient(180deg, #1f1740 0%, #140e2b 100%); }
+  html[data-theme="dark"] .sheet { background: var(--card); }
+  html[data-theme="dark"] .soc, html[data-theme="dark"] .g { background: var(--card-soft); border-color: var(--line); }
   .scrollbody { display:flex; flex-direction:column; }
   .topbar { display:flex; align-items:center; gap:10px; padding: 2px 20px 0; }
   .topbar .back { width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.6); }
@@ -49,7 +52,7 @@
       <div class="topbar"><span class="back">‹</span></div>
       <div class="hero">
         <div class="brand"><span class="bi"><span class="heart"></span></span> AI Boyfriend</div>
-        <div class="photo night"><svg class="ava-svg" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg></div>
+        <div class="photo" style="background:#e8e0f5 url('../assets/img/login-model.jpg') center 16%/cover"></div>
         <h1 class="htitle">새로운 이야기를<br>시작해볼까요? 💜</h1>
         <p class="hsub">AI 남자친구와의 특별한 관계를 만들어보세요</p>
       </div>

@@ -6,42 +6,42 @@
 <title>25 데이트 장소</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: radial-gradient(100% 35% at 50% 0%, #241a45 0%, #160f30 50%, #120c26 100%); color:var(--ink-on-dark); }
+  .app { background: var(--bg-light); color: var(--ink); }
   .scrollbody { padding: 0 16px 80px; }
   .cats { display:flex; gap:14px; overflow-x:auto; padding: 4px 2px 14px; }
   .cats::-webkit-scrollbar { height:0; }
   .cat { flex:none; text-align:center; }
-  .cat .ci { width:48px; height:48px; border-radius:16px; background:var(--card-dark); border:1px solid var(--line-dark); display:grid; place-items:center; font-size:20px; margin:0 auto 6px; }
+  .cat .ci { width:48px; height:48px; border-radius:16px; background:var(--card); border:1px solid var(--line); display:grid; place-items:center; font-size:20px; margin:0 auto 6px; }
   .cat.on .ci { background:var(--grad-cta); border-color:transparent; }
-  .cat span { font-size:9.5px; color:var(--ink-on-dark-2); }
-  .cat.on span { color:var(--purple-300); font-weight:700; }
+  .cat span { font-size:9.5px; color:var(--ink-2); }
+  .cat.on span { color:var(--purple-500); font-weight:700; }
   .filters { display:flex; gap:7px; overflow-x:auto; padding-bottom:14px; }
   .filters::-webkit-scrollbar { height:0; }
-  .fchip { flex:none; font-size:11px; font-weight:700; padding:6px 12px; border-radius:999px; background:var(--card-dark); border:1px solid var(--line-dark); color:var(--ink-on-dark-2); display:flex; align-items:center; gap:4px; }
-  .fchip.on { background:rgba(167,139,250,.2); border-color:var(--purple-400); color:var(--purple-300); }
-  .place { display:flex; gap:12px; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:18px; padding:11px; margin-bottom:11px; }
+  .fchip { flex:none; font-size:11px; font-weight:700; padding:6px 12px; border-radius:999px; background:var(--card); border:1px solid var(--line); color:var(--ink-2); display:flex; align-items:center; gap:4px; }
+  .fchip.on { background:rgba(167,139,250,.2); border-color:var(--purple-400); color:var(--purple-500); }
+  .place { display:flex; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:11px; margin-bottom:11px; }
   .place .pic { width:96px; height:96px; border-radius:14px; flex:none; }
   .place .info { flex:1; min-width:0; }
   .place .rate { font-size:10.5px; color:#ffd479; font-weight:800; }
-  .place .rate span { color:var(--ink-on-dark-2); font-weight:600; }
+  .place .rate span { color:var(--ink-2); font-weight:600; }
   .place h4 { font-size:14px; font-weight:800; margin:3px 0; display:flex; align-items:center; gap:6px; }
-  .place .bm { margin-left:auto; color:var(--ink-on-dark-2); }
-  .place .loc { font-size:10.5px; color:var(--ink-on-dark-2); }
+  .place .bm { margin-left:auto; color:var(--ink-2); }
+  .place .loc { font-size:10.5px; color:var(--ink-2); }
   .place .tags { display:flex; gap:5px; margin-top:7px; flex-wrap:wrap; }
-  .place .t { font-size:9px; font-weight:700; padding:3px 8px; border-radius:999px; background:rgba(167,139,250,.16); color:var(--purple-300); }
+  .place .t { font-size:9px; font-weight:700; padding:3px 8px; border-radius:999px; background:rgba(167,139,250,.16); color:var(--purple-500); }
   .place .want { display:flex; align-items:center; gap:5px; font-size:10px; color:#f4a6d2; font-weight:800; margin-top:8px; }
-  .place .want .wbar { flex:1; height:5px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; max-width:90px; }
+  .place .want .wbar { flex:1; height:5px; border-radius:999px; background:var(--purple-100); overflow:hidden; max-width:90px; }
   .place .want .wbar i { display:block; height:100%; background:linear-gradient(90deg,#f4a6d2,#c4a0f0); }
-  .actionbar { position:absolute; left:0; right:0; bottom:0; padding:11px 16px 18px; background:rgba(22,15,46,.92); backdrop-filter:blur(12px); border-top:1px solid var(--line-dark); display:flex; align-items:center; gap:10px; }
-  .actionbar p { font-size:11px; color:var(--ink-on-dark-2); }
+  .actionbar { position:absolute; left:0; right:0; bottom:0; padding:11px 16px 18px; background:var(--card); backdrop-filter:blur(12px); border-top:1px solid var(--line); display:flex; align-items:center; gap:10px; }
+  .actionbar p { font-size:11px; color:var(--ink-2); }
   .actionbar .b { margin-left:auto; background:var(--grad-cta); color:#fff; font-size:12px; font-weight:800; padding:11px 16px; border-radius:14px; }
 </style>
 </head>
 <body class="screen">
 <div class="phone scroll">
-  <div class="app dark">
-    <div class="statusbar on-dark"></div>
-    <div class="appbar on-dark" style="justify-content:space-between"><span class="ab-btn">‹</span><span>데이트 장소 💜</span><span style="font-size:12px;color:var(--purple-300)">🗺️ 지도</span></div>
+  <div class="app">
+    <div class="statusbar"></div>
+    <div class="appbar" style="justify-content:space-between"><span class="ab-btn">‹</span><span>데이트 장소 💜</span><span style="font-size:12px;color:var(--purple-500)">🗺️ 지도</span></div>
     <div class="scrollbody">
       <div class="cats">
         <div class="cat on"><div class="ci">💜</div><span>전체</span></div>
