@@ -6,48 +6,48 @@
 <title>24 3D 모델 뷰어</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: radial-gradient(90% 50% at 50% 30%, #241a45 0%, #160f30 60%, #110b24 100%); color:var(--ink-on-dark); }
+  .app { background: radial-gradient(90% 50% at 50% 30%, #241a45 0%, #160f30 60%, #110b24 100%); color:var(--ink); }
   .scrollbody { padding: 0 16px 18px; }
-  .stage { position:relative; height:330px; margin: 4px 0; border-radius:22px; overflow:hidden; border:1px solid var(--line-dark);
+  .stage { position:relative; height:330px; margin: 4px 0; border-radius:22px; overflow:hidden; border:1px solid var(--line);
       background: radial-gradient(70% 55% at 50% 38%, rgba(167,139,250,.30), transparent 62%), linear-gradient(160deg,#3a2c5e,#211940); }
   .strip { position:absolute; top:6px; display:flex; flex-direction:column; gap:8px; z-index:2; }
   .strip.l { left:0; } .strip.r { right:0; }
-  .strip .lbl { font-size:9px; color:var(--ink-on-dark-2); text-align:center; font-weight:700; margin-bottom:1px; }
-  .th { width:46px; height:46px; border-radius:12px; background:var(--card-dark); border:1px solid var(--line-dark); display:grid; place-items:center; font-size:17px; }
+  .strip .lbl { font-size:9px; color:var(--ink-2); text-align:center; font-weight:700; margin-bottom:1px; }
+  .th { width:46px; height:46px; border-radius:12px; background:var(--surface-2); border:1px solid var(--line); display:grid; place-items:center; font-size:17px; }
   .th.on { border-color:var(--purple-400); box-shadow:0 0 14px rgba(167,139,250,.5); }
   #m3d { position:absolute; inset:0; width:100%; height:100%; z-index:0; display:block; touch-action:none; cursor:grab; }
   #m3d:active { cursor:grabbing; }
   .v3d-badge { position:absolute; left:10px; bottom:9px; z-index:2; font-size:9px; font-weight:800; color:#fff;
       background:rgba(167,139,250,.35); border:1px solid rgba(167,139,250,.5); padding:3px 9px; border-radius:999px; backdrop-filter:blur(6px); }
-  .hint { text-align:center; font-size:10.5px; color:var(--ink-on-dark-2); margin:2px 0 14px; }
-  .panel { background:var(--card-dark); border:1px solid var(--line-dark); border-radius:18px; padding:14px; }
+  .hint { text-align:center; font-size:10.5px; color:var(--ink-2); margin:2px 0 14px; }
+  .panel { background:var(--surface-2); border:1px solid var(--line); border-radius:18px; padding:14px; }
   .panel .prow { display:flex; gap:12px; }
   .ctl { flex:1; }
-  .ctl .ct { font-size:10px; color:var(--ink-on-dark-2); margin-bottom:8px; font-weight:700; }
-  .joy { width:70px; height:70px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid var(--line-dark); display:grid; place-items:center; margin:0 auto; position:relative; }
+  .ctl .ct { font-size:10px; color:var(--ink-2); margin-bottom:8px; font-weight:700; }
+  .joy { width:70px; height:70px; border-radius:50%; background:rgba(255,255,255,.05); border:1px solid var(--line); display:grid; place-items:center; margin:0 auto; position:relative; }
   .joy .nub { width:26px; height:26px; border-radius:50%; background:var(--grad-cta); }
-  .joy .arrow { position:absolute; color:var(--ink-on-dark-2); font-size:10px; }
+  .joy .arrow { position:absolute; color:var(--ink-2); font-size:10px; }
   .zoom { height:70px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
   .zoom .vbar { width:6px; flex:1; margin:6px 0; border-radius:999px; background:rgba(255,255,255,.08); position:relative; }
   .zoom .vbar b { position:absolute; left:50%; top:40%; transform:translate(-50%,-50%); width:16px; height:16px; border-radius:50%; background:var(--purple-400); }
   .bgs { display:flex; gap:7px; }
-  .bgs .b { width:34px; height:34px; border-radius:10px; border:1px solid var(--line-dark); }
+  .bgs .b { width:34px; height:34px; border-radius:10px; border:1px solid var(--line); }
   .bgs .b.on { border-color:var(--purple-400); }
-  .anim { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.05); border:1px solid var(--line-dark); border-radius:12px; padding:10px 12px; margin-top:12px; font-size:12px; }
+  .anim { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.05); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-top:12px; font-size:12px; }
   .anim .pl { width:24px; height:24px; border-radius:50%; background:var(--grad-cta); display:grid; place-items:center; font-size:11px; }
   .infos { display:flex; gap:10px; margin-top:12px; }
-  .ic2 { flex:1; background:var(--card-dark); border:1px solid var(--line-dark); border-radius:14px; padding:12px; }
+  .ic2 { flex:1; background:var(--surface-2); border:1px solid var(--line); border-radius:14px; padding:12px; }
   .ic2 h4 { font-size:11px; font-weight:800; margin-bottom:7px; }
-  .ic2 .ir { display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-on-dark-2); padding:2px 0; }
+  .ic2 .ir { display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-2); padding:2px 0; }
   .ic2 .ir b { color:#fff; font-weight:700; }
   .regen { display:flex; align-items:center; justify-content:center; gap:7px; height:46px; border-radius:14px; background:var(--grad-cta); color:#fff; font-weight:800; font-size:13px; margin-top:12px; box-shadow:var(--shadow-cta); }
 </style>
 </head>
-<body class="screen">
+<body class="screen" data-immersive>
 <div class="phone scroll">
   <div class="app dark">
     <div class="statusbar on-dark"></div>
-    <div class="appbar on-dark" style="justify-content:space-between"><span class="ab-btn">‹</span><span>3D 모델 뷰어 🧊</span><span style="font-size:12px;color:var(--ink-on-dark-2)">⤴ 공유</span></div>
+    <div class="appbar on-dark" style="justify-content:space-between"><span class="ab-btn">‹</span><span>3D 모델 뷰어 🧊</span><span style="font-size:12px;color:var(--ink-2)">⤴ 공유</span></div>
     <div class="scrollbody">
       <div class="stage">
         <div class="strip l">
@@ -82,7 +82,7 @@
             </div>
           </div>
         </div>
-        <div class="anim"><span class="pl">▶</span> 애니메이션 · <b style="margin-left:2px">손인사</b> <span style="margin-left:auto;color:var(--ink-on-dark-2)">▾</span></div>
+        <div class="anim"><span class="pl">▶</span> 애니메이션 · <b style="margin-left:2px">손인사</b> <span style="margin-left:auto;color:var(--ink-2)">▾</span></div>
       </div>
 
       <div class="infos">

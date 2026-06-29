@@ -6,20 +6,20 @@
 <title>25 데이트 장소</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: var(--bg-light); color: var(--ink); }
+  .app { background: var(--bg); color: var(--ink); }
   .scrollbody { padding: 0 16px 80px; }
   .cats { display:flex; gap:14px; overflow-x:auto; padding: 4px 2px 14px; }
   .cats::-webkit-scrollbar { height:0; }
   .cat { flex:none; text-align:center; }
-  .cat .ci { width:48px; height:48px; border-radius:16px; background:var(--card); border:1px solid var(--line); display:grid; place-items:center; font-size:20px; margin:0 auto 6px; }
+  .cat .ci { width:48px; height:48px; border-radius:16px; background:var(--surface); border:1px solid var(--line); display:grid; place-items:center; font-size:20px; margin:0 auto 6px; }
   .cat.on .ci { background:var(--grad-cta); border-color:transparent; }
   .cat span { font-size:9.5px; color:var(--ink-2); }
   .cat.on span { color:var(--purple-500); font-weight:700; }
   .filters { display:flex; gap:7px; overflow-x:auto; padding-bottom:14px; }
   .filters::-webkit-scrollbar { height:0; }
-  .fchip { flex:none; font-size:11px; font-weight:700; padding:6px 12px; border-radius:999px; background:var(--card); border:1px solid var(--line); color:var(--ink-2); display:flex; align-items:center; gap:4px; }
+  .fchip { flex:none; font-size:11px; font-weight:700; padding:6px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--ink-2); display:flex; align-items:center; gap:4px; }
   .fchip.on { background:rgba(167,139,250,.2); border-color:var(--purple-400); color:var(--purple-500); }
-  .place { display:flex; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:11px; margin-bottom:11px; }
+  .place { display:flex; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:11px; margin-bottom:11px; }
   .place .pic { width:96px; height:96px; border-radius:14px; flex:none; }
   .place .info { flex:1; min-width:0; }
   .place .rate { font-size:10.5px; color:#ffd479; font-weight:800; }
@@ -32,7 +32,7 @@
   .place .want { display:flex; align-items:center; gap:5px; font-size:10px; color:#f4a6d2; font-weight:800; margin-top:8px; }
   .place .want .wbar { flex:1; height:5px; border-radius:999px; background:var(--purple-100); overflow:hidden; max-width:90px; }
   .place .want .wbar i { display:block; height:100%; background:linear-gradient(90deg,#f4a6d2,#c4a0f0); }
-  .actionbar { position:absolute; left:0; right:0; bottom:0; padding:11px 16px 18px; background:var(--card); backdrop-filter:blur(12px); border-top:1px solid var(--line); display:flex; align-items:center; gap:10px; }
+  .actionbar { position:absolute; left:0; right:0; bottom:0; padding:11px 16px 18px; background:var(--surface); backdrop-filter:blur(12px); border-top:1px solid var(--line); display:flex; align-items:center; gap:10px; }
   .actionbar p { font-size:11px; color:var(--ink-2); }
   .actionbar .b { margin-left:auto; background:var(--grad-cta); color:#fff; font-size:12px; font-weight:800; padding:11px 16px; border-radius:14px; }
 </style>

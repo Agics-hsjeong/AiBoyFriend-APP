@@ -1,19 +1,115 @@
 /* 공통 UI 조각 주입 — 테마 / 상태바 / 하단 탭바 */
 (function () {
   /* ---------- 테마 적용 ----------
-     우선순위: ?theme= (URL) > localStorage('nmp-theme') > 기본 'light'
-     <body data-immersive> 화면(통화·첫만남·생성중·3D뷰어 등)은 항상 dark 고정 */
+     모드: system | light | dark  (localStorage 'nmp-theme-mode', 기본 system)
+     우선순위: ?theme= (URL, effective) > 모드 설정
+     ?themeMode= (URL) — 모드 프리뷰용
+     <body data-immersive> — B그룹 몰입형, 항상 dark 고정
+     포인트 컬러: html[data-accent="purple|pink|blue|green"] */
   (function applyTheme() {
-    var stored = null;
-    try { stored = localStorage.getItem('nmp-theme'); } catch (e) {}
-    var urlTheme = new URLSearchParams(location.search).get('theme');
+    var KEY_MODE = 'nmp-theme-mode';
+    var KEY_ACCENT = 'nmp-accent';
+    var LEGACY = 'nmp-theme';
     var immersive = document.body && document.body.hasAttribute('data-immersive');
-    var theme = immersive ? 'dark' : (urlTheme || stored || 'light');
-    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
-    window.setTheme = function (t) {
-      try { localStorage.setItem('nmp-theme', t); } catch (e) {}
-      if (!immersive) document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+
+    function systemPrefersDark() {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    function getStoredMode() {
+      var mode = null;
+      try { mode = localStorage.getItem(KEY_MODE); } catch (e) {}
+      if (mode === 'system' || mode === 'light' || mode === 'dark') return mode;
+      try {
+        var legacy = localStorage.getItem(LEGACY);
+        if (legacy === 'light' || legacy === 'dark') return legacy;
+      } catch (e2) {}
+      return 'system';
+    }
+
+    function resolveEffective(mode) {
+      if (mode === 'dark') return 'dark';
+      if (mode === 'light') return 'light';
+      return systemPrefersDark() ? 'dark' : 'light';
+    }
+
+    function getStoredAccent() {
+      var a = null;
+      try { a = localStorage.getItem(KEY_ACCENT); } catch (e) {}
+      if (a === 'purple' || a === 'pink' || a === 'blue' || a === 'green') return a;
+      return 'purple';
+    }
+
+    function paintTheme(mode) {
+      var urlTheme = new URLSearchParams(location.search).get('theme');
+      var effective = immersive ? 'dark' : (urlTheme === 'dark' || urlTheme === 'light' ? urlTheme : resolveEffective(mode));
+      document.documentElement.setAttribute('data-theme', effective);
+      return effective;
+    }
+
+    function paintAccent(accent) {
+      document.documentElement.setAttribute('data-accent', accent);
+    }
+
+    var urlMode = new URLSearchParams(location.search).get('themeMode');
+    var themeMode = (urlMode === 'system' || urlMode === 'light' || urlMode === 'dark') ? urlMode : getStoredMode();
+    var accent = getStoredAccent();
+
+    paintAccent(accent);
+    paintTheme(themeMode);
+
+    window.getThemeMode = function () { return themeMode; };
+    window.getEffectiveTheme = function () {
+      return document.documentElement.getAttribute('data-theme') || 'light';
     };
+    window.getAccent = function () { return accent; };
+
+    window.setThemeMode = function (mode) {
+      if (mode !== 'system' && mode !== 'light' && mode !== 'dark') return;
+      themeMode = mode;
+      try {
+        localStorage.setItem(KEY_MODE, mode);
+        localStorage.removeItem(LEGACY);
+      } catch (e) {}
+      paintTheme(themeMode);
+      syncThemeSettingsUI();
+    };
+
+    window.setAccent = function (name) {
+      if (name !== 'purple' && name !== 'pink' && name !== 'blue' && name !== 'green') return;
+      accent = name;
+      try { localStorage.setItem(KEY_ACCENT, name); } catch (e) {}
+      paintAccent(accent);
+      syncThemeSettingsUI();
+    };
+
+    /* 구 API 호환 */
+    window.setTheme = function (t) {
+      window.setThemeMode(t === 'dark' ? 'dark' : 'light');
+    };
+
+    if (window.matchMedia && !immersive) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        if (themeMode === 'system') paintTheme(themeMode);
+      });
+    }
+
+    function syncThemeSettingsUI() {
+      var seg = document.querySelector('.theme-seg');
+      if (seg) {
+        seg.querySelectorAll('button').forEach(function (b) {
+          b.classList.toggle('on', b.getAttribute('data-mode') === themeMode);
+        });
+      }
+      var colors = document.querySelector('.accent-colors');
+      if (colors) {
+        colors.querySelectorAll('i').forEach(function (sw) {
+          sw.classList.toggle('on', sw.getAttribute('data-accent') === accent);
+        });
+      }
+    }
+    window.syncThemeSettingsUI = syncThemeSettingsUI;
+    syncThemeSettingsUI();
   })();
 
   var STATUS =
@@ -85,7 +181,6 @@
   ];
 
   function buildNav() {
-    // 갤러리(iframe) 안이나 화면 페이지가 아니면 표시하지 않음
     if (window.self !== window.top) return;
     if (!document.body.classList.contains('screen')) return;
 
@@ -124,7 +219,6 @@
   function inGallery() { return window.self !== window.top; }
   function nowTime() { var d = new Date(); var h = d.getHours(), m = d.getMinutes(); return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m; }
 
-  // 단일 선택 그룹: [그룹 셀렉터, 아이템 셀렉터, 활성 클래스]
   var PICK = [
     ['.opt-grid', '.opt', 'on'],
     ['.opts', '.voice', 'on'],
@@ -132,7 +226,6 @@
     ['.cattabs', '.chip', 'on'],
     ['.tabs', '.chip', 'on'],
     ['.cats', '.cat', 'on'],
-    ['.colors', 'i', 'on'],
     ['.tabbar', '.tab', 'active'],
     ['.strip', '.th', 'on'],
     ['.bgs', '.b', 'on']
@@ -158,7 +251,17 @@
   }
 
   document.addEventListener('click', function (e) {
-    // 토글류
+    var themeBtn = e.target.closest('.theme-seg button');
+    if (themeBtn && window.setThemeMode) {
+      window.setThemeMode(themeBtn.getAttribute('data-mode'));
+      return;
+    }
+    var accentSwatch = e.target.closest('.accent-colors i');
+    if (accentSwatch && window.setAccent) {
+      window.setAccent(accentSwatch.getAttribute('data-accent'));
+      return;
+    }
+
     var tog = e.target.closest('.toggle');
     if (tog) { tog.classList.toggle('off'); return; }
     var fchip = e.target.closest('.filters .fchip');
@@ -167,13 +270,10 @@
     if (like) { like.classList.toggle('liked'); return; }
     var bm = e.target.closest('.place .bm');
     if (bm) { bm.classList.toggle('saved'); return; }
-    // 채팅 빠른 답장
     var qc = e.target.closest('.quick .qc');
     if (qc) { sendChat(qc.textContent.trim()); return; }
-    // 음성 미리듣기 ▶ → 웨이브 애니메이션
     var play = e.target.closest('.voice .play');
     if (play) { var wc = document.querySelector('.wave-card'); if (wc) wc.classList.add('playing'); }
-    // 단일 선택 그룹
     for (var i = 0; i < PICK.length; i++) {
       var item = e.target.closest(PICK[i][1]);
       if (!item) continue;
@@ -186,7 +286,6 @@
     }
   });
 
-  // 슬라이더 드래그 (성격 단계 등)
   document.querySelectorAll('.slider .track').forEach(function (track) {
     var fill = track.querySelector('i'), thumb = track.querySelector('b');
     var sl = track.closest('.slider'), pctEl = sl && sl.querySelector('.pct');
@@ -203,7 +302,6 @@
     window.addEventListener('pointerup', function () { drag = false; });
   });
 
-  // 음성 통화 화면: 웨이브 상시 재생 (썸네일에서는 정지)
   if (!inGallery()) {
     var cw = document.querySelector('.layer .wave');
     if (cw) cw.classList.add('playing');

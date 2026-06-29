@@ -86,21 +86,42 @@
 
 ## 5. 구현 방식 (퍼블리싱/Flutter 공통 가이드)
 
+> **단일 소스:** 시맨틱 토큰 정의는 `03 퍼블리싱/css/app.css` `:root` / `html[data-theme="dark"]` 와 동일하게 유지한다.
+
 ### 웹 퍼블리싱
-- 루트(`<html>` 또는 `.app`)에 `data-theme="light" | "dark"` 속성.
-- 모든 색상은 위 **CSS 변수**로만 사용(하드코딩 금지). 테마 전환 시 변수만 교체.
+- 루트(`<html>`)에 `data-theme="light" | "dark"` 속성.
+- 모든 색상은 §3 **CSS 변수(시맨틱 토큰)** 로만 사용(하드코딩 금지). 테마 전환 시 변수만 교체.
 ```css
-:root, [data-theme="light"] { --bg:#f3f0fb; --surface:#fff; --ink:#2a2440; /* ... */ }
-[data-theme="dark"]        { --bg:#140e2b; --surface:#211a40; --ink:#f4f1ff; /* ... */ }
+:root { --bg:#f3f0fb; --surface:#fff; --ink:#2a2440; /* ... */ }
+html[data-theme="dark"] { --bg:#140e2b; --surface:#211a40; --ink:#f4f1ff; /* ... */ }
 .app { background: var(--bg); color: var(--ink); }
-.card { background: var(--surface); border-color: var(--line); }
+.card { background: var(--surface); border-color: var(--line); } /* .card = 컴포넌트 클래스 */
 ```
-- 몰입형 화면은 `data-theme="dark"` 고정.
+- **몰입형(B그룹)** 화면: `<body data-immersive>` + `ui.js`가 `data-theme="dark"` 고정. `.app.dark`로 시맨틱 토큰 로컬 오버라이드 병행.
+- **탭바:** `background: var(--tabbar)` — 라이트/다크 값은 토큰으로 관리.
+- **테마 모드 저장:** `localStorage('nmp-theme-mode')` = `system` | `light` | `dark` (기본 `system`). OS 다크 모드 변경 시 `system` 모드는 `prefers-color-scheme` 리스너로 자동 반영.
+- **포인트 컬러:** `html[data-accent="purple|pink|blue|green"]` + `localStorage('nmp-accent')`. `--brand` / `--grad-cta` / `--purple-*` 스케일 연동.
+- **설정 UI:** `26-settings.html` — 테마 3-way 세그먼트 + 색상 스와치 (`setThemeMode` / `setAccent` API, `assets/ui.js`).
+
+#### (구) 퍼블리싱 토큰 → 통일명 매핑
+
+| 구 이름 | 통일명 | 비고 |
+|---------|--------|------|
+| `--bg-light` | `--bg` | |
+| `--card` | `--surface` | CSS 클래스 `.card`와 별개 |
+| `--card-soft` | `--surface-2` | |
+| `--bg-dark` | `--bg` | `html[data-theme="dark"]` 또는 `.app.dark` |
+| `--card-dark` | `--surface-2` | 다크 글래스 |
+| `--line-dark` | `--line` | |
+| `--ink-on-dark` | `--ink` | `.app.dark` 내부에서 참조 |
+| `--ink-on-dark-2` | `--ink-2` | `.app.dark` 내부에서 참조 |
 
 ### Flutter
-- `ThemeData(light)` / `ThemeData(dark)` 정의, `ThemeMode`(system/light/dark)로 전환.
-- 색상은 `ColorScheme` + 위 토큰 매핑. `Theme.of(context).colorScheme` 로만 참조.
-- 테마 설정값은 `SharedPreferences`(로컬) + 사용자 문서(서버) 저장.
+- `ThemeData(light)` / `ThemeData(dark)` 정의, `ThemeMode.system` / `.light` / `.dark` 로 전환 (기본 `system`).
+- 색상은 `ColorScheme` + §3 토큰 매핑. 시맨틱 확장(`ThemeExtension`)으로 `--surface-2`, `--ink-3`, `--tabbar` 등 추가.
+- **포인트 컬러:** `AccentColor` enum → `ColorScheme.primary` / CTA gradient.
+- B그룹 화면: `Theme(data: AppTheme.darkFixed, child: ...)` 로 감싸 사용자 `ThemeMode`와 무관하게 다크 유지.
+- 테마 설정값은 `SharedPreferences`(로컬) + 사용자 문서(서버) 저장. 키: `theme_mode`, `accent_color`.
 
 ---
 

@@ -64,7 +64,7 @@
     <div class="stat"><span><b>29</b> Screens</span><span><b>10</b> Flows</span><span>HTML / CSS</span></div>
   </div>
 
-  <button id="themeBtn" class="theme-btn">🌙 다크</button>
+  <button id="themeBtn" class="theme-btn">⚙️ 시스템</button>
 
   <div class="wrap" id="wrap"></div>
 
@@ -123,8 +123,30 @@
     ]],
   ];
 
-  let THEME = (function(){ try { return localStorage.getItem("nmp-theme") || "light"; } catch(e){ return "light"; } })();
-  document.documentElement.setAttribute("data-theme", THEME);
+  let THEME_MODE = (function(){
+    try {
+      var m = localStorage.getItem("nmp-theme-mode");
+      if (m === "system" || m === "light" || m === "dark") return m;
+      var legacy = localStorage.getItem("nmp-theme");
+      if (legacy === "light" || legacy === "dark") return legacy;
+    } catch(e){}
+    return "system";
+  })();
+
+  function resolveTheme(mode) {
+    if (mode === "dark") return "dark";
+    if (mode === "light") return "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  let EFFECTIVE = resolveTheme(THEME_MODE);
+  document.documentElement.setAttribute("data-theme", EFFECTIVE);
+  (function(){
+    try {
+      var a = localStorage.getItem("nmp-accent");
+      if (a) document.documentElement.setAttribute("data-accent", a);
+    } catch(e){}
+  })();
 
   const wrap = document.getElementById("wrap");
   sections.forEach(([sn, stitle, items]) => {
@@ -137,31 +159,42 @@
     items.forEach(([num, name, file]) => {
       const a = document.createElement("a");
       a.className = "item";
-      a.href = "screens/" + file + "?theme=" + THEME;
+      a.href = "screens/" + file + "?themeMode=" + THEME_MODE;
       a.target = "_blank";
       a.innerHTML =
-        `<div class="thumb"><iframe loading="lazy" src="screens/${file}?theme=${THEME}" scrolling="no"></iframe></div>` +
+        `<div class="thumb"><iframe loading="lazy" src="screens/${file}?themeMode=${THEME_MODE}" scrolling="no"></iframe></div>` +
         `<div class="cap"><span class="num">${num}</span><b>${name}</b></div>`;
       grid.appendChild(a);
     });
     wrap.appendChild(grid);
   });
 
-  // 테마 토글
+  const MODE_LABELS = { system: "⚙️ 시스템", light: "☀️ 라이트", dark: "🌙 다크" };
+  const MODE_CYCLE = ["system", "light", "dark"];
   const tbtn = document.getElementById("themeBtn");
-  function paintBtn(){ tbtn.textContent = THEME === "dark" ? "☀️ 라이트" : "🌙 다크"; }
+  function paintBtn(){ tbtn.textContent = MODE_LABELS[THEME_MODE] || THEME_MODE; }
   paintBtn();
   tbtn.addEventListener("click", () => {
-    THEME = THEME === "dark" ? "light" : "dark";
-    try { localStorage.setItem("nmp-theme", THEME); } catch(e){}
-    document.documentElement.setAttribute("data-theme", THEME);
+    const idx = MODE_CYCLE.indexOf(THEME_MODE);
+    THEME_MODE = MODE_CYCLE[(idx + 1) % MODE_CYCLE.length];
+    EFFECTIVE = resolveTheme(THEME_MODE);
+    try {
+      localStorage.setItem("nmp-theme-mode", THEME_MODE);
+      localStorage.removeItem("nmp-theme");
+    } catch(e){}
+    document.documentElement.setAttribute("data-theme", EFFECTIVE);
     paintBtn();
     document.querySelectorAll(".item").forEach(a => {
       const file = a.getAttribute("href").split("?")[0].replace("screens/","");
-      a.href = "screens/" + file + "?theme=" + THEME;
+      a.href = "screens/" + file + "?themeMode=" + THEME_MODE;
       const f = a.querySelector("iframe");
-      f.src = "screens/" + file + "?theme=" + THEME;
+      f.src = "screens/" + file + "?themeMode=" + THEME_MODE;
     });
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (THEME_MODE !== "system") return;
+    EFFECTIVE = resolveTheme(THEME_MODE);
+    document.documentElement.setAttribute("data-theme", EFFECTIVE);
   });
 </script>
 </body>

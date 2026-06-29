@@ -5,16 +5,21 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 
 :root {
-  /* Brand */
+  /* Brand — 08 THEME_SYSTEM.md §3 */
+  --brand: #8b5cf6;
+  --brand-2: #c084fc;
+  --accent: #f472b6;
+
+  /* Extended palette (컴포넌트용) */
   --purple-50: #f5f3ff;
   --purple-100: #ede9fe;
   --purple-200: #ddd6fe;
   --purple-300: #c4b5fd;
   --purple-400: #a78bfa;
-  --purple-500: #8b5cf6;
+  --purple-500: var(--brand);
   --purple-600: #7c3aed;
   --pink-300: #f9a8d4;
-  --pink-400: #f472b6;
+  --pink-400: var(--accent);
   --pink-500: #ec4899;
 
   /* Gradients */
@@ -23,24 +28,15 @@
   --grad-hero: linear-gradient(180deg, #2b2150 0%, #4a2f6e 55%, #7a4a8c 100%);
   --grad-dark: linear-gradient(180deg, #1a1334 0%, #241a45 100%);
 
-  /* Light surfaces */
-  --bg-light: #f3f0fb;
-  --card: #ffffff;
-  --card-soft: #faf8ff;
+  /* Semantic — light (기본) */
+  --bg: #f3f0fb;
+  --surface: #ffffff;
+  --surface-2: #faf8ff;
   --line: #ece7f7;
-
-  /* Dark surfaces */
-  --bg-dark: #140e2b;
-  --card-dark: rgba(255, 255, 255, 0.06);
-  --card-dark-solid: #211a40;
-  --line-dark: rgba(255, 255, 255, 0.08);
-
-  /* Text */
   --ink: #2a2440;
   --ink-2: #6b6385;
   --ink-3: #a7a0bd;
-  --ink-on-dark: #f4f1ff;
-  --ink-on-dark-2: #b8b0d6;
+  --tabbar: rgba(255, 255, 255, 0.92);
 
   /* Effects */
   --r-sm: 12px;
@@ -53,21 +49,74 @@
 }
 
 /* ============================================================
-   다크 테마 — 라이트 표면 토큰을 다크로 전환 (data-theme="dark")
-   토큰(var(--bg-light/--card/--line/--ink ...))을 쓰는 화면은 자동 전환
+   다크 테마 — 시맨틱 토큰 교체 (data-theme="dark")
+   토큰(var(--bg/--surface/--line/--ink ...))을 쓰는 화면은 자동 전환
    ============================================================ */
 html[data-theme="dark"] {
-  --bg-light: #140e2b;
-  --card: #211a40;
-  --card-soft: #2a2148;
-  --line: rgba(255, 255, 255, 0.09);
+  --bg: #140e2b;
+  --surface: #211a40;
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.08);
   --ink: #f4f1ff;
   --ink-2: #b8b0d6;
   --ink-3: #8b83a8;
+  --tabbar: rgba(24, 18, 46, 0.92);
   --purple-50: #241c40;
   --purple-100: #2f2552;
   --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
   --shadow-float: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ============================================================
+   포인트 컬러 프리셋 — html[data-accent]
+   ============================================================ */
+html[data-accent="pink"] {
+  --brand: #ec4899;
+  --brand-2: #f472b6;
+  --accent: #fb7185;
+  --purple-50: #fdf2f8;
+  --purple-100: #fce7f3;
+  --purple-200: #fbcfe8;
+  --purple-300: #f9a8d4;
+  --purple-400: #f472b6;
+  --purple-500: #ec4899;
+  --purple-600: #db2777;
+  --grad-cta: linear-gradient(135deg, #f472b6 0%, #ec4899 45%, #fda4af 100%);
+  --grad-heart: linear-gradient(135deg, #f9a8d4 0%, #fda4af 100%);
+  --shadow-cta: 0 12px 26px rgba(236, 72, 153, 0.45);
+  --shadow-card: 0 10px 30px rgba(236, 72, 153, 0.1);
+}
+html[data-accent="blue"] {
+  --brand: #3b82f6;
+  --brand-2: #60a5fa;
+  --accent: #38bdf8;
+  --purple-50: #eff6ff;
+  --purple-100: #dbeafe;
+  --purple-200: #bfdbfe;
+  --purple-300: #93c5fd;
+  --purple-400: #60a5fa;
+  --purple-500: #3b82f6;
+  --purple-600: #2563eb;
+  --grad-cta: linear-gradient(135deg, #60a5fa 0%, #3b82f6 45%, #7dd3fc 100%);
+  --grad-heart: linear-gradient(135deg, #93c5fd 0%, #7dd3fc 100%);
+  --shadow-cta: 0 12px 26px rgba(59, 130, 246, 0.45);
+  --shadow-card: 0 10px 30px rgba(59, 130, 246, 0.1);
+}
+html[data-accent="green"] {
+  --brand: #10b981;
+  --brand-2: #34d399;
+  --accent: #6ee7b7;
+  --purple-50: #ecfdf5;
+  --purple-100: #d1fae5;
+  --purple-200: #a7f3d0;
+  --purple-300: #6ee7b7;
+  --purple-400: #34d399;
+  --purple-500: #10b981;
+  --purple-600: #059669;
+  --grad-cta: linear-gradient(135deg, #34d399 0%, #10b981 45%, #6ee7b7 100%);
+  --grad-heart: linear-gradient(135deg, #6ee7b7 0%, #a7f3d0 100%);
+  --shadow-cta: 0 12px 26px rgba(16, 185, 129, 0.45);
+  --shadow-card: 0 10px 30px rgba(16, 185, 129, 0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -95,7 +144,7 @@ body.screen {
   height: 844px;
   border-radius: 44px;
   overflow: hidden;
-  background: var(--bg-light);
+  background: var(--bg);
   box-shadow: 0 30px 80px rgba(40, 25, 80, 0.35), 0 0 0 11px #0f0b1e, 0 0 0 12px #2a2440;
 }
 .phone.scroll .app { overflow-y: auto; }
@@ -118,9 +167,20 @@ body.screen {
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: var(--bg-light);
+  background: var(--bg);
 }
-.app.dark { background: var(--bg-dark); color: var(--ink-on-dark); }
+/* 몰입형(B그룹) — 사용자 테마와 무관하게 다크 시맨틱 토큰 로컬 오버라이드 */
+.app.dark {
+  --bg: #140e2b;
+  --surface: #211a40;
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.08);
+  --ink: #f4f1ff;
+  --ink-2: #b8b0d6;
+  --ink-3: #8b83a8;
+  background: var(--bg);
+  color: var(--ink);
+}
 
 /* ---------- Status bar ---------- */
 .statusbar {
@@ -147,14 +207,15 @@ body.screen {
   align-items: flex-start;
   justify-content: space-around;
   padding: 12px 8px 0;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--tabbar);
   backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);
   z-index: 40;
 }
 .tabbar.dark {
-  background: rgba(24, 18, 46, 0.92);
-  border-top: 1px solid var(--line-dark);
+  --tabbar: rgba(24, 18, 46, 0.92);
+  background: var(--tabbar);
+  border-top: 1px solid var(--line);
 }
 .tab {
   flex: 1;
@@ -168,7 +229,7 @@ body.screen {
 }
 .tab .ic { width: 24px; height: 24px; display: grid; place-items: center; }
 .tab.active { color: var(--purple-500); }
-.tabbar.dark .tab { color: var(--ink-on-dark-2); }
+.tabbar.dark .tab { color: var(--ink-2); }
 .tabbar.dark .tab.active { color: var(--purple-300); }
 
 /* ---------- Buttons ---------- */
@@ -190,7 +251,7 @@ body.screen {
 .btn-ghost {
   display: flex; align-items: center; justify-content: center; gap: 8px;
   height: 56px; border-radius: 16px;
-  background: var(--card); color: var(--ink);
+  background: var(--surface); color: var(--ink);
   font-size: 16px; font-weight: 700;
   border: 1px solid var(--line);
 }
@@ -203,7 +264,7 @@ body.screen {
 
 /* ---------- Cards ---------- */
 .card {
-  background: var(--card);
+  background: var(--surface);
   border-radius: var(--r-lg);
   box-shadow: var(--shadow-card);
   border: 1px solid var(--line);
@@ -215,8 +276,8 @@ body.screen {
   backdrop-filter: blur(12px);
 }
 .card-dark {
-  background: var(--card-dark);
-  border: 1px solid var(--line-dark);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
   border-radius: var(--r-lg);
 }
 
@@ -250,7 +311,7 @@ body.screen {
   display: grid; place-items: center;
   background: rgba(139, 92, 246, 0.08); color: var(--ink);
 }
-.appbar.on-dark { color: var(--ink-on-dark); }
+.appbar.on-dark { color: var(--ink); }
 .appbar.on-dark .ab-btn { background: rgba(255,255,255,0.08); color: #fff; }
 
 /* Photo (디자인에서 추출한 실제 모델 사진) */
@@ -290,7 +351,7 @@ body.screen {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 7px 14px; border-radius: 999px;
   font-size: 13px; font-weight: 700;
-  background: var(--card); color: var(--ink-2);
+  background: var(--surface); color: var(--ink-2);
   border: 1px solid var(--line);
 }
 .chip.on { background: var(--grad-cta); color: #fff; border-color: transparent; }

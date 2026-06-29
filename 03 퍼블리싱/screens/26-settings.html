@@ -6,16 +6,16 @@
 <title>26 설정</title>
 <link rel="stylesheet" href="../css/app.css">
 <style>
-  .app { background: var(--bg-light); color: var(--ink); }
+  .app { background: var(--bg); color: var(--ink); }
   .scrollbody { padding: 0 16px 22px; }
-  .prof { display:flex; align-items:center; gap:13px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:15px; box-shadow:var(--shadow-card); }
+  .prof { display:flex; align-items:center; gap:13px; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:15px; box-shadow:var(--shadow-card); }
   .prof .ava { width:54px; height:54px; border-radius:50%; flex:none; }
   .prof b { font-size:15px; font-weight:800; }
   .prof p { font-size:11px; color:var(--ink-2); margin-top:3px; }
   .prof .edit { margin-left:auto; font-size:11px; font-weight:700; color:var(--purple-500); background:rgba(167,139,250,.16); padding:7px 12px; border-radius:999px; }
   .group { margin-top:18px; }
   .group .gt { font-size:11.5px; font-weight:800; color:var(--purple-500); margin: 0 6px 9px; }
-  .list { background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-card); }
+  .list { background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-card); }
   .item { display:flex; align-items:center; gap:12px; padding:13px 15px; border-bottom:1px solid var(--line); }
   .item:last-child { border-bottom:none; }
   .item .ii { width:30px; height:30px; border-radius:9px; background:rgba(167,139,250,.16); display:grid; place-items:center; font-size:15px; flex:none; }
@@ -27,8 +27,16 @@
   .toggle.off { background:rgba(140,130,170,.3); }
   .toggle.off::after { left:3px; right:auto; }
   .colors { margin-left:auto; display:flex; gap:7px; }
-  .colors i { width:18px; height:18px; border-radius:50%; }
+  .colors i { width:18px; height:18px; border-radius:50%; cursor:pointer; }
   .colors i.on { box-shadow:0 0 0 2px var(--ink); }
+  .theme-seg { margin-left:auto; display:flex; gap:4px; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:3px; }
+  .theme-seg button {
+    border:none; background:transparent; font-size:10px; font-weight:700; color:var(--ink-2);
+    padding:5px 8px; border-radius:7px; cursor:pointer; white-space:nowrap;
+  }
+  .theme-seg button.on { background:var(--surface); color:var(--purple-500); box-shadow:0 1px 4px rgba(124,58,237,.12); }
+  .item.theme-row { flex-wrap:wrap; }
+  .item.theme-row b { flex:1 0 auto; }
   .logout { display:flex; align-items:center; justify-content:center; gap:7px; height:50px; border-radius:14px; border:1px solid rgba(255,107,122,.3); color:#ff6b7a; font-weight:800; font-size:14px; margin-top:20px; background:rgba(255,107,122,.08); }
 </style>
 </head>
@@ -66,9 +74,15 @@
       <div class="group">
         <div class="gt">화면 및 음성</div>
         <div class="list">
-          <div class="item"><span class="ii">🌙</span><b>다크 모드</b><span class="toggle theme-toggle"></span></div>
+          <div class="item theme-row"><span class="ii">🌙</span><b>테마</b>
+            <div class="theme-seg">
+              <button type="button" data-mode="system">시스템</button>
+              <button type="button" data-mode="light">라이트</button>
+              <button type="button" data-mode="dark">다크</button>
+            </div>
+          </div>
           <div class="item"><span class="ii">🔤</span><b>글자 크기</b><span class="val">보통 ›</span></div>
-          <div class="item"><span class="ii">🎨</span><b>테마 색상</b><span class="colors"><i class="on" style="background:#a78bfa"></i><i style="background:#f472b6"></i><i style="background:#60a5fa"></i><i style="background:#34d399"></i></span></div>
+          <div class="item"><span class="ii">🎨</span><b>테마 색상</b><span class="colors accent-colors"><i class="on" data-accent="purple" style="background:#a78bfa"></i><i data-accent="pink" style="background:#f472b6"></i><i data-accent="blue" style="background:#60a5fa"></i><i data-accent="green" style="background:#34d399"></i></span></div>
         </div>
       </div>
 
@@ -96,19 +110,5 @@
   </div>
 </div>
 <script src="../assets/ui.js"></script>
-<script>
-  // 다크 모드 토글 ↔ 실제 테마 전환 연동
-  (function () {
-    var tt = document.querySelector('.theme-toggle');
-    if (!tt) return;
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    tt.classList.toggle('off', !isDark);   // 라이트면 off
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.theme-toggle')) return;
-      var nowDark = !tt.classList.contains('off');   // ui.js가 먼저 off 토글함
-      if (window.setTheme) window.setTheme(nowDark ? 'dark' : 'light');
-    });
-  })();
-</script>
 </body>
 </html>
