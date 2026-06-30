@@ -17,6 +17,16 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final _controller = TextEditingController();
   final _scrollController = ScrollController();
+  bool _isPartnerTyping = false;
+  int _replyIndex = 0;
+
+  static const _partnerReplies = [
+    '응, 나도 그렇게 생각했어 💜',
+    '좋아! 그때 연락할게 😊',
+    '지연아, 오늘 하루도 힘내!',
+    '나도 보고 싶었어 🥰',
+    '완전 좋아! 기대된다 ✨',
+  ];
 
   static const _quickReplies = [
     '너무 기대돼 💜',
@@ -48,9 +58,20 @@ class _ChatPageState extends State<ChatPage> {
     super.dispose();
   }
 
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_scrollController.hasClients) return;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeOut,
+      );
+    });
+  }
+
   void _sendMessage([String? text]) {
     final body = (text ?? _controller.text).trim();
-    if (body.isEmpty) return;
+    if (body.isEmpty || _isPartnerTyping) return;
 
     final now = TimeOfDay.now();
     final time =
@@ -60,16 +81,31 @@ class _ChatPageState extends State<ChatPage> {
       _messages.add(_ChatMessage(isMe: true, text: body, time: time));
       _controller.clear();
     });
+    _scrollToBottom();
+    _schedulePartnerReply();
+  }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeOut,
-        );
-      }
+  Future<void> _schedulePartnerReply() async {
+    await Future<void>.delayed(const Duration(milliseconds: 700));
+    if (!mounted) return;
+
+    setState(() => _isPartnerTyping = true);
+    _scrollToBottom();
+
+    await Future<void>.delayed(const Duration(milliseconds: 1400));
+    if (!mounted) return;
+
+    final now = TimeOfDay.now();
+    final time =
+        '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}';
+    final reply = _partnerReplies[_replyIndex % _partnerReplies.length];
+    _replyIndex++;
+
+    setState(() {
+      _isPartnerTyping = false;
+      _messages.add(_ChatMessage(isMe: false, text: reply, time: time));
     });
+    _scrollToBottom();
   }
 
   @override
@@ -106,6 +142,10 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 const SizedBox(height: 12),
                 ..._messages.map((m) => _MessageBubble(message: m, colors: colors)),
+                if (_isPartnerTyping) ...[
+                  const SizedBox(height: 8),
+                  _TypingBubble(colors: colors),
+                ],
                 const SizedBox(height: 12),
                 Container(
                   width: 96,
@@ -182,6 +222,91 @@ class _ChatMessage {
   final String time;
 }
 
+class _TypingBubble extends StatelessWidget {
+  const _TypingBubble({required this.colors});
+
+  final AppColorTokens colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: colors.surface,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+            bottomLeft: Radius.circular(4),
+          ),
+          border: Border.all(color: colors.line),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _Dot(delay: 0, color: colors.ink3),
+            const SizedBox(width: 4),
+            _Dot(delay: 150, color: colors.ink3),
+            const SizedBox(width: 4),
+            _Dot(delay: 300, color: colors.ink3),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Dot extends StatefulWidget {
+  const _Dot({required this.delay, required this.color});
+
+  final int delay;
+  final Color color;
+
+  @override
+  State<_Dot> createState() => _DotState();
+}
+
+class _DotState extends State<_Dot> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
+    Future<void>.delayed(Duration(milliseconds: widget.delay), () {
+      if (mounted) _controller.repeat(reverse: true);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: Tween(begin: 0.35, end: 1.0).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+      ),
+      child: Container(
+        width: 6,
+        height: 6,
+        decoration: BoxDecoration(
+          color: widget.color,
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+}
+
 class _ChatHeader extends StatelessWidget {
   const _ChatHeader({
     required this.colors,
@@ -210,7 +335,7 @@ class _ChatHeader extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () => context.pop(),
+            onTap: () => context.go(RouteNames.home),
             child: Text(
               '‹',
               style: TextStyle(fontSize: 22, color: colors.ink2, height: 1),
@@ -266,7 +391,7 @@ class _ChatHeader extends StatelessWidget {
           const SizedBox(width: 14),
           GestureDetector(
             onTap: onVideo,
-            child: Icon(Icons.videocam_outlined, color: PubTokens.purple600, size: 22),
+            child: Icon(Icons.view_in_ar_outlined, color: PubTokens.purple600, size: 22),
           ),
         ],
       ),

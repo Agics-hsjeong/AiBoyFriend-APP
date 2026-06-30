@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import '../../app/constants/app_constants.dart';
 import '../../app/theme/app_theme.dart';
 import '../../app/theme/pub_tokens.dart';
+import 'pub_stroke_icon.dart';
 
-enum AppTab { home, chat, memory, profile }
+enum AppTab { home, chat, memory, profile, more }
 
 class AppTabBar extends StatelessWidget {
   const AppTabBar({
@@ -19,10 +20,11 @@ class AppTabBar extends StatelessWidget {
   final ValueChanged<AppTab> onChanged;
 
   static const _items = [
-    (AppTab.home, Icons.home_outlined, Icons.home, '홈'),
-    (AppTab.chat, Icons.chat_bubble_outline, Icons.chat_bubble, '채팅'),
-    (AppTab.memory, Icons.photo_library_outlined, Icons.photo_library, '추억'),
-    (AppTab.profile, Icons.person_outline, Icons.person, '프로필'),
+    (AppTab.home, PubStrokeIconType.home, '홈'),
+    (AppTab.chat, PubStrokeIconType.chat, '채팅'),
+    (AppTab.memory, PubStrokeIconType.memory, '추억'),
+    (AppTab.profile, PubStrokeIconType.profile, '민준'),
+    (AppTab.more, PubStrokeIconType.more, '더보기'),
   ];
 
   @override
@@ -43,7 +45,7 @@ class AppTabBar extends StatelessWidget {
           child: SizedBox(
             height: AppConstants.tabBarHeight,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(8, 12, 8, 0),
+              padding: const EdgeInsets.fromLTRB(4, 12, 4, 0),
               child: Row(
                 children: _items.map((item) {
                   final selected = current == item.$1;
@@ -53,16 +55,16 @@ class AppTabBar extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
-                            selected ? item.$3 : item.$2,
+                          PubStrokeIcon(
+                            icon: item.$2,
                             size: 24,
                             color: selected ? activeColor : inactiveColor,
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            item.$4,
+                            item.$3,
                             style: TextStyle(
-                              fontSize: 11,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: selected ? activeColor : inactiveColor,
                             ),

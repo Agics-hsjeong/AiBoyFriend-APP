@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/pub_photo.dart';
 import '../../../app/router/route_names.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../app/theme/pub_tokens.dart';
+import '../../../core/storage/app_session.dart';
 import '../../../shared/widgets/design_status_bar.dart';
 import '../../../shared/widgets/gradient_cta_button.dart';
 import '../../../shared/widgets/gradient_text.dart';
 
-class FirstMeetingPage extends StatelessWidget {
+class FirstMeetingPage extends ConsumerWidget {
   const FirstMeetingPage({super.key});
 
   static const _gifts = [
@@ -19,8 +21,14 @@ class FirstMeetingPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
+    final session = ref.read(appSessionProvider);
+
+    Future<void> finishCreation(String route) async {
+      await session.markBoyfriendCreated();
+      if (context.mounted) context.go(route);
+    }
 
     return Scaffold(
       backgroundColor: const Color(0xFF1C1438),
@@ -123,12 +131,12 @@ class FirstMeetingPage extends StatelessWidget {
                     const SizedBox(height: 18),
                     GradientCtaButton(
                       label: '💬 민준과 대화 시작하기',
-                      onPressed: () => context.go(RouteNames.chat),
+                      onPressed: () => finishCreation(RouteNames.chat),
                     ),
                     const SizedBox(height: 14),
                     Center(
                       child: GestureDetector(
-                        onTap: () => context.go(RouteNames.home),
+                        onTap: () => finishCreation(RouteNames.home),
                         child: Text(
                           '나중에 하기',
                           style: TextStyle(

@@ -17,4 +17,7 @@ abstract final class AppConstants {
 abstract final class PrefKeys {
   static const themeMode = 'theme_mode';
   static const accentColor = 'accent_color';
+  static const onboardingComplete = 'onboarding_complete';
+  static const hasBoyfriend = 'has_boyfriend';
+  static const isGuest = 'is_guest';
 }

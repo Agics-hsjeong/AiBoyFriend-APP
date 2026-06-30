@@ -8,6 +8,8 @@ import '../../../app/theme/app_theme.dart';
 import '../../../app/theme/pub_tokens.dart';
 import '../../../app/theme/colors.dart';
 import '../../../app/theme/theme_controller.dart';
+import '../../../core/storage/app_session.dart';
+import '../../../shared/widgets/app_insets.dart';
 import '../../../shared/widgets/app_bar_header.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -33,14 +35,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
         children: [
           AppBarHeader(
             title: '설정 💜',
-            onBack: () => context.pop(),
+            showBack: false,
           ),
           Expanded(
             child: settings.when(
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) => Center(child: Text('설정을 불러올 수 없습니다: $e')),
               data: (data) => ListView(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 22),
+                padding: EdgeInsets.fromLTRB(16, 0, 16, context.mainTabBottomInset),
                 children: [
                   _ProfileCard(colors: colors),
                   _SettingsGroup(
@@ -113,11 +115,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   _SettingsGroup(
                     title: 'AI 남자친구 설정',
                     colors: colors,
-                    items: const [
-                      _SettingsRowData('💜', '성격 및 말투 설정'),
-                      _SettingsRowData('📈', '관계 설정'),
-                      _SettingsRowData('📷', '추억 설정'),
-                      _SettingsRowData('🎙️', '음성 및 통화 설정'),
+                    items: [
+                      _SettingsRowData(
+                        '🧊',
+                        '3D 모델 뷰어',
+                        value: '열기 ›',
+                        onTap: () => context.push(RouteNames.modelViewer),
+                      ),
+                      const _SettingsRowData('💜', '성격 및 말투 설정'),
+                      const _SettingsRowData('📈', '관계 설정'),
+                      const _SettingsRowData('📷', '추억 설정'),
+                      const _SettingsRowData('🎙️', '음성 및 통화 설정'),
                     ],
                   ),
                   _SettingsGroup(
@@ -131,7 +139,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
                   const SizedBox(height: 20),
                   OutlinedButton(
-                    onPressed: () => context.go(RouteNames.login),
+                    onPressed: () async {
+                      await ref.read(appSessionProvider).logout();
+                      if (context.mounted) context.go(RouteNames.login);
+                    },
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
                       side: BorderSide(color: const Color(0xFFFF6B7A).withValues(alpha: 0.3)),
@@ -166,7 +177,9 @@ class _ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () => context.go(RouteNames.profile),
+      child: Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: colors.surface,
@@ -210,7 +223,7 @@ class _ProfileCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(999),
             ),
             child: Text(
-              '프로필 편집',
+              '민준 프로필 ›',
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
@@ -220,17 +233,25 @@ class _ProfileCard extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }
 
 class _SettingsRowData {
-  const _SettingsRowData(this.icon, this.title, {this.value, this.trailing});
+  const _SettingsRowData(
+    this.icon,
+    this.title, {
+    this.value,
+    this.trailing,
+    this.onTap,
+  });
 
   final String icon;
   final String title;
   final String? value;
   final Widget? trailing;
+  final VoidCallback? onTap;
 }
 
 class _SettingsGroup extends StatelessWidget {
@@ -293,9 +314,14 @@ class _SettingsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
-      child: Row(
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: item.onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 13),
+          child: Row(
         children: [
           Container(
             width: 30,
@@ -328,6 +354,8 @@ class _SettingsRow extends StatelessWidget {
           else
             Icon(Icons.chevron_right, size: 18, color: colors.ink3),
         ],
+          ),
+        ),
       ),
     );
   }

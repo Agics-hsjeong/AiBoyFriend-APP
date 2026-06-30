@@ -9,6 +9,8 @@ class ThemePreferences {
 
   final SharedPreferences _prefs;
 
+  SharedPreferences get prefs => _prefs;
+
   static Future<ThemePreferences> create() async {
     return ThemePreferences(await SharedPreferences.getInstance());
   }
@@ -16,9 +18,9 @@ class ThemePreferences {
   ThemeMode loadThemeMode() {
     final value = _prefs.getString(PrefKeys.themeMode);
     return switch (value) {
-      'light' => ThemeMode.light,
       'dark' => ThemeMode.dark,
-      _ => ThemeMode.system,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.light,
     };
   }
 
@@ -51,7 +53,7 @@ class ThemeSettings {
   final AccentColor accentColor;
 
   static const defaults = ThemeSettings(
-    themeMode: ThemeMode.system,
+    themeMode: ThemeMode.light,
     accentColor: AccentColor.purple,
   );
 

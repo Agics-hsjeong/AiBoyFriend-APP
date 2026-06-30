@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../shared/widgets/app_insets.dart';
 import '../../../shared/widgets/pub_photo.dart';
 import '../../../app/router/route_names.dart';
 import '../../../app/theme/app_theme.dart';
@@ -31,11 +32,12 @@ class ProfilePage extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(child: _ProfileHero(colors: colors)),
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(18, 4, 18, 100),
+                padding: EdgeInsets.fromLTRB(18, 4, 18, context.mainTabBottomInset + 72),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                 _InfoCard(colors: colors),
                 const SizedBox(height: 11),
+                _ModelViewerEntry(colors: colors),
                 _FavorCard(colors: colors),
                 const SizedBox(height: 18),
                 _SectionTitle(title: 'About 민준', colors: colors),
@@ -147,19 +149,6 @@ class ProfilePage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                Center(
-                  child: TextButton(
-                    onPressed: () => context.push(RouteNames.settings),
-                    child: Text(
-                      '설정 ⚙️',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: colors.ink2,
-                      ),
-                    ),
-                  ),
-                ),
                   ]),
                 ),
               ),
@@ -220,7 +209,10 @@ class _ProfileHero extends StatelessWidget {
       child: Stack(
         children: [
           Positioned.fill(
-            child: const PubPhoto(variant: PubPhotoVariant.model),
+            child: GestureDetector(
+              onTap: () => context.push(RouteNames.modelViewer),
+              child: const PubPhoto(variant: PubPhotoVariant.model),
+            ),
           ),
           Positioned.fill(
             child: DecoratedBox(
@@ -243,9 +235,8 @@ class _ProfileHero extends StatelessWidget {
             left: 16,
             right: 16,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('‹', style: TextStyle(color: Colors.white, fontSize: 20)),
                 Text('✎', style: TextStyle(color: Colors.white, fontSize: 20)),
               ],
             ),
@@ -348,6 +339,69 @@ class _InfoCard extends StatelessWidget {
               Divider(height: 1, color: colors.line),
           ],
         ],
+      ),
+    );
+  }
+}
+
+class _ModelViewerEntry extends StatelessWidget {
+  const _ModelViewerEntry({required this.colors});
+
+  final AppColorTokens colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => context.push(RouteNames.modelViewer),
+        borderRadius: BorderRadius.circular(16),
+        child: Ink(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                PubTokens.purple400.withValues(alpha: 0.18),
+                PubTokens.purple600.withValues(alpha: 0.1),
+              ],
+            ),
+            border: Border.all(color: PubTokens.purple100Light),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              const Text('🧊', style: TextStyle(fontSize: 22)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '3D 모델 뷰어',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w800,
+                        color: colors.ink,
+                      ),
+                    ),
+                    Text(
+                      '민준의 3D 모델을 회전·확대하며 둘러보기',
+                      style: TextStyle(fontSize: 10.5, color: colors.ink2),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                '열기 ›',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                  color: PubTokens.purple600,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

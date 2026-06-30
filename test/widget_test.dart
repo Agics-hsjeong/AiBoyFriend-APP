@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ai_boyfriend_app/app/app.dart';
 import 'package:ai_boyfriend_app/app/theme/theme_controller.dart';
+import 'package:ai_boyfriend_app/core/storage/app_session.dart';
 import 'package:ai_boyfriend_app/core/storage/theme_preferences.dart';
 
 void main() {
@@ -13,11 +14,13 @@ void main() {
     SharedPreferences.setMockInitialValues({});
 
     final themePrefs = await ThemePreferences.create();
+    final appSession = AppSession(themePrefs.prefs);
 
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           themePreferencesProvider.overrideWithValue(themePrefs),
+          appSessionProvider.overrideWithValue(appSession),
         ],
         child: const AiBoyfriendApp(),
       ),

@@ -16,7 +16,7 @@ class AiBoyfriendApp extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
     final settings = ref.watch(themeSettingsProvider);
     final accent = settings.value?.accentColor ?? AccentColor.purple;
-    final themeMode = settings.value?.themeMode ?? ThemeMode.system;
+    final themeMode = settings.value?.themeMode ?? ThemeMode.light;
 
     return MaterialApp.router(
       title: AppConstants.appName,

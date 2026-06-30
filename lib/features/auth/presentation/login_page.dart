@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/constants/app_assets.dart';
@@ -7,9 +8,10 @@ import '../../../app/router/route_names.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../app/theme/pub_tokens.dart';
 import '../../../shared/widgets/auth_widgets.dart';
+import '../../../shared/widgets/app_status_bar_style.dart';
 import '../../../shared/widgets/design_status_bar.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   static const _features = [
@@ -19,12 +21,14 @@ class LoginPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: DecoratedBox(
+    return AppStatusBarStyle(
+      lightIcons: true,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: DecoratedBox(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -53,6 +57,7 @@ class LoginPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

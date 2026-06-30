@@ -12,6 +12,7 @@ class AppBarHeader extends StatelessWidget {
     this.leading,
     this.trailing,
     this.centerTitle = true,
+    this.showBack = true,
     this.onBack,
   });
 
@@ -19,6 +20,7 @@ class AppBarHeader extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool centerTitle;
+  final bool showBack;
   final VoidCallback? onBack;
 
   @override
@@ -33,10 +35,12 @@ class AppBarHeader extends StatelessWidget {
           child: Row(
             children: [
               leading ??
-                  _BackButton(
-                    onTap: onBack ?? () => context.pop(),
-                    colors: colors,
-                  ),
+                  (showBack
+                      ? _BackButton(
+                          onTap: onBack ?? () => context.pop(),
+                          colors: colors,
+                        )
+                      : const SizedBox(width: 38)),
               Expanded(
                 child: Text(
                   title,

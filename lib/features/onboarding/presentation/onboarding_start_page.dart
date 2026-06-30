@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router/route_names.dart';
+import '../../../core/storage/app_session.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../app/theme/pub_tokens.dart';
 import '../../../shared/widgets/gradient_text.dart';
 import '../../../shared/widgets/onboarding_shell.dart';
 
-class OnboardingStartPage extends StatelessWidget {
+class OnboardingStartPage extends ConsumerWidget {
   const OnboardingStartPage({super.key});
 
   static const _minis = [
@@ -18,7 +20,7 @@ class OnboardingStartPage extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
 
     return OnboardingShell(
@@ -47,7 +49,10 @@ class OnboardingStartPage extends StatelessWidget {
         ],
       ),
       subtitle: '당신의 이상형에 특별한 설렘과\n따뜻한 연결을 선물할게요',
-      onNext: () => context.go(RouteNames.login),
+      onNext: () async {
+        await ref.read(appSessionProvider).markOnboardingComplete();
+        if (context.mounted) context.go(RouteNames.login);
+      },
       child: Column(
         children: [
           SizedBox(

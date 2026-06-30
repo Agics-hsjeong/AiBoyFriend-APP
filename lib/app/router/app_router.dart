@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/storage/app_session.dart';
 import '../../core/storage/theme_preferences.dart';
 import '../../features/auth/presentation/login_page.dart';
 import '../../features/auth/presentation/signup_page.dart';
@@ -39,9 +40,24 @@ import '../theme/theme_controller.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   ref.watch(themeSettingsProvider);
+  final session = ref.watch(appSessionProvider);
 
   return GoRouter(
-    initialLocation: RouteNames.onboardingWelcome,
+    initialLocation: session.initialRoute,
+    redirect: (context, state) {
+      if (!session.hasBoyfriend) return null;
+
+      final loc = state.matchedLocation;
+      final isSetupFlow = loc.startsWith('/onboarding') ||
+          loc == RouteNames.login ||
+          loc == RouteNames.signup ||
+          loc.startsWith('/wizard') ||
+          loc.startsWith('/ai/') ||
+          loc == RouteNames.firstMeeting;
+
+      if (isSetupFlow) return RouteNames.home;
+      return null;
+    },
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -80,11 +96,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: RouteNames.settings,
+                builder: (context, state) => const SettingsPage(),
+              ),
+            ],
+          ),
         ],
-      ),
-      GoRoute(
-        path: RouteNames.settings,
-        builder: (context, state) => const SettingsPage(),
       ),
       GoRoute(
         path: RouteNames.relationship,
@@ -128,9 +148,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.aiGenerating,
-        builder: (context, state) => const ImmersiveTheme(
-          child: AiGeneratingPage(),
-        ),
+        builder: (context, state) => const AiGeneratingPage(),
       ),
       GoRoute(
         path: RouteNames.firstMeeting,
@@ -146,9 +164,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.modelViewer,
-        builder: (context, state) => const ImmersiveTheme(
-          child: ModelViewerPage(),
-        ),
+        builder: (context, state) => const ModelViewerPage(),
       ),
       GoRoute(
         path: RouteNames.datePlaces,

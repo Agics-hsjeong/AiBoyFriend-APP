@@ -4,12 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../shared/widgets/pub_photo.dart';
+import '../../../shared/widgets/pub_stroke_icon.dart';
+import '../../../shared/widgets/app_insets.dart';
 import '../../../app/router/route_names.dart';
 import '../../../app/theme/app_theme.dart';
 import '../../../app/theme/pub_tokens.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _scrollController = ScrollController();
+  final _scheduleKey = GlobalKey();
+
+  void _scrollToSchedule() {
+    final ctx = _scheduleKey.currentContext;
+    if (ctx == null) return;
+    Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 420),
+      curve: Curves.easeOutCubic,
+      alignment: 0.12,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +45,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: PubTokens.homeBg,
       body: CustomScrollView(
+        controller: _scrollController,
         slivers: [
-          SliverToBoxAdapter(child: _HomeHero(colors: colors)),
+          SliverToBoxAdapter(child: _HomeHero(colors: colors, onCalendarTap: _scrollToSchedule)),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(14, 14, 14, 24),
+            padding: EdgeInsets.fromLTRB(14, 14, 14, context.mainScrollBottomPadding),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 _WarmthCard(
@@ -40,7 +68,7 @@ class HomePage extends StatelessWidget {
                   onCall: () => context.push(RouteNames.voiceCall),
                 ),
                 const SizedBox(height: 12),
-                _ScheduleCard(colors: colors),
+                _ScheduleCard(key: _scheduleKey, colors: colors),
                 const SizedBox(height: 12),
                 _RelationshipCard(
                   colors: colors,
@@ -50,6 +78,7 @@ class HomePage extends StatelessWidget {
                 _MemoryPreview(
                   colors: colors,
                   onSeeAll: () => context.go(RouteNames.memory),
+                  onItemTap: () => context.go(RouteNames.memory),
                 ),
               ]),
             ),
@@ -61,21 +90,27 @@ class HomePage extends StatelessWidget {
 }
 
 class _HomeHero extends StatelessWidget {
-  const _HomeHero({required this.colors});
+  const _HomeHero({
+    required this.colors,
+    required this.onCalendarTap,
+  });
 
   final AppColorTokens colors;
+  final VoidCallback onCalendarTap;
 
   @override
   Widget build(BuildContext context) {
+    final topInset = MediaQuery.paddingOf(context).top;
+
     return SizedBox(
-      height: 326,
+      height: 326 + topInset,
       child: Stack(
         children: [
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: 690,
+            height: 690 + topInset,
             child: ShaderMask(
               shaderCallback: (rect) => const LinearGradient(
                 begin: Alignment.topCenter,
@@ -111,21 +146,25 @@ class _HomeHero extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: MediaQuery.paddingOf(context).top + 8,
+            top: topInset + 8,
             right: 18,
             child: Row(
               children: [
                 _TopIcon(
-                  icon: Icons.notifications_outlined,
+                  icon: PubStrokeIconType.bell,
                   showDot: true,
+                  onTap: () => context.go(RouteNames.settings),
                 ),
                 const SizedBox(width: 14),
-                const _TopIcon(icon: Icons.calendar_today_outlined),
+                _TopIcon(
+                  icon: PubStrokeIconType.calendar,
+                  onTap: onCalendarTap,
+                ),
               ],
             ),
           ),
           Positioned(
-            top: MediaQuery.paddingOf(context).top + 6,
+            top: topInset + 6,
             left: 20,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,19 +212,23 @@ class _HomeHero extends StatelessWidget {
                   child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '오늘의 민준 ›',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w800,
+                    GestureDetector(
+                      onTap: () => context.go(RouteNames.profile),
+                      behavior: HitTestBehavior.opaque,
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '오늘의 민준 ›',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w800,
+                            ),
                           ),
-                        ),
-                        Text('💜', style: TextStyle(fontSize: 13)),
-                      ],
+                          Text('💜', style: TextStyle(fontSize: 13)),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 9),
                     Text(
@@ -197,19 +240,22 @@ class _HomeHero extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 11),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.14),
-                        borderRadius: BorderRadius.circular(999),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
-                      ),
-                      child: const Text(
-                        '메시지 더보기 💬',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700,
+                    GestureDetector(
+                      onTap: () => context.go(RouteNames.chat),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.14),
+                          borderRadius: BorderRadius.circular(999),
+                          border: Border.all(color: Colors.white.withValues(alpha: 0.14)),
+                        ),
+                        child: const Text(
+                          '메시지 더보기 💬',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
@@ -226,35 +272,44 @@ class _HomeHero extends StatelessWidget {
 }
 
 class _TopIcon extends StatelessWidget {
-  const _TopIcon({required this.icon, this.showDot = false});
+  const _TopIcon({
+    required this.icon,
+    this.showDot = false,
+    this.onTap,
+  });
 
-  final IconData icon;
+  final PubStrokeIconType icon;
   final bool showDot;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Icon(icon, color: Colors.white, size: 22),
-        if (showDot)
-          Positioned(
-            top: -1,
-            right: 0,
-            child: Container(
-              width: 7,
-              height: 7,
-              decoration: BoxDecoration(
-                color: const Color(0xFFFF5A7A),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color(0xFF281C46).withValues(alpha: 0.6),
-                  width: 1.5,
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          PubStrokeIcon(icon: icon, size: 22, color: Colors.white),
+          if (showDot)
+            Positioned(
+              top: -1,
+              right: 0,
+              child: Container(
+                width: 7,
+                height: 7,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFF5A7A),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFF281C46).withValues(alpha: 0.6),
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -549,7 +604,7 @@ class _ActionRow extends StatelessWidget {
         Expanded(
           child: _ActionCard(
             gradient: const [Color(0xFFAB9CF3), Color(0xFF8C7CE2)],
-            icon: Icons.chat_bubble_outline,
+            icon: PubStrokeIconType.chatDots,
             title: '채팅하기',
             subtitle: '민준이와\n이야기 나누기',
             onTap: onChat,
@@ -559,7 +614,7 @@ class _ActionRow extends StatelessWidget {
         Expanded(
           child: _ActionCard(
             gradient: const [Color(0xFFDB93CF), Color(0xFFC168B6)],
-            icon: Icons.phone_outlined,
+            icon: PubStrokeIconType.phone,
             title: '전화하기',
             subtitle: '민준이의 목소리\n들어보세요',
             onTap: onCall,
@@ -580,7 +635,7 @@ class _ActionCard extends StatelessWidget {
   });
 
   final List<Color> gradient;
-  final IconData icon;
+  final PubStrokeIconType icon;
   final String title;
   final String subtitle;
   final VoidCallback? onTap;
@@ -614,7 +669,7 @@ class _ActionCard extends StatelessWidget {
                   color: Colors.white.withValues(alpha: 0.22),
                   borderRadius: BorderRadius.circular(13),
                 ),
-                child: Icon(icon, color: Colors.white),
+                child: PubStrokeIcon(icon: icon, size: 24, color: Colors.white),
               ),
               const SizedBox(width: 9),
               Expanded(
@@ -658,7 +713,7 @@ class _ActionCard extends StatelessWidget {
 }
 
 class _ScheduleCard extends StatelessWidget {
-  const _ScheduleCard({required this.colors});
+  const _ScheduleCard({super.key, required this.colors});
   final AppColorTokens colors;
 
   @override
@@ -979,10 +1034,15 @@ class _RelationshipCard extends StatelessWidget {
 }
 
 class _MemoryPreview extends StatelessWidget {
-  const _MemoryPreview({required this.colors, required this.onSeeAll});
+  const _MemoryPreview({
+    required this.colors,
+    required this.onSeeAll,
+    required this.onItemTap,
+  });
 
   final AppColorTokens colors;
   final VoidCallback onSeeAll;
+  final VoidCallback onItemTap;
 
   static const _items = [
     ('첫 만남', 'D+1', Color(0xFF3A2C5E)),
@@ -1023,14 +1083,16 @@ class _MemoryPreview extends StatelessWidget {
         ),
         const SizedBox(height: 11),
         SizedBox(
-          height: 110,
+          height: 125,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: _items.length,
             separatorBuilder: (_, __) => const SizedBox(width: 11),
             itemBuilder: (context, i) {
               final item = _items[i];
-              return SizedBox(
+              return GestureDetector(
+                onTap: onItemTap,
+                child: SizedBox(
                 width: 84,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1056,24 +1118,31 @@ class _MemoryPreview extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 7),
+                    const SizedBox(height: 6),
                     Text(
                       item.$1,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 11.5,
+                        height: 1.2,
                         fontWeight: FontWeight.w700,
                         color: colors.ink,
                       ),
                     ),
                     Text(
                       item.$2,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 9.5,
+                        height: 1.2,
                         color: Color(0xFFA29DBA),
                       ),
                     ),
                   ],
                 ),
+              ),
               );
             },
           ),
